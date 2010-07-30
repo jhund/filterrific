@@ -1,0 +1,64 @@
+Glean specific code from these projects:
+
+20100224 CVIMS
+201001   cando
+201001   PTS
+201001   Quentin-rails-backend
+         stratadocs (list starts with self as AR proxy)
+
+MODEL
+=====
+
+filterrific do
+  associations do
+    person # creates a scope for filterrific
+    state, :default => [1,2,3,4], :label => "Publishing state", :as => :select, :multiple => 4
+  end
+  
+  scopes do
+    active_only, :default => true # refers to already defined scope
+    sorted_by, :default => "created_at_desc"
+  end
+  
+  persist_in_session false # overrides global filterrific settings
+end
+
+Only filters defined in filterrific will be exposed via URL. Other scopes will not be accessible
+
+view
+(skip these for now?)
+apply all relevant options from formtastic
+integrate with formtastic?
+
+
+
+CONTROLLER
+==========
+
+def index
+  init_filterrific(Publication, :publications_list)
+  @publications = Publication.filterrific(@filter_options).paginate...
+  ...
+end
+
+def init_filterrific(klass, scope = nil)
+  scope_name ||= klass.to_s.underscore # use resource class name as default scope name
+  filter_options_hash = params[:filter_options]
+  filter_options_hash ||= session[scope_name]  if filterrific.persist_in_session
+  @filter_options = Filterrific.new(Publication, params[:filter_options])
+  session[scope_name] = @filter_options.to_hash   if filterrific.persist_in_session # (store sanitized options). Maybe just define marshal dump? skip to_hash
+end
+  
+  
+Filterrific CONFIG
+==================
+
+Settings:
+* persist_in_session
+
+
+
+SAVED SEARCHES
+==============
+
+See cando for implementation
