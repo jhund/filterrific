@@ -1,6 +1,8 @@
-= filterrific
+= Filterrific
 
 Add filter controls to your ActiveRecord lists and persist filter settings via session or DB.
+
+MIT licensed.
 
 == Note on Patches/Pull Requests
  
