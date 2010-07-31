@@ -2,6 +2,6 @@
 #
 module Filterrific
 
-  require 'filterrific/railtie' if defined?(Rails)
+  require 'filterrific/railtie' if defined?(Rails) && Rails::VERSION::MAJOR == 3
 
 end
