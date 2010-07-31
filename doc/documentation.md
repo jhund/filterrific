@@ -3,9 +3,11 @@
 ## Word list
 
 * Filterrific - the gem
-* Filterrific parameters - a set of parameters that define how the AR list should be filtered. Managed
-  via instance of FilterrificParamSet class
-* Filterrific form - a HTML form used to define *Filter parameters*
+* FilterrificParam - individual element of a *FilterrificParamSet*.
+  Defines how the AR list should be filtered. Managed via instance of *FilterrificParamSet* class.
+* FilterrificScopeNames - List of *Scope* names that are available to *Filterrific*.
+* FilterrificParamSet - Container for *FilterrificParams*
+* FilterrificForm - a HTML form used to define *FilterrificParams*
 * Scope - An ActiveRecord scope (formerly known as named_scope)
 
 ## Brain dump

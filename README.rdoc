@@ -16,4 +16,4 @@ MIT licensed.
 
 == Copyright
 
-Copyright (c) 2010 Jo Hund. See LICENSE for details.
+Copyright (c) 2010 Jo Hund. See (MIT) LICENSE for details.

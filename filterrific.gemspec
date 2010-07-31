@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jo Hund"]
-  s.date = %q{2010-07-30}
+  s.date = %q{2010-07-31}
   s.description = %q{
-    The User Interface solution for filtering your ActiveRecord lists:
+    The Rails User Interface solution for filtering your ActiveRecord lists:
     
     * Built from the ground up for Rails3
     * Build filter forms with ease
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{The User Interface solution for filtering your ActiveRecord lists.}
+  s.summary = %q{The Rails User Interface solution for filtering your ActiveRecord lists.}
   s.test_files = [
     "test/helper.rb",
      "test/test_filterrific.rb"
