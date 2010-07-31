@@ -1,1 +1,18 @@
+## MAC OS
 .DS_Store
+
+## PROJECT::GENERAL
+*.gem
+coverage
+rdoc
+pkg
+tmp
+doc
+log
+.yardoc
+measurements
+
+## BUNDLER
+.bundle
+Gemfile.local
+Gemfile.lock
