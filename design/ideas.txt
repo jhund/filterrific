@@ -99,4 +99,8 @@ Filterrific relies heavily on scopes. Each filter dimension has its own scope. F
 easy to shuttle user settings to your controllers and models for queries, and back to the views.
 
 
+Related projects
+================
+
+* http://github.com/plataformatec/has_scope
 
