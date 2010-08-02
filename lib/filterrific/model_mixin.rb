@@ -11,7 +11,7 @@ module Filterrific::ModelMixin
     # filterrific, :defaults => { :sorted_by => "created_at_asc" }
     #
     def filterrific(options = {})
-      send :include, InstanceMethods
+      # send :include, InstanceMethods
       cattr_accessor :default_filterrific_params
       self.default_filterrific_params = (options[:defaults] || {}).stringify_keys
     end

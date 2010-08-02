@@ -5,33 +5,46 @@
 
 Gem::Specification.new do |s|
   s.name = %q{filterrific}
-  s.version = "0.0.0"
+  s.version = "0.0.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jo Hund"]
-  s.date = %q{2010-07-31}
+  s.date = %q{2010-08-01}
   s.description = %q{
-    The Rails User Interface solution for filtering your ActiveRecord lists:
-    
-    * Built from the ground up for Rails3
-    * Build filter forms with ease
-    * Filter ActiveRecord lists using AR scopes
-    * Shuttle filter parameters from view to controller to model in a RESTful way
-    * Auto-generate scopes for AR associations (Planned)
-    * Form builder for filter UI forms (Planned)
-  }
+      The Rails User Interface solution for filtering your ActiveRecord lists:
+
+      * Built from the ground up for Rails3
+      * Build filter forms with ease
+      * Filter ActiveRecord lists using AR scopes
+      * Shuttle filter parameters from view to controller to model in a RESTful way
+      * Auto-generate scopes for AR associations (Planned)
+      * Form builder for filter UI forms (Planned)
+    }
   s.email = %q{jhund@clearcove.ca}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
   ]
   s.files = [
-    "LICENSE",
+    ".gitignore",
+     "CHANGELOG.md",
+     "LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "design/ideas.txt",
+     "doc/Overview diagram.graffle/QuickLook/Preview.pdf",
+     "doc/Overview diagram.graffle/QuickLook/Thumbnail.tiff",
+     "doc/Overview diagram.graffle/data.plist",
+     "doc/Overview diagram.graffle/image1.tiff",
+     "doc/documentation.md",
+     "doc/ideas.txt",
+     "doc/todo.md",
+     "doc/workflow.md",
+     "filterrific.gemspec",
      "lib/filterrific.rb",
+     "lib/filterrific/model_mixin.rb",
+     "lib/filterrific/railtie.rb",
+     "lib/filterrific/view_helpers.rb",
      "test/helper.rb",
      "test/test_filterrific.rb"
   ]
