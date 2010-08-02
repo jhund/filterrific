@@ -5,8 +5,17 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "filterrific"
-    gem.summary = %Q{Add filter controls to your ActiveRecord lists and persist filter settings via session or DB}
-    gem.description = %Q{Add filter controls to your ActiveRecord lists and persist filter settings via session or DB}
+    gem.summary = %Q{The Rails User Interface solution for filtering your ActiveRecord lists.}
+    gem.description = %Q{
+      The Rails User Interface solution for filtering your ActiveRecord lists:
+
+      * Built from the ground up for Rails3
+      * Build filter forms with ease
+      * Filter ActiveRecord lists using AR scopes
+      * Shuttle filter parameters from view to controller to model in a RESTful way
+      * Auto-generate scopes for AR associations (Planned)
+      * Form builder for filter UI forms (Planned)
+    }
     gem.email = "jhund@clearcove.ca"
     gem.homepage = "http://github.com/jhund/filterrific"
     gem.authors = ["Jo Hund"]
