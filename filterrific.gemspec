@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
      "filterrific.gemspec",
      "lib/filterrific.rb",
      "lib/filterrific/model_mixin.rb",
+     "lib/filterrific/param_set.rb",
      "lib/filterrific/railtie.rb",
      "lib/filterrific/view_helpers.rb",
      "test/helper.rb",

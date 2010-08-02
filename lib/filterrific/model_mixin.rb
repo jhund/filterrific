@@ -21,8 +21,8 @@ module Filterrific::ModelMixin
     # ModelClass.filterrific_find(@filterrific_param_set)
     #
     def filterrific_find(filterrific_param_set)
-      unless filterrific_param_set.is_a?(FilterrificParamSet)
-        raise(ArgumentError, "Invalid FilterrificParamSet: #{ filterrific_param_set.inspect }")
+      unless filterrific_param_set.is_a?(Filterrific::ParamSet)
+        raise(ArgumentError, "Invalid Filterrific::ParamSet: #{ filterrific_param_set.inspect }")
       end
 
       # set initial ar_proxy to including class

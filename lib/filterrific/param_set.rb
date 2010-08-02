@@ -36,10 +36,10 @@ module Filterrific
       end
 
       # Define attr_accessor for each FilterrificScope
-      # on FilterrificParamSet instance and assign values from options
+      # on Filterrific::ParamSet instance and assign values from options
       resource_class.filterrific_scope_names.each do |scope_name|
         self.class.send(:attr_accessor, scope_name)
-        v = options[scope_name.to_s]
+        v = filterrific_params[scope_name.to_s]
         self.send("#{ scope_name }=", v)  if v.present?
       end
 
@@ -47,7 +47,7 @@ module Filterrific
 
     # Returns FilterrificParams as hash (used for URL params and serialization)
     def to_hash
-      returning({}) do |h|
+      {}.tap { |h|
         resource_class.filterrific_scope_names.each do |scope_name|
           param_value = self.send(scope_name)
           case
@@ -60,10 +60,10 @@ module Filterrific
             h[scope_name.to_s] = param_value
           end
         end
-      end
+      }
     end
 
-    # Returns true if this FilterrificParamSet is not the model's default.
+    # Returns true if this Filterrific::ParamSet is not the model's default.
     def customized?
       resource_class.default_filterrific_params != to_hash
     end
