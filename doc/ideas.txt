@@ -10,18 +10,22 @@ MODEL
 =====
 
 filterrific do
+
   associations do
     person # creates a scope for filterrific
-    state, :default => [1,2,3,4], :label => "Publishing state", :as => :select, :multiple => 4
+    state, :default => [1,2,3,4], :type => :select, :multiple => 4
   end
   
   scopes do
     active_only, :default => true # refers to already defined scope
+    search, :as => "q" (optional param name override)
     sorted_by, :default => "created_at_desc"
   end
   
   persist_in_session false # overrides global filterrific settings
 end
+
+scope :search, ...
 
 Only filters defined in filterrific will be exposed via URL. Other scopes will not be accessible
 
@@ -36,8 +40,9 @@ CONTROLLER
 ==========
 
 def index
-  init_filterrific(Publication, :publications_list)
-  @publications = Publication.filterrific(@filter_options).paginate...
+  @filter_options = init_filterrific(Publication, :publications_list)
+  @publications = Publication.filterrific(@filter_options).paginate....
+  @publications = current_user.publications.filterrific(@filter_options).paginate....
   ...
 end
 
@@ -48,8 +53,8 @@ def init_filterrific(klass, scope = nil)
   @filter_options = Filterrific.new(Publication, params[:filter_options])
   session[scope_name] = @filter_options.to_hash   if filterrific.persist_in_session # (store sanitized options). Maybe just define marshal dump? skip to_hash
 end
-  
-  
+
+
 Filterrific CONFIG
 ==================
 
@@ -72,7 +77,7 @@ CONTENT FOR README
 
 
 
-This Rails plugin makes it super simple to add filtering to your rails list views.
+This Rails engine makes it super simple to add filtering to your rails list views.
 
 Some of the features:
 ---------------------
