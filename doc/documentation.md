@@ -16,6 +16,7 @@
   * Saved search (persist FilterrificParamSet in DB)
   * Will paginate integration
   * Session persistence
+  * Interface for JS client side app to get collections of data via JSON REST
 * Defining Scopes
   * Belongs_to
   * Has_many
