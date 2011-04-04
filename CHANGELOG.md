@@ -5,9 +5,3 @@
 ### 0.0.1, released 2010-07-30
 
 * Initial setup
-
-#### Notes
-
-* h1 for major release
-* h2 for minor release
-* h3 for patch release

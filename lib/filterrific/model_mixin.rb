@@ -11,7 +11,7 @@ module Filterrific::ModelMixin
     # filterrific, :defaults => { :sorted_by => "created_at_asc" }
     #
     def filterrific(options = {})
-      send :include, InstanceMethods
+      # send :include, InstanceMethods
       cattr_accessor :default_filterrific_params
       self.default_filterrific_params = (options[:defaults] || {}).stringify_keys
     end
@@ -21,8 +21,8 @@ module Filterrific::ModelMixin
     # ModelClass.filterrific_find(@filterrific_param_set)
     #
     def filterrific_find(filterrific_param_set)
-      unless filterrific_param_set.is_a?(FilterrificParamSet)
-        raise(ArgumentError, "Invalid FilterrificParamSet: #{ filterrific_param_set.inspect }")
+      unless filterrific_param_set.is_a?(Filterrific::ParamSet)
+        raise(ArgumentError, "Invalid Filterrific::ParamSet: #{ filterrific_param_set.inspect }")
       end
 
       # set initial ar_proxy to including class
