@@ -15,11 +15,13 @@ Example controller code:
 def index
   @filterrific = filterrific_init(Publication, options={})
   Options:
-  * :persist_in_session => true OR "publications_list"  # if true, builds session_key from controller-action
-  * :debug => false  # if true, prints out debug info. This also exists in view helper. Maybe one to logger/STDOUT, the other to view?
+  * :persist_in_session => true OR "publications_list"  # if true, builds session_key from
+    controller-action
+  * :debug => false  # if true, prints out debug info. This also exists in view helper. Maybe one to
+    logger/STDOUT, the other to view?
   * :param_name => "filterrific"  # the param name used to shuttle params between view and controller.
   
   @publications = Publication.filterrific_find(@filterrific).paginate....
-  @publications = current_user.publications.filterrific(@filter_options).paginate....
+  @publications = current_user.publications.filterrific_find(@filterrific).paginate....
   ...
 end

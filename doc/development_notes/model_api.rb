@@ -1,4 +1,5 @@
-# TODO: find out why in PTS publications filter, some hidden fields are set to nil and others to "0". If I change it, filter stops working
+# TODO: find out why in PTS publications filter, some hidden fields are set to nil and others to "0".
+# If I change it, filter stops working
 
 # Simplest case:
 # ==============
@@ -18,14 +19,27 @@ end
 
 filterrific do
 
-  # Creates custom scope "filterrific_person". Finds all records that have one of the given values in :person_ids column
+  # Creates custom scope "filterrific_person". Finds all records that have one of the given values
+  # in :person_ids column
+  # Q: Could I skip the :assciation => true piece? Filterrific could figure this out automatically
   filter :person, :association => true # instead of true, could be an association name, e.g. :user
-  # Creates custom scope "filterrific_active_only". Finds all records that have one of the given values for :is_active column
+  filter :association => :person # alternative syntax A
+  association :person # alternative syntax B
+  # Creates custom scope "filterrific_active_only". Finds all records that have one of the given
+  # values for :is_active column
   filter :active_only, :column => :is_active || :some_scope_name, :default => true
-  # Creates custom scope "filterrific_created_after". Finds all records that have created_at after the given DateTime
+  filter :column => :is_active, :default => true # alternative syntax A
+  column :is_active, :default => true # alternative syntax B
+  # Creates custom scope "filterrific_created_after". Finds all records that have created_at after
+  # the given DateTime
   filter :created_after, :column => :created_at, :default => Proc.new { 2.years.ago.beginning_of_year }
-  # Creates custom scope "filterrific_complicated_scope". Delegates to an already existing scope named :complicated_scope_name
+  # Creates custom scope "filterrific_complicated_scope". Delegates to an already existing scope
+  # named :complicated_scope_name
+  # Q: How does it now the params expected by :complicated_scope_name?
+  # A: scope :filterrific_complicated_scope_name, lambda { |*attrs| complicated_scope_name(attrs) }
   filter :complicated_scope, :use_scope => :complicated_scope_name
+  filter :scope => :complicated_scope_name # alternative syntax A
+  scope :complicated_scope_name # alternative syntax B
   
   # Creates custom scope named "filterrific_sort"
   sort( 
@@ -45,11 +59,13 @@ filterrific do
     :term_splitter => /\s+/,
     :wild_card_processor => Proc.new({ |e| "%#{ e }%" }) OR Proc.new({ |e| e.gsub('*', '%') }),
     :default => "some query",
-    :param_name => "search"
+    :param_name => "search" # somebody might want to set it to "q"
   )
 
-  # If true, prints auto generated and used scopes, current filterrific params, whether all DB columns have indices
+  # If true, prints auto generated and used scopes, current filterrific params, whether all DB
+  # columns have indices
   config :debug => true # should there be different log levels? option to set output (log, puts)
+  config :param_prefix => "filterrific_" # default, somebody might want to shorten or remove prefix
   
   auto generate from association
   auto generate from column
@@ -59,7 +75,7 @@ filterrific do
   
 end
 
-scope :complicated_scope_name, ...
+scope :complicated_scope_name, lambda { |...
 
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -76,7 +92,7 @@ filterrific do
     :default => lambda { Date.new(Date.today.year + 3, 12, 31).to_s(:calendar_display_area) }
   filter :group, :belongs_to => true, :default => Language.all.map(&:id)
   filter :language, :belongs_to => true
-  filter :owner, :belongs_to => true
+  filter :owner, :belongs_to => true # could find the association automatically. Don't need belongs_to here
   filter :person, :use_scope => :with_person
   filter :programme, :belongs_to => true, :default => Programme.all.map(&:id)
   filter :publication_status, :belongs_to => true, :default => [1, 2, 5, 7]
