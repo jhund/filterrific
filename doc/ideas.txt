@@ -1,3 +1,7 @@
+20110414 Related project:
+
+* https://github.com/plataformatec/has_scope
+
 20110221 Promotion:
 
 * railscasts (even ask for review/feedback)
