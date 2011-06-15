@@ -1,21 +1,99 @@
 # TODO: find out why in PTS publications filter, some hidden fields are set to nil and others to "0".
 # If I change it, filter stops working
 
-# Simplest case:
-# ==============
 
 filterrific do
 
-  belongs_to :person
-  belongs_to :project
-  sort [:person_id, :project_id, :created_at]
-  search [:name]
+  # Creates custom scope "filterrific_person". Finds all records that have one of the given values
+  # in :person_id column
+  # Accepts: Person.new, 17, [Person.new, Person.new], [12, 13, 14], [12, 13, Person.new]
+  # scope :filterrific_person, lambda { |persons|
+  #   sanitize: convert all entries to an id (integer), convert to array, do nothing if persons.empty?
+  #   foreign_key: inspect association to get foreign key
+  #   where(:person_id => persons)
+  # }
+  filter :belongs_to => :person
 
+  # Creates custom scope "filterrific_is_active". Finds all records that have one of the given
+  # values for :is_active column
+  # Accepts: "true", true, [true, false], [true, 13, false]
+  # scope :filterrific_is_active, lambda { |values|
+  #   sanitize: convert all entries to column type, convert to array, do nothing if values.empty?
+  #   where(:is_active => values)
+  # }
+  filter :column => :is_active, :default => true
+
+  # Creates scopes for date/datetime columns.
+  # Possible conditions: :after, :before, :on_or_after, :on_or_before
+  # scope :filterrific_created_at_on_or_after, lambda { |datetime|
+  #   datetime = sanitize datetime
+  #   return nil  if datetime.blank
+  #   table_name = get tablename from class
+  #   where(['tablename.created_at >= ?', datetime])
+  # }
+  filter :column => :created_at, :condition => :on_or_after, :default => Proc.new { 2.years.ago.beginning_of_year }
+  filter :column => :last_login_on, :condition => :before
+  
+  # Creates custom scope "filterrific_some_complex_scope". Uses scope :some_complex_scope
+  # scope :filterrific_some_complex_scope, lambda { |*args|
+  #   some_complex_scope(args)
+  # }
+  filter :scope => :some_complex_scope
+  
+  # Available options for filter:
+  #
+  # Options for filter type:
+  # :belongs_to: to filter on a belongs_to association
+  # :column: to filter on a column
+  # :scope: to delegate filtering to a scope that is already defined on the class
+  #
+  # General options:
+  # :default: to set the default, can be static value or Proc.new
+  # :name: to change the name for a given filter. The name will still be prefixed with filterrific_prefix
+  #
+  # Possible conditions for :column filters:
+  # * in: contained in set, IN (This is the default condition)
+  # * comparisons: :after, :before, :on_or_after, :on_or_before, >, <, >=, <=
+  # * equals: exactly one, =
+  # * like: LIKE
+  # * between: BETWEEN a AND b
+  
+  # Creates custom scope named "filterrific_sort"
+  sort( 
+    :sort_keys => [
+      { :key => :newest_first, :label => "Newest first", :sql => "created_at DESC" },
+      { :key => :alphabetically, :label => "Name (a-z)", :sql => "name ASC" },
+    ],
+    :default => :newest_first,
+    :secondary_sorting => "name ASC" # will be appended to every sort as secondary sort key
+  )
+  
+  # Creates custom scope named "filterrific_search"
+  search(
+    :columns => [:name, :email, 'provinces.name'], # default: all string columns
+    :joins => :province,
+    :case_sensitive => false, # adds downcase parts to term_processor and SQL query if false
+    :term_splitter => /\s+/,
+    :wild_card_processor => Proc.new({ |e| "%#{ e }%" }) OR Proc.new({ |e| e.gsub('*', '%') }),
+    :default => "some query",
+    :param_name => "search" # somebody might want to set it to "q"
+  )
+  # Alternative search: delegate to pg_search for fulltext search on Postgres
+
+  # If true, prints auto generated and used scopes, current filterrific params, whether all DB
+  # columns have indices
+  config :debug => true # should there be different log levels? option to set output (log, puts)
+  # Prefix is applied to scopes that are available to filterrific. Note that this is different
+  # from the param_prefix that can be set in the controller config.
+  config :scope_prefix => "filterrific_" # default, somebody might want to shorten or remove prefix
+  
 end
 
+scope :some_complex_scope, lambda { |a_value| ... }
 
-# More realistic case:
-# ====================
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 
 filterrific do
 
@@ -35,7 +113,7 @@ filterrific do
   filter :created_after, :column => :created_at, :default => Proc.new { 2.years.ago.beginning_of_year }
   # Creates custom scope "filterrific_complicated_scope". Delegates to an already existing scope
   # named :complicated_scope_name
-  # Q: How does it now the params expected by :complicated_scope_name?
+  # Q: How does it know the params expected by :complicated_scope_name?
   # A: scope :filterrific_complicated_scope_name, lambda { |*attrs| complicated_scope_name(attrs) }
   filter :complicated_scope, :use_scope => :complicated_scope_name
   filter :scope => :complicated_scope_name # alternative syntax A

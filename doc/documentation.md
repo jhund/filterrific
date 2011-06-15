@@ -17,6 +17,7 @@
   * Will paginate integration
   * Session persistence
   * Interface for JS client side app to get collections of data via JSON REST
+  * integrate with PG fulltext search (pg_search)
 * Defining Scopes
   * Belongs_to
   * Has_many

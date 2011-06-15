@@ -1,3 +1,6 @@
+20110418: Look at this when building API: https://github.com/ryan-allen/lispy
+
+
 20110221 Promotion:
 
 * railscasts (even ask for review/feedback)

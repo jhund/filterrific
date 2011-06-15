@@ -1,6 +1,6 @@
 All view related aspects of filterrific are handled via the view API:
 
-<% filterrific_form do |f| %>
+<%= filterrific_form_for @filterrific do |f| %>
 
   <%= f.select :author, # look at formtastic for inspiration. It auto generates a bunch of stuff %>
   Options for select:

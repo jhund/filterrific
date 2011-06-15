@@ -19,7 +19,7 @@ def index
     controller-action
   * :debug => false  # if true, prints out debug info. This also exists in view helper. Maybe one to
     logger/STDOUT, the other to view?
-  * :param_name => "filterrific"  # the param name used to shuttle params between view and controller.
+  * :param_prefix => "filterrific"  # the param prefix used to shuttle params between view and controller.
   
   @publications = Publication.filterrific_find(@filterrific).paginate....
   @publications = current_user.publications.filterrific_find(@filterrific).paginate....
