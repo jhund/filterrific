@@ -1,6 +1,10 @@
 20110418: Look at this when building API: https://github.com/ryan-allen/lispy
 
 
+20110414 Related project:
+
+* https://github.com/plataformatec/has_scope
+
 20110221 Promotion:
 
 * railscasts (even ask for review/feedback)
