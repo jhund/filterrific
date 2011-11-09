@@ -1,3 +1,8 @@
+# 1.0.0
+
+* Support for Rails 3.1
+* new model api
+
 ## 0.1.0, released 2010-08-01
 
 * Replicate functionality of Rails 2.3 version

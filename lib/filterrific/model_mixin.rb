@@ -8,12 +8,17 @@ module Filterrific::ModelMixin
 
     # Adds filterrific behavior to class when called like so:
     # 
-    # filterrific, :defaults => { :sorted_by => "created_at_asc" }
+    # filterrific(
+    #   :defaults => { :sorted_by => "created_at_asc" },
+    #   :scope_names => [:sorted_by, :search_query, :with_state]
+    # )
     #
     def filterrific(options = {})
       # send :include, InstanceMethods
       cattr_accessor :default_filterrific_params
+      cattr_accessor :filterrific_scope_names
       self.default_filterrific_params = (options[:defaults] || {}).stringify_keys
+      self.filterrific_scope_names = (options[:scope_names] || []).stringify_keys
     end
 
     # Returns AR relation based on given filterrific_param_set.
@@ -36,11 +41,6 @@ module Filterrific::ModelMixin
       end
 
       ar_proxy
-    end
-
-    # Returns Array all filter scope names
-    def filterrific_scope_names
-      scopes.map{ |s| s.first.to_s }
     end
 
   end
