@@ -1,3 +1,13 @@
+filterrific do
+  filter :with_project
+  sort ...
+  search ...
+  config :prefix, 'lala'
+  config.debug = true
+end
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 # TODO: find out why in PTS publications filter, some hidden fields are set to nil and others to "0".
 # If I change it, filter stops working
 
@@ -153,7 +163,7 @@ filterrific do
   
 end
 
-scope :complicated_scope_name, lambda { |...
+scope :complicated_scope_name, lambda { |...| }
 
 
 # xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

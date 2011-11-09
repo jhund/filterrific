@@ -14,7 +14,7 @@
 
 * Scenarios
   * Saved search (persist FilterrificParamSet in DB)
-  * Will paginate integration
+  * Will paginate/kaminari integration
   * Session persistence
   * Interface for JS client side app to get collections of data via JSON REST
   * integrate with PG fulltext search (pg_search)
@@ -29,6 +29,6 @@
 
 ## Requirements
 
-* Rails3
+* Rails3 (or 3.1?)
 
   

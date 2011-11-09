@@ -44,3 +44,6 @@ All view related aspects of filterrific are handled via the view API:
 Options:
 * :print_all_available_filters
 * :print_current_filter_params
+
+
+Also have to add JS to observe the form. Use generator for that?
