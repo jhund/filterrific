@@ -18,7 +18,7 @@ module Filterrific::ModelMixin
       cattr_accessor :default_filterrific_params
       cattr_accessor :filterrific_scope_names
       self.default_filterrific_params = (options[:defaults] || {}).stringify_keys
-      self.filterrific_scope_names = (options[:scope_names] || []).stringify_keys
+      self.filterrific_scope_names = (options[:scope_names] || []).map { |e| e.to_s }
     end
 
     # Returns AR relation based on given filterrific_param_set.
