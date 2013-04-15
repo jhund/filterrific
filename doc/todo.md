@@ -21,3 +21,10 @@ https://github.com/rails/jquery-rails/blob/master/lib/jquery/rails/railtie.rb
 ## Write specs (http://avdi.org/devblog/2011/04/07/rspec-is-for-the-literate/ also read comments about be_...!)
 ## Add Filterrific form builder
 
+
+# Marketing
+
+* ruby-toolbox.com
+* my twitter
+* railsinside.com
+* railscasts

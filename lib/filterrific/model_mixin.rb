@@ -1,5 +1,5 @@
 module Filterrific::ModelMixin
-    
+
   def self.included(base)
     base.send :extend, ClassMethods
   end
@@ -7,7 +7,7 @@ module Filterrific::ModelMixin
   module ClassMethods
 
     # Adds filterrific behavior to class when called like so:
-    # 
+    #
     # filterrific(
     #   :defaults => { :sorted_by => "created_at_asc" },
     #   :scope_names => [:sorted_by, :search_query, :with_state]
@@ -18,6 +18,9 @@ module Filterrific::ModelMixin
       cattr_accessor :default_filterrific_params
       cattr_accessor :filterrific_scope_names
       self.default_filterrific_params = (options[:defaults] || {}).stringify_keys
+      # TODO: rename scope_names to filter_names
+      # TODO: raise exception if defaults contain keys that are not present in filter_names
+      # TODO: raise exception if scope_names are blank
       self.filterrific_scope_names = (options[:scope_names] || []).map { |e| e.to_s }
     end
 
@@ -32,7 +35,7 @@ module Filterrific::ModelMixin
 
       # set initial ar_proxy to including class
       ar_proxy = self
-      
+
       # apply filterrific params
       self.filterrific_scope_names.each do |scope_name|
         scope_param = filterrific_param_set.send(scope_name)
