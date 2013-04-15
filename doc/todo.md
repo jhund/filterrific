@@ -4,12 +4,14 @@ To make it work on Rails 3.1:
 * implement new model api
 * leave view and controller as is
 * bump version to 1.0.0 (not backwards compatible)
+* add CSS and JS via asset pipeline
 
 Later:
 * build filterrific-recipes on github wiki
 * update readme
 * update view and controller apis
 
+https://github.com/rails/jquery-rails/blob/master/lib/jquery/rails/railtie.rb
 
 # Implementation Plan for Filterrific
 

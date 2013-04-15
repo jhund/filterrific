@@ -5,6 +5,7 @@
 
 * https://github.com/plataformatec/has_scope
 
+
 20110221 Promotion:
 
 * railscasts (even ask for review/feedback)
@@ -59,24 +60,19 @@ integrate with formtastic?
 
 
 
-SAVED SEARCHES
-==============
+## SAVED SEARCHES
 
 See cando for implementation
 
 
 
 
-CONTENT FOR README
-==================
-
-
+## CONTENT FOR README
 
 
 This Rails engine makes it super simple to add filtering to your rails list views.
 
-Some of the features:
----------------------
+### Some of the features:
 
 * RESTful
 * conditions, sorting, maybe grouping?
@@ -85,23 +81,19 @@ Some of the features:
 * works with ActiveRecord
 * gets along well with will_paginate
 
-Possibilities:
--------------
+### Possibilities:
 
 * integrate with thinking_sphinx
 * integrate with formtastic
 * integrate with will_paginate
 * integrate with make_resourceful
 
-Here is how it works:
----------------------
+### Here is how it works:
 
 Filterrific relies heavily on scopes. Each filter dimension has its own scope. Filterrific makes it
 easy to shuttle user settings to your controllers and models for queries, and back to the views.
 
 
-Related projects
-================
+## Related projects
 
 * http://github.com/plataformatec/has_scope
-

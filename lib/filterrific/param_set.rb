@@ -1,13 +1,13 @@
 module Filterrific
 
-  # FilterParamSet is a container to store FilterParams for a resource class that is filterrific
+  # FilterParamSet is a container to store FilterParams
   class ParamSet
 
     attr_accessor :resource_class
 
-    def initialize(resource_class, filterrific_params = {})
+    def initialize(a_resource_class, filterrific_params = {})
 
-      self.resource_class = resource_class
+      self.resource_class = a_resource_class
 
       # use either passed in options or resource class' default list_options
       # don't merge them. This causes trouble if an option is set to nil
@@ -61,6 +61,10 @@ module Filterrific
           end
         end
       }
+    end
+
+    def to_json
+      to_hash.to_json
     end
 
     # Returns true if this Filterrific::ParamSet is not the model's default.

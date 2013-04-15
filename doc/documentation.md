@@ -14,15 +14,17 @@
 
 * Scenarios
   * Saved search (persist FilterrificParamSet in DB)
-  * Will paginate/kaminari integration
+  * will_paginate integration
   * Session persistence
   * Interface for JS client side app to get collections of data via JSON REST
   * integrate with PG fulltext search (pg_search)
 * Defining Scopes
-  * Belongs_to
-  * Has_many
-  * Sorting
-  * Full text search (Postgres, Like, regex, Sphinx?)
+  * belongs_to
+  * has_many
+  * sorting
+  * full text search (Postgres, Like, regex, Sphinx?)
+  * exists
+  * tristate
 * Filterrific form inputs
   * checkboxes
   * multi selects
@@ -30,5 +32,3 @@
 ## Requirements
 
 * Rails3 (or 3.1?)
-
-  

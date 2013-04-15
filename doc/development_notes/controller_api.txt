@@ -20,8 +20,15 @@ def index
   * :debug => false  # if true, prints out debug info. This also exists in view helper. Maybe one to
     logger/STDOUT, the other to view?
   * :param_prefix => "filterrific"  # the param prefix used to shuttle params between view and controller.
-  
+
   @publications = Publication.filterrific_find(@filterrific).paginate....
   @publications = current_user.publications.filterrific_find(@filterrific).paginate....
   ...
 end
+
+@filterrific = Filterrific.new(User, params_hash)
+@users = User.filterrific_find(@filterrific).where(...)
+
+@filterrific = Filterrific.new(self, User)
+@filterrific = filterrific_init(User, options) (loads and persists in session)
+@users = User.filterrific_find(@filterrific).paginate(:page => params[:page])
