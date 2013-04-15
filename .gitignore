@@ -1,17 +1,9 @@
-## MAC OS
+.bundle/
 .DS_Store
-
-## PROJECT::GENERAL
-*.gem
-coverage
-rdoc
-pkg
-tmp
-log
 .yardoc
-measurements
-
-## BUNDLER
-.bundle
-Gemfile.local
-Gemfile.lock
+log/*.log
+pkg/
+test/dummy/db/*.sqlite3
+test/dummy/log/*.log
+test/dummy/tmp/
+tmp
