@@ -60,13 +60,6 @@ integrate with formtastic?
 
 
 
-## SAVED SEARCHES
-
-See cando for implementation
-
-
-
-
 ## CONTENT FOR README
 
 

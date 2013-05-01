@@ -28,3 +28,14 @@ https://github.com/rails/jquery-rails/blob/master/lib/jquery/rails/railtie.rb
 * my twitter
 * railsinside.com
 * railscasts
+
+
+# Good open source project
+
+http://blog.clojurewerkz.org/blog/2013/04/20/how-to-make-your-open-source-project-really-awesome/
+
+* Clear dependency/installation instructions
+* At least one brief documentation guide
+* A change log and tags in the repo
+* Some information about supported language/runtime/tool versions and project maturity
+* A mailing list where users can ask questions and help each other

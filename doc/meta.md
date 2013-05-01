@@ -15,3 +15,6 @@
    * Optionally release it to Rubyforge: `rake rubyforge:release`
    * Optionally release it to Gemcutter: `rake gemcutter:release`
 5. Rinse and repeat
+
+
+http://prioritized.net/blog/gemify-assets-for-rails/
