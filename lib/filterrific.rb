@@ -1,10 +1,9 @@
-# The Rails User Interface Solution for Filtering Your ActiveRecord based lists
+if !(defined?(Rails) && Rails::VERSION::MAJOR >= 3)
+  raise "Filterrific requires Rails 3 or greater"
+end
+
+require 'filterrific/version'
+require 'filterrific/engine'
+
 module Filterrific
-
-  if defined?(Rails) && Rails::VERSION::MAJOR >= 3
-    require 'filterrific/railtie'
-  else
-    raise "Filterrific requires Rails 3"
-  end
-
 end
