@@ -1,0 +1,30 @@
+<div class="highlight"><pre><code class="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+  <span class="c1"># db columns:</span>
+  <span class="c1"># country_id: :integer</span>
+  <span class="c1"># created_at: :datetime</span>
+  <span class="c1"># email: :string</span>
+  <span class="c1"># gender: :string</span>
+  <span class="c1"># name: :string</span>
+
+  <span class="n">filterrific</span><span class="p">(</span>
+    <span class="ss">:defaults</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="ss">:sorted_by</span> <span class="o">=&gt;</span> <span class="s1">'users.created_at DESC'</span>
+    <span class="p">},</span>
+    <span class="ss">:scope_names</span> <span class="o">=&gt;</span> <span class="sx">%w[</span>
+<span class="sx">      search_query</span>
+<span class="sx">      sorted_by</span>
+<span class="sx">      with_country_id</span>
+<span class="sx">      with_created_at_gte</span>
+<span class="sx">      with_created_at_lt</span>
+<span class="sx">      with_gender</span>
+<span class="sx">      with_role_id</span>
+<span class="sx">    ]</span>
+  <span class="p">)</span>
+
+  <span class="n">belongs_to</span> <span class="ss">:country</span>
+  <span class="n">has_many</span> <span class="ss">:role_assignments</span>
+  <span class="n">has_many</span> <span class="ss">:roles</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:role_assignments</span>
+  <span class="n">has_many</span> <span class="p">:</span>
+
+<span class="k">end</span>
+</code></pre></div>
