@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% include project_navigation.html %}
+
 # ActiveRecord model API
 
 
