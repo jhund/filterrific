@@ -8,7 +8,7 @@ layout: default
 
 Some intro text...
 
-````
+{% highlight ruby %}
 class User < ActiveRecord::Base
   # db columns:
   # country_id: :integer
@@ -38,7 +38,9 @@ class User < ActiveRecord::Base
   has_many :
 
 end
+{% endhighlight %}
 
+````
 class RoleAssignment < ActiveRecord::Base
   belongs_to :role
   belongs_to :user
