@@ -2,25 +2,33 @@
 layout: default
 ---
 
-{% include project_navigation.html %}
-
 ActiveRecord scope patterns
 ===========================
 
-Filterrific makes heavy use of ActiveRecord scopes. This page provides some
-patterns for common scoping applications:
+{% include project_navigation.html %}
 
-* belongs_to associations
-* has_many associations
-* exists
-* search
-* sort
-* ranges
-* tristate
+Filterrific makes heavy use of ActiveRecord scopes. This page provides resources
+to help you write awesome scopes for powerful filtering.
+
+Please refer to the [example application](/pages/example_application.html) to better understand the patterns below.
 
 
-belongs_to associations
+Common scoping patterns
 -----------------------
+
+* Selected values for belongs_to association
+* Selected values for has_many association
+* Exists: has_many association
+* Not exists: has_many association
+* Exists: many-to-many association
+* Not exists: many-to-many association
+* Searching
+* Sorting
+* Ranges
+* Scopes vs. Class methods
+
+
+### Selected values for belongs_to association
 
 Naming convention: `with_[foreign_key]`
 
@@ -33,15 +41,48 @@ scope :with_user_id, lambda { |user_ids|
 This scope accepts both a single value as well as an array of values. Both will
 be cast to arrays, so the resulting SQL WHERE clause will use 'IN'.
 
+Note: [*a_gender] casts a_gender to an array, no matter whether you pass in a single string or an array of strings.
 
 
-has_many associations
----------------------
+### Selected values for has_many association
+
+
+### Exists: has_many association
+
+scope :with_group_membership_exists, lambda {
+  where(
+    "EXISTS (SELECT 1 from users u, group_memberships gm WHERE u.id = gm.user_id)"
+  )
+}
 
 
 
-Exists: many to many
---------------------
+### Not exists: has_many association
+
+If further conditions need to be applied:
+scope :except_fee_paying, lambda {
+  where(
+    %(
+      NOT EXISTS (
+        SELECT 1
+          FROM group_memberships gm, training_payments tp,
+         WHERE tp.group_membership_id = gm.id
+           AND tp.state = 'successful'
+           AND tp.trigger_type = 'PaypalTxn'
+      )
+    )
+  )
+}
+
+If no further conditions need to be applied to friends:
+Person.includes(:friends).where( :friends => { :person_id => nil } )
+Test if this really works! got it from stack overflow:
+http://stackoverflow.com/questions/5319400/want-to-find-records-with-no-associated-records-in-rails-3
+
+
+
+
+### Exists: many-to-many association
 
 When joining on a many-to-many relationship, we can get duplicate results.
 
@@ -74,67 +115,33 @@ This WORKS
 
 
 
-Not exists: has_many
---------------------
-
-If further conditions need to be applied:
-scope :except_fee_paying, lambda {
-  where(
-    %(
-      NOT EXISTS (
-        SELECT 1
-          FROM group_memberships gm, training_payments tp,
-         WHERE tp.group_membership_id = gm.id
-           AND tp.state = 'successful'
-           AND tp.trigger_type = 'PaypalTxn'
-      )
-    )
-  )
-}
-
-If no further conditions need to be applied to friends:
-Person.includes(:friends).where( :friends => { :person_id => nil } )
-Test if this really works! got it from stack overflow:
-http://stackoverflow.com/questions/5319400/want-to-find-records-with-no-associated-records-in-rails-3
+### Not exists: many-to-many association
 
 
+### Searching
 
-
-Exists: has_many
-----------------
-
-scope :with_group_membership_exists, lambda {
-  where(
-    "EXISTS (SELECT 1 from users u, group_memberships gm WHERE u.id = gm.user_id)"
-  )
-}
-
-
-
-Search
-------
-
-### MySQL
+#### MySQL with `LIKE`
 
 ```ruby
 scope :search_query, lambda { |query|
 }
 ```
 
+* asterisk trick
+
+#### Postgres with `LIKE`
+
+#### Postgres with regex
 
 
-### Postgres with regex
 
-
-
-### Postgres with indexed search
+#### Postgres with indexed search
 
 TBD
 
 
 
-Sort
-----
+### Sorting
 
 ```ruby
 scope :sorted_by, lambda { |query|
@@ -145,7 +152,18 @@ Note: Try to stick with this name as `sort_by` caused conflicts in the past.
 
 
 
-Ranges
-------
+### Ranges
 
 * semi open intervals
+  # It's good to have a convention when working with ranges and intervals. One such convention is
+  # to include the lower bound and exclude the upper bound (semi open interval).
+  # That's why we use greater than or equal
+
+naming convention: gte and lt
+
+
+### Scopes vs. Class methods
+
+can class methods be chained like scopes?
+
+http://blog.plataformatec.com.br/2013/02/active-record-scopes-vs-class-methods/
