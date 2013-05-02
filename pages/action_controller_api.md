@@ -2,9 +2,9 @@
 layout: default
 ---
 
-{% include project_navigation.html %}
-
 # ActionController API
+
+{% include project_navigation.html %}
 
 * pagination (CSV vs. HTML/JS)
 * CSV export

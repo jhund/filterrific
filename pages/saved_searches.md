@@ -2,9 +2,9 @@
 layout: default
 ---
 
-{% include project_navigation.html %}
-
 # Saved searches
+
+{% include project_navigation.html %}
 
 persist FilterrificParamSet in DB
 See cando for implementation
