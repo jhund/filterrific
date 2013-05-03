@@ -17,22 +17,22 @@ Filterrific makes it easy to add user filterable ActiveRecord lists to your Rail
 
 ### Screenshots
 
-<div style="padding: 4px; border: 1px solid #999;">
-  <img src="http://filterrific.clearcove.ca/images/screenshot_c.png" alt="Filterrific in action"/>
-  <em>
-    Filterrific in action: Filtering a list of members, with saved searches,
-    pagination and filter reset. List at the left, filters to the right.
-  </em>
-</div>
+---
 
-<div style="padding: 4px; border: 1px solid #999;">
-  <img src="http://filterrific.clearcove.ca/images/screenshot_q.png" alt="Filterrific in action"/>
-  <em>
-    Filterrific in action: Filtering a list of questions. Filters above, list below.
-  </em>
-</div>
+<img src="http://filterrific.clearcove.ca/images/screenshot_c.png" alt="Filterrific in action"/>
+<em>
+  Filterrific in action: Filtering a list of members, with saved searches,
+  pagination and filter reset. List at the left, filters to the right.
+</em>
 
+---
 
+<img src="http://filterrific.clearcove.ca/images/screenshot_q.png" alt="Filterrific in action"/>
+<em>
+  Filterrific in action: Filtering a list of questions. Filters above, list below.
+</em>
+
+---
 
 ### Please note
 
