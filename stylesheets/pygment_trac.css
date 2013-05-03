@@ -1,5 +1,13 @@
+code {
+  color: inherit;
+  border: none;
+}
+
 .highlight {}
-.highlight pre {}
+.highlight pre {
+  display: inline-block;
+  border: none;
+}
 .highlight pre code {}
 
 .highlight .hll { background-color: #ffffcc }

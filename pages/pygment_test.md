@@ -2,8 +2,11 @@
 layout: default
 ---
 
-Pygment code highlighting test
-==============================
+<div class="page-header">
+  <h2>Pygment code highlighting test</h2>
+</div>
+
+
 
 {% include project_navigation.html %}
 
