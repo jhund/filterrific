@@ -87,15 +87,6 @@ or with bundler in your Gemfile:
 
 
 
-### Todo
-
-* Handle session persistence automatically instead of manually in controller action.
-* Automatically recover from invalid filter params.
-* Build out Model API DSL.
-* Document related projects.
-* Document how to do tri-state queries on boolean columns, differentiate between MySQL and PostgreSQL.
-
-
 ### License
 
 [MIT licensed](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE).
