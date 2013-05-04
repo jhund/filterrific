@@ -1,27 +1,42 @@
 module Filterrific::ModelMixin
 
-  def self.included(base)
-    base.send :extend, ClassMethods
-  end
+  extend ActiveSupport::Concern
 
   module ClassMethods
 
     # Adds filterrific behavior to class when called like so:
     #
     # filterrific(
-    #   :defaults => { :sorted_by => "created_at_asc" },
-    #   :scope_names => [:sorted_by, :search_query, :with_state]
+    #   :default_settings => { :sorted_by => "created_at_asc" },
+    #   :filter_names => [:sorted_by, :search_query, :with_state]
     # )
     #
-    def filterrific(options = {})
-      # send :include, InstanceMethods
-      cattr_accessor :default_filterrific_params
-      cattr_accessor :filterrific_scope_names
-      self.default_filterrific_params = (options[:defaults] || {}).stringify_keys
-      # TODO: rename scope_names to filter_names
-      # TODO: raise exception if defaults contain keys that are not present in filter_names
-      # TODO: raise exception if scope_names are blank
-      self.filterrific_scope_names = (options[:scope_names] || []).map { |e| e.to_s }
+    # @params[Hash] options
+    #    Required keys are:
+    #     * :filter_names: a list of filter_names to be exposed by Filterrific
+    #    Optional keys are:
+    #     * :default_settings: default filter settings
+    def filterrific(options)
+      cattr_accessor :filterrific_default_settings
+      cattr_accessor :filterrific_filter_names
+
+      options.stringify_keys!
+
+      # Raise exception if not filter_names are given
+      self.filterrific_filter_names = (
+        options['filter_names'] || options['scope_names'] || []
+      ).map { |e| e.to_s }
+      raise(ArgumentError, ":filter_names can't be empty")  if filterrific_filter_names.blank?
+
+      self.filterrific_default_settings = (
+        options['default_settings'] || options['defaults'] || {}
+      ).stringify_keys
+      # Raise exception if defaults contain keys that are not present in filter_names
+      if (
+        invalid_defaults = (filterrific_default_settings.keys - filterrific_filter_names)
+      ).any?
+        raise(ArgumentError, "Invalid default keys: #{ invalid_defaults.inspect }")
+      end
     end
 
     # Returns AR relation based on given filterrific_param_set.
@@ -37,10 +52,10 @@ module Filterrific::ModelMixin
       ar_proxy = self
 
       # apply filterrific params
-      self.filterrific_scope_names.each do |scope_name|
-        scope_param = filterrific_param_set.send(scope_name)
-        next if scope_param.blank? # skip blank scope_params
-        ar_proxy = ar_proxy.send(scope_name, scope_param)
+      self.filterrific_filter_names.each do |filter_name|
+        filter_param = filterrific_param_set.send(filter_name)
+        next if filter_param.blank? # skip blank filter_params
+        ar_proxy = ar_proxy.send(filter_name, filter_param)
       end
 
       ar_proxy
