@@ -1,6 +1,6 @@
 ### 1.0.1
 
-* Bug fix: Replaced stringify_keys with map.to_s (scope_names is an Array, not a Hash!)
+* Bug fix: Replaced stringify_keys with map.to_s (filter_names is an Array, not a Hash!)
 
 
 
