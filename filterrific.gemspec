@@ -7,9 +7,11 @@ Gem::Specification.new do |gem|
   gem.name = 'filterrific'
   gem.version = Filterrific::VERSION
   gem.platform = Gem::Platform::RUBY
+
   gem.authors = ['Jo Hund']
   gem.email = 'jhund@clearcove.ca'
   gem.homepage = 'http://filterrific.clearcove.ca'
+  gem.licenses = ['MIT']
   gem.summary = 'A Rails engine plugin for filtering ActiveRecord ActiveRecord lists.'
   gem.description = %(
     The Rails User Interface solution for filtering your ActiveRecord lists:
@@ -20,10 +22,13 @@ Gem::Specification.new do |gem|
     * Shuttle filter parameters from view to controller to model
   )
 
-  gem.files = `git ls-files`.split('\n')
-  gem.test_files = `git ls-files -- {test,spec,features}/*`.split('\n')
-  gem.require_paths = ['lib']
-  gem.licenses = ['MIT']
+  gem.files = Dir[
+    'CHANGELOG*',
+    'MIT-LICENSE',
+    'Rakefile',
+    'README*',
+    '{doc,lib,spec,vendor}/**/*'
+  ]
 
   gem.add_dependency 'rails', '>= 3.0.0'
 
@@ -31,5 +36,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'bundler', ['>= 1.0.0']
   gem.add_development_dependency 'rake', ['>= 0']
   gem.add_development_dependency 'sqlite3', ['>= 0']
-  gem.add_development_dependency 'rspec', ['>= 0']
+  gem.add_development_dependency 'rspec-rails', ['>= 0']
 end

@@ -3,20 +3,22 @@ require 'rails'
 module Filterrific
   class Engine < ::Rails::Engine
 
-    # it's an engine so that we can add static assets to the asset pipeline
+    # It's an engine so that we can add javascript and image assets
+    # to the asset pipeline.
 
-    initializer "filterrific.model_mixin" do |app|
-      require 'filterrific/model_mixin'
-      class ActiveRecord::Base
-        include Filterrific::ModelMixin
+    require 'filterrific/param_set'
+
+    initializer "filterrific.active_record_extension" do |app|
+      require 'filterrific/active_record_extension'
+      class ::ActiveRecord::Base
+        extend Filterrific::ActiveRecordExtension::ClassMethods
       end
-      require 'filterrific/param_set'
     end
 
-    initializer "filterrific.view_helpers" do |app|
-      require 'filterrific/view_helpers'
-      class ActionView::Base
-        include Filterrific::ViewHelpers
+    initializer "filterrific.action_view_extension" do |app|
+      require 'filterrific/action_view_extension'
+      class ::ActionView::Base
+        include Filterrific::ActionViewExtension
       end
     end
 

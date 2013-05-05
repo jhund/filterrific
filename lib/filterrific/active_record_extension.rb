@@ -1,6 +1,9 @@
-module Filterrific::ModelMixin
+#
+# Adds filterrific methods to ActiveRecord::Base and sub classes.
+#
+require 'filterrific/param_set'
 
-  extend ActiveSupport::Concern
+module Filterrific::ActiveRecordExtension
 
   module ClassMethods
 
@@ -39,10 +42,12 @@ module Filterrific::ModelMixin
       end
     end
 
-    # Returns AR relation based on given filterrific_param_set.
-    #
+    # Returns ActiveRecord relation based on given filterrific_param_set.
+    # Use like so:
     # ModelClass.filterrific_find(@filterrific_param_set)
     #
+    # @param[Filterrific::ParamSet] filterrific_param_set
+    # @return[ActiveRecord::Relation] an ActiveRecord relation.
     def filterrific_find(filterrific_param_set)
       unless filterrific_param_set.is_a?(Filterrific::ParamSet)
         raise(ArgumentError, "Invalid Filterrific::ParamSet: #{ filterrific_param_set.inspect }")

@@ -1,3 +1,5 @@
+require 'active_support/all'
+
 module Filterrific
 
   # FilterParamSet is a container to store FilterParams
@@ -68,9 +70,12 @@ module Filterrific
     end
 
     # Returns true if this Filterrific::ParamSet is not the model's default.
-    def customized?
-      resource_class.filterrific_default_settings != to_hash
-    end
+    # TODO: this doesn't work for procs. I need to evaluate the 
+    # filterrific_default_settings before comparing them to to_hash.
+    #
+    # def customized?
+    #   resource_class.filterrific_default_settings != to_hash
+    # end
 
   end
 

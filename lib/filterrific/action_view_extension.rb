@@ -1,4 +1,7 @@
-module Filterrific::ViewHelpers
+#
+# Adds view helpers to ActionView
+#
+module Filterrific::ActionViewExtension
 
   # Renders a spinner while the list is being updated
   def render_filterrific_spinner
