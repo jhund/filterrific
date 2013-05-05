@@ -241,7 +241,7 @@ sub query. This scope traverses the `has_many :through` association between
 Naming convention: `with_%{singular association name}_ids`
 
 ```ruby
-scope :has_role_ids, lambda{ |role_ids|
+scope :with_role_ids, lambda{ |role_ids|
   # get a reference to the join table
   role_assignments = RoleAssignment.arel_table
   # get a reference to the filtered table
@@ -301,7 +301,7 @@ boundaries. We suggest to always use semi-open intervals for consistency.
 
 Please note that SQL's `BETWEEN` operator is inclusive.
 
-Scope naming convention: `%{column name}_gte` and `%{column name}_lt`.
+Scope naming convention: `with_%{column name}_gte` and `with_%{column name}_lt`.
 
 ```ruby
 # include the lower bound
@@ -310,7 +310,7 @@ scope :created_at_gte, lambda { |reference_time|
 }
 
 # exclude the upper bound
-scope :created_at_gte, lambda { |reference_time|
+scope :created_at_lt, lambda { |reference_time|
   where('users.created_at < ?', reference_time)
 }
 ```

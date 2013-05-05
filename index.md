@@ -41,9 +41,9 @@ Filterrific makes it easy to add user filterable ActiveRecord lists to your Rail
   </div>
 </p>
 
-### Please note
+### Details
 
-* Filterrific takes care of shuttling filter settings from your view
+* Filterrific takes care of shuttling user defined filter settings from your view
   to ActiveRecord queries, and of returning matching records back to the view.
   You are responsible to implement the aspects that are specific
   to your application:
@@ -51,8 +51,9 @@ Filterrific makes it easy to add user filterable ActiveRecord lists to your Rail
     * style your filter form and record lists
 * You use 3 APIs to integrate Filterrific into your app: Model, View and Controller.
 
-This documentation uses an example application to demonstrate usage of Filterrific
-with lots of example code. Just follow the links at the bottom of each page:
+This documentation uses an example application to demonstrate usage of each 
+Filterrific API with lots of example code. Just follow the links at the bottom 
+of each page:
 
 <p>
   <a href="/pages/example_application.html" class='btn btn-success'>Learn about the example application &rarr;</a>

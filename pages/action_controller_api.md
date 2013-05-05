@@ -39,11 +39,15 @@ class UsersController < ApplicationController
 
     # Get an ActiveRecord relation for all users that match the filter settings.
     # You can paginate with will_paginate or kaminari.
+    # NOTE: filterrific_find returns an ActiveRecord Relation that can be
+    # chained with other scopes to further narrow down the scope of the list,
+    # e.g., to apply permissions or to exclude certain types of records based on
+    # state.
     @users = User.filterrific_find(@filterrific) \
                  .page(params[:page])
 
     # Persist the current filter settings in the session as a plain old Hash.
-    session[:filterrific_ministry_loans] = @filterrific.to_hash
+    session[:filterrific_users] = @filterrific.to_hash
 
     # Respond to html for initial page load and to js for AJAX filter updates.
     respond_to do |format|

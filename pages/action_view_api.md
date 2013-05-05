@@ -40,6 +40,7 @@ and includes:
   <%= render_matching_users_count(@users.total_entries) %>
 </div>
 
+<%# give the form the 'filterrific_filter' class for automatic AJAX updates on change %>
 <%= form_for(
   @filterrific,
   :as => :filterrific,
@@ -51,6 +52,7 @@ and includes:
 %>
   <div>
     Search
+    <%# give the search field the 'js-periodically-observed' class for live updates %>
     <%= f.text_field(
       :search_query,
       :class => 'js-periodically-observed'
@@ -81,6 +83,8 @@ and includes:
       reset_filterrific_users_path,
     ) %>
   </div>
+  <%# add an automated spinner to your form when the list is refreshed %>
+  <%= render_filterrific_spinner %>
 <% end %>
 
 <%= render(
@@ -151,6 +155,15 @@ were changed.
 ) %>
 $("#filterrific_results").html("<%= js %>");
 $("#results_count").html("<%= render_matching_users_count(@users.total_entries) %>")
+```
+
+### application.js
+
+If you use jQuery and the asset pipeline, then just add this line to your
+application.js file to get the form observers and the spinner:
+
+```javascript
+//= require filterrific-jquery
 ```
 
 <div class="pull-right">
