@@ -74,6 +74,7 @@ of each page:
 * Rails and ActiveRecord 3.x and 4
 * PostgreSQL or MySQL
 * Ruby 1.8.7 or greater
+* jQuery and Asset pipeline for form observers and spinner
 
 
 
