@@ -1,12 +1,22 @@
 Filterrific
 ===========
 
-Filterrific makes it easy to let your app's users filter ActiveRecord lists:
+User configurable filtering of ActiveRecord lists for your Rails app.
 
-* Allows your app's users to search, filter and sort lists of ActiveRecord objects.
+Filterrific is a collection of extensions for ActiveRecord and ActionView
+that allow a developer to add user configurable filtering to ActiveRecord lists.
+
+It comes with the following features:
+
+* Let your app's users search, filter and sort lists of ActiveRecord objects.
+* Add as many AND filter dimensions as you want.
+* Persist filter settings in session or DB (for saved searches).
 * Integrates with pagination.
-* Persists filter parameters in the session or database (for saved searches).
-* Configurable default filter settings.
+* Filters can be reset to default settings.
+* Relies on ActiveRecord scopes for building DB queries.
+* Comes with the plumbing to shuttle filter settings from a filter UI to
+  the controller and ActiveRecord.
+* Can be used for JSON/XML/HTML response formats.
 
 
 <div style="margin: 3em 0;">
@@ -63,7 +73,7 @@ to find out more!
 * Rails and ActiveRecord 3.x and 4
 * PostgreSQL or MySQL
 * Ruby 1.8.7 or greater
-
+* jQuery and Asset pipeline for form observers and spinner
 
 
 ### Installation
