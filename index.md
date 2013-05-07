@@ -10,36 +10,45 @@ layout: default
 
 {% include project_navigation.html %}
 
-Filterrific makes it easy to add user filterable ActiveRecord lists to your Rails apps:
+Filterrific makes it easy to let your app's users filter ActiveRecord lists:
 
 * Allows your app's users to search, filter and sort lists of ActiveRecord objects.
 * Integrates with pagination.
 * Persists filter parameters in the session or database (for saved searches).
 * Configurable default filter settings.
 
+
 <div style="margin: 3em 0;">
   <blockquote>
-    <p>Filterrific is plain awesome. It has saved me tons of time in my Rails apps</p>
-    <small>A happy user</small>
+    <p>
+      I couldn't live without Filterrific. It makes it super easy to add
+      user configurable reporting to my client projects.
+    </p>
+    <small>Jeff Ward, Animikii</small>
   </blockquote>
 </div>
 
-### Screenshots
+
+### Example app 1
 
 <p class="unconstrained">
   <img src="/images/screenshot_c.png" alt="Filterrific in action" class="img-polaroid" />
   <div class="img_caption">
-    Filterrific in action: Filtering a list of members, with saved searches,
+    Example app 1: Filtering a list of members, with saved searches,
     pagination and filter reset. List at the left, filters to the right.
   </div>
 </p>
 
+
+### Example app 2
+
 <p class="unconstrained">
   <img src="/images/screenshot_q.png" alt="Filterrific in action" class="img-polaroid" />
   <div class="img_caption">
-    Filterrific in action: Filtering a list of questions. Filters above, list below.
+    Example app 2: Filtering a list of questions. Filters above, list below.
   </div>
 </p>
+
 
 ### Details
 
@@ -51,8 +60,8 @@ Filterrific makes it easy to add user filterable ActiveRecord lists to your Rail
     * style your filter form and record lists
 * You use 3 APIs to integrate Filterrific into your app: Model, View and Controller.
 
-This documentation uses an example application to demonstrate usage of each 
-Filterrific API with lots of example code. Just follow the links at the bottom 
+This documentation uses an example application to demonstrate usage of each
+Filterrific API with lots of example code. Just follow the links at the bottom
 of each page:
 
 <p>

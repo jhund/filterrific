@@ -31,6 +31,9 @@ and includes:
   via AJAX.
 * The Filterrific filter form.
 
+You can use any type of form input type for the filter. We have had great
+success with Harvest's [Chosen](http://harvesthq.github.io/chosen/) multi select.
+
 
 ```erb
 <%# app/views/users/index.html.erb %>
