@@ -38,24 +38,67 @@ It comes with the following features:
   </blockquote>
 </div>
 
+### How to use it
 
-### Example app 1
+Let's say you want a list of students that can be filtered by your app's users.
+
+1) Put this code in your `Student` model:
+
+```ruby
+  filterrific(
+    :default_settings => {
+      :sorted_by => 'created_at_desc'
+    },
+    :filter_names => %w[
+      search_query
+      sorted_by
+      with_country_id
+    ]
+  )
+  # define ActiveRecord scopes for
+  # :search_query, :sorted_by, and :with_country_id
+```
+
+2) Put this in the `index` action in your `StudentsController`:
+
+```ruby
+def index
+  @filterrific = Filterrific::ParamSet.new(Student, params[:filterrific])
+  @students = Student.filterrific_find(@filterrific).page(params[:page])
+
+  respond_to do |format|
+    format.html
+    format.js
+  end
+end
+```
+3) And finally build this view:
+
+<p class="unconstrained">
+  <img src="/images/screenshot_u.png" alt="Filterrific in action" class="img-polaroid" />
+  <div class="img_caption">
+    Example app 1: A simple student list that can be filtered.
+  </div>
+</p>
+
+
+### Example 2
 
 <p class="unconstrained">
   <img src="/images/screenshot_c.png" alt="Filterrific in action" class="img-polaroid" />
   <div class="img_caption">
-    Example app 1: Filtering a list of members, with saved searches,
+    Example 2: Filtering a list of members, with saved searches,
     pagination and filter reset. List at the left, filters to the right.
   </div>
 </p>
 
 
-### Example app 2
+### Example 3
 
 <p class="unconstrained">
   <img src="/images/screenshot_q.png" alt="Filterrific in action" class="img-polaroid" />
   <div class="img_caption">
-    Example app 2: Filtering a list of questions. Filters above, list below.
+    Example 3: Filtering a list of questions. Filters above, list below.
   </div>
 </p>
 
