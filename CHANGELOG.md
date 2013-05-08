@@ -1,3 +1,12 @@
+## 1.1.0
+
+* major refactor
+* added specs
+* tied in Rails asset pipeline
+* added gh-pages branch for documentation
+
+
+
 ### 1.0.1
 
 * Bug fix: Replaced stringify_keys with map.to_s (filter_names is an Array, not a Hash!)
