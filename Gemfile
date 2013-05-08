@@ -2,7 +2,8 @@ source "http://rubygems.org"
 
 gemspec
 
-group :test do
+group :development, :test do
+  gem 'gem-release'
   # jquery-rails is used by the dummy application
-  gem "jquery-rails"
+  gem 'jquery-rails'
 end
