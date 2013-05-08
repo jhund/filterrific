@@ -72,7 +72,7 @@ def index
   end
 end
 ```
-3) And finally build this view:
+3) And finally build this in `app/views/students/index.html.erb`:
 
 <p class="unconstrained">
   <img src="/images/screenshot_u.png" alt="Filterrific in action" class="img-polaroid" />
