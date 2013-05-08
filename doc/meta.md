@@ -1,20 +1,27 @@
-# Workflow to Maintain This Gem
+Workflow to Maintain This Gem
+=============================
+
+I use the gem-release gem
+
+For more info see: https://github.com/svenfuchs/gem-release#usage
+
+Steps for an update
+-------------------
 
 1. Update code and commit it.
-2. Bump the version with one of the rake tasks:
-   * `rake version:bump:patch` 1.5.3 -> 1.5.4
-   * `rake version:bump:minor` 1.5.3 -> 1.6.0
-   * `rake version:bump:major` 1.5.3 -> 2.0.0
-   * `rake version:write MAJOR=2 MINOR=3 PATCH=6` 1.5.3 -> 2.3.6
-3. Add entry to CHANGELOG:
+2. Add entry to CHANGELOG:
    * h1 for major release
    * h2 for minor release
    * h3 for patch release
+3. Bump the version with one of these commands:
+   * `gem bump --version 1.1.1` # Bump the gem version to the given version number
+   * `gem bump --version major` # 0.0.1 -> 1.0.0
+   * `gem bump --version minor` # 0.0.1 -> 0.1.0
+   * `gem bump --version patch` # 0.0.1 -> 0.0.2
 4. Release it.
-   * `rake release`
-   * Optionally release it to Rubyforge: `rake rubyforge:release`
-   * Optionally release it to Gemcutter: `rake gemcutter:release`
-5. Rinse and repeat
+   * `gem release`
+5. Create a git tag and push to origin.
+   `gem tag`
 
 
 http://prioritized.net/blog/gemify-assets-for-rails/
