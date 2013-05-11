@@ -10,10 +10,8 @@ layout: default
 
 {% include project_navigation.html %}
 
-User configurable filtering of ActiveRecord lists for your Rails app.
-
-Filterrific is a collection of extensions for ActiveRecord and ActionView
-that allow a developer to add user configurable filtering to ActiveRecord lists.
+Filterrific is a Rails Engine plugin that makes it easy to add filtering,
+searching, and sorting to your ActiveRecord lists.
 
 It comes with the following features:
 
@@ -77,7 +75,7 @@ end
 <p class="unconstrained">
   <img src="/images/screenshot_u.png" alt="Filterrific in action" class="img-polaroid" />
   <div class="img_caption">
-    Example app 1: A simple student list that can be filtered.
+    Example 1: A simple student list that can be filtered.
   </div>
 </p>
 
@@ -154,17 +152,6 @@ or with bundler in your Gemfile:
 ### License
 
 [MIT licensed](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE).
-
-
-
-### Note on Patches/Pull Requests
-
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
 
 
 
