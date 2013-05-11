@@ -12,15 +12,8 @@ Gem::Specification.new do |gem|
   gem.email = 'jhund@clearcove.ca'
   gem.homepage = 'http://filterrific.clearcove.ca'
   gem.licenses = ['MIT']
-  gem.summary = 'A Rails engine plugin for filtering ActiveRecord ActiveRecord lists.'
-  gem.description = %(
-    The Rails User Interface solution for filtering your ActiveRecord lists:
-
-    * Built from the ground up for Rails3 or higher
-    * Build filter forms with ease
-    * Filter ActiveRecord lists using AR scopes
-    * Shuttle filter parameters from view to controller to model
-  )
+  gem.summary = 'A Rails engine plugin for filtering ActiveRecord lists.'
+  gem.description = %(Filterrific is a Rails Engine plugin that makes it easy to add filtering, searching, and sorting to your ActiveRecord lists.)
 
   gem.files = Dir[
     'CHANGELOG*',
