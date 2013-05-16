@@ -9,7 +9,7 @@ Steps for an update
 -------------------
 
 1. Update code and commit it.
-2. Add entry to CHANGELOG:
+2. Add entry to CHANGELOG and commit it:
    * h1 for major release
    * h2 for minor release
    * h3 for patch release
