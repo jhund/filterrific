@@ -16,14 +16,14 @@ searching, and sorting to your ActiveRecord lists.
 It comes with the following features:
 
 * Let your app's users search, filter and sort lists of ActiveRecord objects.
-* Add as many AND filter dimensions as you want.
-* Persist filter settings in session or DB (for saved searches).
+* Add as many filters as you want.
+* Persist filter settings in the HTTP session or DB (for saved searches).
 * Integrates with pagination.
 * Filters can be reset to default settings.
 * Relies on ActiveRecord scopes for building DB queries.
 * Comes with the plumbing to shuttle filter settings from a filter UI to
   the controller and ActiveRecord.
-* Can be used for JSON/XML/HTML response formats.
+* Can be used for HTML/JS/JSON/XML response formats.
 
 
 <div style="margin: 3em 0;">
@@ -79,6 +79,7 @@ end
   </div>
 </p>
 
+Make sure to check out the [live demo](http://filterrific-demo.herokuapp.com).
 
 ### Example 2
 
@@ -142,6 +143,7 @@ or with bundler in your Gemfile:
 ### Resources
 
 * [Documentation](http://filterrific.clearcove.ca)
+* [Live demo](http://filterrific-demo.herokuapp.com)
 * [Changelog](https://github.com/jhund/filterrific/blob/master/CHANGELOG.md)
 * [Source code (github)](https://github.com/jhund/filterrific)
 * [Issues](https://github.com/jhund/filterrific/issues)
