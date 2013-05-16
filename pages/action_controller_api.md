@@ -20,32 +20,32 @@ The Filterrific ActionController API has the following functions:
 
 ### Index action
 
-Filterrific lives in the UserController's index action. Please see the code
+Filterrific lives in the StudentsController's index action. Please see the code
 below for notes and implementation:
 
 ```ruby
-# app/controllers/users_controller.rb
-class UsersController < ApplicationController
+# app/controllers/students_controller.rb
+class StudentsController < ApplicationController
 
   def index
     # Initialize the filter settings from the following data:
     # 1. Request params from filter form submission
     # 2. Params persisted in session
-    # 3. Defaults defined in the User model
+    # 3. Defaults defined in the Student model
     @filterrific = Filterrific.new(
-      User,
-      params[:filterrific] || session[:filterrific_users]
+      Student,
+      params[:filterrific] || session[:filterrific_students]
     )
 
-    # Get an ActiveRecord relation for all users that match the filter settings.
+    # Get an ActiveRecord relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
     # chained with other scopes to further narrow down the scope of the list,
     # e.g., to apply permissions or to hard coded exclude certain types of records.
-    @users = User.filterrific_find(@filterrific).page(params[:page])
+    @students = Student.filterrific_find(@filterrific).page(params[:page])
 
     # Persist the current filter settings in the session as a plain old Hash.
-    session[:filterrific_users] = @filterrific.to_hash
+    session[:filterrific_students] = @filterrific.to_hash
 
     # Respond to html for initial page load and to js for AJAX filter updates.
     respond_to do |format|
@@ -64,18 +64,18 @@ end
 ### Reset filter settings
 
 A useful feature is a "Reset filters" link that restores the default filter
-settings. To do so, just add a `reset_filterrific` action to the `UsersController`
+settings. To do so, just add a `reset_filterrific` action to the `StudentsController`
 and add a route for it.
 
 ```ruby
-# app/controllers/users_controller.rb
-class UsersController < ApplicationController
+# app/controllers/students_controller.rb
+class StudentsController < ApplicationController
 
   ...
 
   def reset_filterrific
     # Clear session persistence
-    session[:filterrific_users] = nil
+    session[:filterrific_students] = nil
     # Redirect back to the index action for default filter settings.
     redirect_to :action => :index
   end
@@ -83,11 +83,11 @@ class UsersController < ApplicationController
 end
 ```
 
-Add a collection route to your `user` resources:
+Add a collection route to your `students` resources:
 
 ```ruby
 # config/routes.rb
-resources :user do
+resources :students do
   collection do
     get :reset_filterrific
   end

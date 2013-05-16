@@ -45,9 +45,9 @@ Rails has good documentation on
 
 TL;DR:
 
-* OK: `where(:gender => param)`
-* OK: `where('users.gender = ?', param)`
-* NOT OK: `where("users.gender = '#{ param }'")`
+* OK: `where(:country_id => param)`
+* OK: `where('students.country_id = ?', param)`
+* NOT OK: `where("students.country_id = '#{ param }'")`
 
 Note that attribute mass assignment issues do not apply here since we're only
 reading data from the database, and not writing to it.
@@ -66,19 +66,19 @@ with a given attribute or foreign key of a `belongs_to` association.
 Scope naming convention: `with_%{column name}`.
 
 ```ruby
-# filters on 'gender' attribute
-scope :with_gender, lambda { |genders|
-  where(:gender => [*genders])
-}
-
 # filters on 'country_id' foreign key
 scope :with_country_id, lambda { |country_ids|
   where(:country_id => [*country_ids])
 }
+
+# filters on 'gender' attribute
+scope :with_gender, lambda { |genders|
+  where(:gender => [*genders])
+}
 ```
 
-This scope accepts either a single value like `'male'`, or an array of values
-like `['female', 'other']`. The `[*genders]` expression always casts it to an
+The `country_id` scope accepts either a single value like `42`, or an array of values
+like `[1, 2, 3]`. The `[*country_ids]` expression always casts it to an
 array.
 
 
@@ -98,7 +98,7 @@ it works for both MySQL as well as PostgreSQL:
 
 ```ruby
 scope :search_query, lambda { |query|
-  # Searches the users table on the 'name' and 'email' columns.
+  # Searches the students table on the 'first_name' and 'last_name' columns.
   # Matches using LIKE, automatically appends '%' to each term.
   # LIKE is case INsensitive with MySQL, however it is case
   # sensitive with PostGreSQL. To make it work in both worlds,
@@ -119,7 +119,7 @@ scope :search_query, lambda { |query|
   num_or_conds = 2
   where(
     terms.map { |term|
-      "(LOWER(users.name) LIKE ? OR LOWER(users.email) LIKE ?)"
+      "(LOWER(students.first_name) LIKE ? OR LOWER(students.last_name) LIKE ?)"
     }.join(' AND '),
     *terms.map { |e| [e] * num_or_conds }.flatten
   )
@@ -155,13 +155,14 @@ scope :sorted_by, lambda { |sort_option|
     # Make sure to include the table name to avoid ambiguous column names.
     # Joining on other tables is quite common in Filterrific, and almost
     # every ActiveRecord table has a 'created_at' column.
-    order("users.created_at #{ direction }")
+    order("students.created_at #{ direction }")
   when /^name_/
-    # Simple sort on the name colum
-    order("LOWER(users.name) #{ direction }")
+    # Simple sort on the name colums
+    order("LOWER(students.last_name) #{ direction }, LOWER(students.first_name) #{ direction }")
   when /^country_name_/
-    # This sorts by a user's country name, so we need to include
-    # the country.
+    # This sorts by a student's country name, so we need to include
+    # the country. We can't use JOIN since not all students might have
+    # a country.
     order("LOWER(countries.name) #{ direction }").includes(:country)
   else
     raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
@@ -176,19 +177,19 @@ scope :sorted_by, lambda { |sort_option|
 ### Filter by existence of has_many association
 
 This scope filters records who have an associated `has_many` object. E.g.,
-the scope below finds all users who have posted at least one comment.
+the scope below finds all students who have posted at least one comment.
 
 Naming convention: `with_%{plural association name}`.
 
 ```ruby
 scope :with_comments, lambda {
   where(
-    'EXISTS (SELECT 1 from users u, comments c WHERE u.id = c.user_id)'
+    'EXISTS (SELECT 1 from students s, comments c WHERE s.id = c.student_id)'
   )
 }
 ```
 
-You can also apply conditions on the associated record, e.g., users who have
+You can also apply conditions on the associated record, e.g., students who have
 posted a comment since a given reference_time:
 
 ```ruby
@@ -197,8 +198,8 @@ scope :with_comments_since, lambda { |reference_time|
     %(
       EXISTS (
         SELECT 1
-          FROM users u, comments c
-         WHERE u.id = c.user_id
+          FROM students s, comments c
+         WHERE s.id = c.student_id
            AND c.created_at >= ?)
     ),
     reference_time
@@ -213,7 +214,7 @@ scope :with_comments_since, lambda { |reference_time|
 ### Filter by non-existence of has_many association
 
 Use this scope to filter records who have **NO** associated `has_many` object.
-E.g., the scope below finds all users who have never posted a comment.
+E.g., the scope below finds all students who have never posted a comment.
 
 Naming convention: `without_%{plural association name}`.
 
@@ -221,7 +222,7 @@ Naming convention: `without_%{plural association name}`.
 scope :without_comments, lambda {
   where(
     %(NOT EXISTS (
-      SELECT 1 FROM users u, comments c, WHERE c.user_id = u.id
+      SELECT 1 FROM students s, comments c, WHERE c.student_id = s.id
     ))
   )
 }
@@ -233,9 +234,9 @@ scope :without_comments, lambda {
 <a id="filter_by_existence_many_to_many"></a>
 ### Filter by existence of many-to-many association
 
-This scope finds any users who have a given role, using `EXISTS` and a SQL
+This scope finds any students who have a given role, using `EXISTS` and a SQL
 sub query. This scope traverses the `has_many :through` association between
-`User` and `Role` via `RoleAssignment`.
+`Student` and `Role` via `RoleAssignment`.
 
 Naming convention: `with_%{singular association name}_ids`
 
@@ -244,20 +245,19 @@ scope :with_role_ids, lambda{ |role_ids|
   # get a reference to the join table
   role_assignments = RoleAssignment.arel_table
   # get a reference to the filtered table
-  users = User.arel_table
+  students = Student.arel_table
   # let AREL generate a complex SQL query
   where(
-    RoleAssignment.where(
-      role_assignments[:user_id].eq(users[:id])
-    ).where(
-      role_assignments[:role_id].in([*role_ids].map(&:to_i))
-    ).exists
+    RoleAssignment \
+      .where(role_assignments[:student_id].eq(students[:id])) \
+      .where(role_assignments[:role_id].in([*role_ids].map(&:to_i))) \
+      .exists
   )
 }
 ```
 
 Note: you might be tempted to use a simple `WHERE` and `JOIN` clause, however
-you will end up getting duplicate user records, one for each role a user
+you will end up getting duplicate student records, one for each role a student
 holds. You shouldn't use a `DISTINCT` clause to eliminate duplicates
 since this might interfere with other scopes that we chain in the current
 Filterrific query. E.g., your database might complain about sort keys not being
@@ -270,7 +270,7 @@ part of the `SELECT` statement.
 <a id="filter_by_non_existence_many_to_many"></a>
 ### Filter by non-existence of many-to-many association
 
-This scope finds any users who DO NOT have a given role. It is almost identical
+This scope finds any students who DO NOT have a given role. It is almost identical
 to the previous one. We just appended the `.not` operator to invert it.
 
 Naming convention: `without_%{singular association name}_ids`
@@ -278,13 +278,13 @@ Naming convention: `without_%{singular association name}_ids`
 ```ruby
 scope :without_role_ids, lambda{ |role_ids|
   role_assignments = RoleAssignment.arel_table
-  users = User.arel_table
+  students = Student.arel_table
   where(
-    RoleAssignment.where(
-      role_assignments[:user_id].eq(users[:id])
-    ).where(
-      role_assignments[:role_id].in([*role_ids].map(&:to_i))
-    ).exists.not
+    RoleAssignment \
+      .where(role_assignments[:student_id].eq(students[:id])) \
+      .where(role_assignments[:role_id].in([*role_ids].map(&:to_i))) \
+      .exists
+      .not
   )
 }
 ```
@@ -294,7 +294,7 @@ scope :without_role_ids, lambda{ |role_ids|
 <a id="filter_by_ranges"></a>
 ### Filter by ranges
 
-This scope filters by a user's signup date range. The only important thing
+This scope filters by a student's signup date range. The only important thing
 to keep in mind when working with ranges is that you are consistent with your
 boundaries. We suggest to always use semi-open intervals for consistency.
 
@@ -305,12 +305,12 @@ Scope naming convention: `with_%{column name}_gte` and `with_%{column name}_lt`.
 ```ruby
 # include the lower bound
 scope :created_at_gte, lambda { |reference_time|
-  where('users.created_at >= ?', reference_time)
+  where('students.created_at >= ?', reference_time)
 }
 
 # exclude the upper bound
 scope :created_at_lt, lambda { |reference_time|
-  where('users.created_at < ?', reference_time)
+  where('students.created_at < ?', reference_time)
 }
 ```
 

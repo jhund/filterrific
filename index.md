@@ -61,7 +61,7 @@ Let's say you want a list of students that can be filtered by your app's users.
 
 ```ruby
 def index
-  @filterrific = Filterrific::ParamSet.new(Student, params[:filterrific])
+  @filterrific = Filterrific.new(Student, params[:filterrific])
   @students = Student.filterrific_find(@filterrific).page(params[:page])
 
   respond_to do |format|
