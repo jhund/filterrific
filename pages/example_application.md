@@ -13,7 +13,7 @@ layout: default
 All patterns and instructions in this documentation refer to the filterrific
 demo Rails application below. You can find the complete source for the demo
 app on github:
-(https://github.com/jhund/filterrific_demo)[https://github.com/jhund/filterrific_demo].
+[github.com/jhund/filterrific_demo](https://github.com/jhund/filterrific_demo).
 
 I have included only the parts of the code required to demonstrate Filterrific.
 In a production app you would have to add a lot more code to handle permissions,
