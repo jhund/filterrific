@@ -103,7 +103,6 @@ scope :search_query, lambda { |query|
   # LIKE is case INsensitive with MySQL, however it is case
   # sensitive with PostGreSQL. To make it work in both worlds,
   # we downcase everything.
-
   return nil  if query.blank?
 
   # condition query, parse into individual keywords
@@ -117,12 +116,12 @@ scope :search_query, lambda { |query|
   # configure number of OR conditions for provision
   # of interpolation arguments. Adjust this if you
   # change the number of OR conditions.
-  num_or_conditions = 2
+  num_or_conds = 2
   where(
     terms.map { |term|
-      "lower(users.name) LIKE ? OR lower(users.email) LIKE ?"
+      "(LOWER(users.name) LIKE ? OR LOWER(users.email) LIKE ?)"
     }.join(' AND '),
-    *(terms.map { |e| e.downcase } * num_or_conditions)
+    *terms.map { |e| [e] * num_or_conds }.flatten
   )
 }
 ```
