@@ -15,7 +15,7 @@ Use the Filterrific ActionView API to:
 * Reset the filter settings.
 
 Filterrific works best with AJAX updates. The library comes with form observers
-for jQuery, and a spinner to indicate that the list is being refreshed.
+for jQuery and an AJAX spinner.
 
 Please see below for all the view files involved:
 
@@ -24,41 +24,27 @@ Please see below for all the view files involved:
 This is the main template for the users list. It is rendered on first load
 and includes:
 
-
+* The Filterrific filter form.
 * The `_list.html.erb` partial for the actual list of users. When we refresh
   the list, we just update the `_list.html.erb` partial via AJAX.
-* `render_matching_users_count` from the `UsersHelper`. This is also refreshed
-  via AJAX.
-* The Filterrific filter form.
 
-You can use any type of form input type for the filter. We have had great
-success with Harvest's [Chosen](http://harvesthq.github.io/chosen/) multi select.
+You can use any type of form inputs for the filter. For multiple selects
+we have had great success with Harvest's 
+[Chosen](http://harvesthq.github.io/chosen/) multi select input widget.
 
 
 ```erb
 <%# app/views/users/index.html.erb %>
 <h1>Users</h1>
 
-<div id="results_count">
-  <%= render_matching_users_count(@users.total_entries) %>
-</div>
-
-<%# give the form the 'filterrific_filter' class for automatic AJAX updates on change %>
-<%= form_for(
-  @filterrific,
-  :as => :filterrific,
-  :html => {
-    :method => :get,
-    :onsubmit => 'return false;',
-    :id => 'filterrific_filter'
-  }) do |f|
-%>
+<%# Filterrific adds some magic when you use form_for with @filterrific %>
+<%= form_for @filterrific do |f| %>
   <div>
     Search
-    <%# give the search field the 'js-periodically-observed' class for live updates %>
+    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
     <%= f.text_field(
       :search_query,
-      :class => 'js-periodically-observed'
+      :class => 'filterrific-periodically-observed'
     ) %>
   </div>
   ...
@@ -96,27 +82,6 @@ success with Harvest's [Chosen](http://harvesthq.github.io/chosen/) multi select
 ) %>
 ```
 
-### UsersHelper
-
-This helper renders the count of users who match the filter settings. We wrap
-it in a helper so that we can call it both on initial page load, as well as from
-the AJAX response.
-
-```ruby
-# app/helpers/users_helper.rb
-module UsersHelper
-
-  def render_matching_users_count(count)
-    if 1 == count
-      "1 user matches the filter settings."
-    else
-      "#{ count } users match the filter settings."
-    end
-  end
-
-end
-```
-
 ### _list.html
 
 The `_list.html.erb` partial renders the actual list of users. We extract it
@@ -125,6 +90,11 @@ into a partial so that we can update it via AJAX response.
 ```erb
 <%# app/views/users/_list.html.erb %>
 <div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info users # provided by will_paginate %>
+  </div>
+
   <table>
     <tr>
       <th>Name</th>
@@ -143,7 +113,7 @@ into a partial so that we can update it via AJAX response.
   </table>
 </div>
 
-<%= will_paginate users %>
+<%= will_paginate users # provided by will_paginate %>
 ```
 
 ### index.js
@@ -157,7 +127,6 @@ were changed.
   render(:partial => 'users/list', :locals => { :users => @users })
 ) %>
 $("#filterrific_results").html("<%= js %>");
-$("#results_count").html("<%= render_matching_users_count(@users.total_entries) %>")
 ```
 
 ### application.js

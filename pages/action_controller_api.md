@@ -28,11 +28,11 @@ below for notes and implementation:
 class UsersController < ApplicationController
 
   def index
-    # Initialize the filter settings:
-    # Use params from filter form submission, or if none given, use what's
-    # persisted in the session. If nothing is persisted in the session,
-    # Filterrific will use the defaults defined in your model.
-    @filterrific = Filterrific::ParamSet.new(
+    # Initialize the filter settings from the following data:
+    # 1. Request params from filter form submission
+    # 2. Params persisted in session
+    # 3. Defaults defined in the User model
+    @filterrific = Filterrific.new(
       User,
       params[:filterrific] || session[:filterrific_users]
     )
@@ -41,10 +41,8 @@ class UsersController < ApplicationController
     # You can paginate with will_paginate or kaminari.
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
     # chained with other scopes to further narrow down the scope of the list,
-    # e.g., to apply permissions or to exclude certain types of records based on
-    # state.
-    @users = User.filterrific_find(@filterrific) \
-                 .page(params[:page])
+    # e.g., to apply permissions or to hard coded exclude certain types of records.
+    @users = User.filterrific_find(@filterrific).page(params[:page])
 
     # Persist the current filter settings in the session as a plain old Hash.
     session[:filterrific_users] = @filterrific.to_hash
