@@ -22,6 +22,7 @@ or with bundler in your Gemfile:
 ### Resources
 
 * [Documentation](http://filterrific.clearcove.ca)
+* [Live demo](http://filterrific-demo.herokuapp.com)
 * [Changelog](https://github.com/jhund/filterrific/blob/master/CHANGELOG.md)
 * [Source code (github)](https://github.com/jhund/filterrific)
 * [Issues](https://github.com/jhund/filterrific/issues)
