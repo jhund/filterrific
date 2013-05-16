@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
     # Initialize the filter settings from the following data:
     # 1. Request params from filter form submission
     # 2. Params persisted in session
-    # 3. Defaults defined in the Student model
+    # 3. Filterrific default_settings defined in the Student model
     @filterrific = Filterrific.new(
       Student,
       params[:filterrific] || session[:filterrific_students]

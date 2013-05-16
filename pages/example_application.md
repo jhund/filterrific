@@ -51,7 +51,7 @@ end
 ### Country
 
 The `Country` class represents the country a `Student` belongs to, e.g.,
-&ldquo;Canada&rdquo;, &ldquo;United States&rdquo;, and &ldquo;Germany&rdquo;.
+&ldquo;Canada&rdquo;, &ldquo;United States&rdquo;, and &ldquo;Australia&rdquo;.
 
 Not all students belong to a country.
 

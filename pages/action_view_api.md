@@ -39,11 +39,11 @@ we have had great success with Harvest's
 
 <%#
   Filterrific adds some magic when you use form_for with @filterrific:
-  * add dom id 'filterrific_filter'
-  * apply javascript behaviors:
+  * adds dom id 'filterrific_filter'
+  * applies javascript behaviors:
       * AJAX form submission on change
       * AJAX spinner while AJAX request is being processed
-  * set form_for options like :url, :method and input name prefix
+  * sets form_for options like :url, :method and input name prefix
 %>
 <%= form_for @filterrific do |f| %>
   <div>
@@ -61,14 +61,16 @@ we have had great success with Harvest's
       Country.options_for_select,
       { :include_blank => '- Any -' }
     ) %>
+    <%# See below for the Country.options_for_select presenter method %>
   </div>
   <div>
     Registered after
-    <%= f.text_field(:with_created_at_gte, :class => 'js-datepicker')
+    <%= f.text_field(:with_created_at_gte, :class => 'js-datepicker') %>
   </div>
   <div>
     Sorted by
     <%= f.select(:sorted_by, Student.options_for_sorted_by) %>
+    <%# See below for the Student.options_for_sorted_by presenter method %>
   </div>
   <div>
     <%= link_to(
@@ -142,6 +144,27 @@ application.js file to get the form observers and the spinner:
 //= require filterrific-jquery
 ```
 
+### Select options presenter methods
+
+We create the following presenter methods on Student and Country to provide
+select options for the filter view:
+
+```ruby
+# app/models/student.rb
+def self.options_for_sorted_by
+  [
+    ['Name (a-z)', 'name_asc'],
+    ['Registration date (newest first)', 'created_at_desc'],
+    ['Registration date (oldest first)', 'created_at_asc'],
+    ['Country (a-z)', 'country_name_asc']
+  ]
+end
+
+# app/models/country.rb
+def self.options_for_select
+  order('LOWER(name)').map { |e| [e.name, e.id] }
+end
+```
 <div class="pull-right">
   <a href="/pages/active_record_scope_patterns.html" class='btn btn-success'>Learn about scope patterns &rarr;</a>
 </div>
