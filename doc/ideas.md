@@ -1,6 +1,27 @@
 Ideas
 =====
 
+20130513: auto generating scopes
+
+* belongs_to
+* has_many
+* has_many_through
+* search
+
+filterrific do
+  defaults :filter1 => 'asdf', :filter2 => 'asdf'
+  use_scopes %w[filter1 filter2 filter3]
+  filter :belongs_to => :user, :foreign_key => :user_id, :label_column_other => :name, :key_column_other => :id
+  filter :with => :province # detects if this is a column or an association
+  filter :with => :posts
+  filter :without => :posts
+  # anything else has to be done via use_scopes
+end
+
+
+
+201305: documentation
+
 Advanced use
 ------------
 
