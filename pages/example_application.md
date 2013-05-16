@@ -11,7 +11,8 @@ layout: default
 {% include project_navigation.html %}
 
 All patterns and instructions in this documentation refer to the filterrific
-demo Rails application below. You can find the complete source for the demo
+demo Rails application below. You can view a
+[live demo](http://filterrific-demo.herokuapp.com), and the source for the demo
 app on github:
 [github.com/jhund/filterrific_demo](https://github.com/jhund/filterrific_demo).
 
