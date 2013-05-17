@@ -99,7 +99,7 @@ end
       <li><a href="http://filterrific.clearcove.ca">Documentation</a>
       <li><a href="http://filterrific-demo.herokuapp.com">Live demo</a>
       <li><a href="https://github.com/jhund/filterrific/blob/master/CHANGELOG.md">Changelog</a>
-      <li><a href="github)](https://github.com/jhund/filterrific">Source code</a>
+      <li><a href="https://github.com/jhund/filterrific">Source code</a>
       <li><a href="https://github.com/jhund/filterrific/issues">Issues</a>
       <li><a href="http://rubygems.org/gems/filterrific">Rubygems.org</a>
     </ul>
