@@ -32,7 +32,7 @@ It comes with the following features:
 You only have to define the required ActiveRecord scopes and style your filter
 form and record lists.
 
-<div style="margin: 3em 0; width: 560px;" class="well">
+<div style="margin: 3em 0; max-width: 560px;" class="well">
   <blockquote style="margin-bottom: 0;">
     <p>
       I couldn't live without Filterrific. It makes it super easy to add
