@@ -91,6 +91,8 @@ end
   <a href="/pages/example_application.html" class='btn btn-success'>Learn about the example application &rarr;</a>
 </p>
 
+<hr />
+
 <div class="row">
 
   <div class="span3">
