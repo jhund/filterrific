@@ -73,6 +73,4 @@ class Student < ActiveRecord::Base
 end
 ```
 
-<div class="pull-right">
-  <a href="/pages/action_controller_api.html" class='btn btn-success'>Learn about the Controller API &rarr;</a>
-</div>
+<a href="/pages/action_controller_api.html" class='btn btn-success'>Learn about the Controller API &rarr;</a>

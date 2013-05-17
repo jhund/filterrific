@@ -98,7 +98,5 @@ Please see the View API for details on the "Reset filters" button.
 
 
 
-<div class="pull-right">
-  <a href="/pages/action_view_api.html" class='btn btn-success'>Learn about the View API &rarr;</a>
-</div>
+<a href="/pages/action_view_api.html" class='btn btn-success'>Learn about the View API &rarr;</a>
 

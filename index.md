@@ -22,14 +22,16 @@ layout: default
 It comes with the following features:
 
 * Let your app's users search, filter and sort lists of ActiveRecord objects.
+* Add as many filters as you want.
 * Persist filter settings in the HTTP session or DB (for saved searches).
 * Integrates with pagination.
 * Filters can be reset to default settings.
+* Relies on ActiveRecord scopes for building DB queries.
 * Shuttles filter settings from a filter UI to the controller and ActiveRecord.
-* Can be used with HTML/JS/JSON/XML response formats.
+* Can be used for HTML/JS/JSON/XML response formats.
 
 All you have to do is to define the required ActiveRecord scopes and style your
-filter form and records list.
+filter form and record lists.
 
 <div style="margin: 3em 0; width: 560px;" class="well">
   <blockquote style="margin-bottom: 0;">
@@ -45,31 +47,25 @@ filter form and records list.
 
 Let's say you want a list of students that can be filtered by your app's users.
 
-1) Add the gem to your app
+#### 1) Add the gem to your app
 
 ```ruby
 # Gemfile
 gem 'filterrific'
 ```
 
-2) Add Filterrific to your `Student` model:
+#### 2) Add Filterrific to your `Student` model:
 
 ```ruby
-  filterrific(
-    :default_settings => {
-      :sorted_by => 'created_at_desc'
-    },
-    :filter_names => %w[
-      search_query
-      sorted_by
-      with_country_id
-    ]
-  )
-  # define ActiveRecord scopes for
-  # :search_query, :sorted_by, and :with_country_id
+filterrific(
+  :default_settings => { :sorted_by => 'created_at_desc' },
+  :filter_names => %w[search_query sorted_by with_country_id]
+)
+# define ActiveRecord scopes for
+# :search_query, :sorted_by, and :with_country_id
 ```
 
-3) Use Filterrific in `StudentsController#index`:
+#### 3) Use Filterrific in `StudentsController#index`:
 
 ```ruby
 def index
@@ -83,7 +79,7 @@ def index
 end
 ```
 
-4) And finally build this in `app/views/students/index.html.erb`:
+#### 4) And finally build your view in `app/views/students/index.html.erb`:
 
 <p class="unconstrained">
   <img src="/images/screenshot_s.png" alt="Filterrific in action" class="img-polaroid" />
@@ -113,7 +109,9 @@ end
   <div class="span4">
     <h3>Dependencies</h3>
     <ul>
-      <li>Rails and ActiveRecord 3 or greater</li>
+      <li>Rails and ActiveRecord 3.x and 4</li>
+      <li>PostgreSQL or MySQL</li>
+      <li>Ruby 1.8.7 or greater</li>
       <li>jQuery and Asset pipeline for form observers and spinner</li>
     </ul>
   </div>

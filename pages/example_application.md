@@ -68,6 +68,4 @@ end
 ```
 
 
-<div class="pull-right">
-  <a href="/pages/active_record_model_api.html" class='btn btn-success'>Learn about the Model API &rarr;</a>
-</div>
+<a href="/pages/active_record_model_api.html" class='btn btn-success'>Learn about the Model API &rarr;</a>
