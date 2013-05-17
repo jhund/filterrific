@@ -10,8 +10,14 @@ layout: default
 
 {% include project_navigation.html %}
 
-Filterrific is a Rails Engine plugin that makes it easy to add filtering,
-searching, and sorting to your ActiveRecord lists.
+<p class="lead">
+  Filterrific is a Rails Engine plugin that makes it easy to add filtering,
+  searching, and sorting to your ActiveRecord lists.
+</p>
+
+<a href="http://filterrific-demo.herokuapp.com/students" class="btn btn-success btn-large">
+  Check out the live demo!
+</a>
 
 It comes with the following features:
 
@@ -21,13 +27,14 @@ It comes with the following features:
 * Integrates with pagination.
 * Filters can be reset to default settings.
 * Relies on ActiveRecord scopes for building DB queries.
-* Comes with the plumbing to shuttle filter settings from a filter UI to
-  the controller and ActiveRecord.
+* Shuttles filter settings from a filter UI to the controller and ActiveRecord.
 * Can be used for HTML/JS/JSON/XML response formats.
 
+All you have to do is to define the required ActiveRecord scopes and style your
+filter form and record lists.
 
-<div style="margin: 3em 0;">
-  <blockquote>
+<div style="margin: 3em 0; width: 560px;" class="well">
+  <blockquote style="margin-bottom: 0;">
     <p>
       I couldn't live without Filterrific. It makes it super easy to add
       user configurable reporting to my client projects.
@@ -40,7 +47,14 @@ It comes with the following features:
 
 Let's say you want a list of students that can be filtered by your app's users.
 
-1) Put this code in your `Student` model:
+1) Add the gem to your app
+
+```ruby
+# Gemfile
+gem 'filterrific'
+```
+
+2) Add Filterrific to your `Student` model:
 
 ```ruby
   filterrific(
@@ -57,7 +71,7 @@ Let's say you want a list of students that can be filtered by your app's users.
   # :search_query, :sorted_by, and :with_country_id
 ```
 
-2) Put this in the `index` action in your `StudentsController`:
+3) Use Filterrific in `StudentsController#index`:
 
 ```ruby
 def index
@@ -70,98 +84,49 @@ def index
   end
 end
 ```
-3) And finally build this in `app/views/students/index.html.erb`:
+
+4) And finally build this in `app/views/students/index.html.erb`:
 
 <p class="unconstrained">
-  <img src="/images/screenshot_u.png" alt="Filterrific in action" class="img-polaroid" />
+  <img src="/images/screenshot_s.png" alt="Filterrific in action" class="img-polaroid" />
   <div class="img_caption">
     Example 1: A simple student list that can be filtered.
   </div>
 </p>
 
-Make sure to check out the [live demo](http://filterrific-demo.herokuapp.com).
-
-### Example 2
-
-<p class="unconstrained">
-  <img src="/images/screenshot_c.png" alt="Filterrific in action" class="img-polaroid" />
-  <div class="img_caption">
-    Example 2: Filtering a list of members, with saved searches,
-    pagination and filter reset. List at the left, filters to the right.
-  </div>
-</p>
-
-
-### Example 3
-
-<p class="unconstrained">
-  <img src="/images/screenshot_q.png" alt="Filterrific in action" class="img-polaroid" />
-  <div class="img_caption">
-    Example 3: Filtering a list of questions. Filters above, list below.
-  </div>
-</p>
-
-
-### Details
-
-* Filterrific takes care of shuttling user defined filter settings from your view
-  to ActiveRecord queries, and of returning matching records back to the view.
-  You are responsible to implement the aspects that are specific
-  to your application:
-    * define the required scopes
-    * style your filter form and record lists
-* You use 3 APIs to integrate Filterrific into your app: Model, View and Controller.
-
-This documentation uses an example application to demonstrate usage of each
-Filterrific API with lots of example code. Just follow the links at the bottom
-of each page:
-
 <p>
   <a href="/pages/example_application.html" class='btn btn-success'>Learn about the example application &rarr;</a>
 </p>
 
+<div class="row">
 
-### Dependencies
+  <div class="span3">
+    <h3>Resources</h3>
+    <ul>
+      <li><a href="http://filterrific.clearcove.ca">Documentation</a>
+      <li><a href="http://filterrific-demo.herokuapp.com">Live demo</a>
+      <li><a href="https://github.com/jhund/filterrific/blob/master/CHANGELOG.md">Changelog</a>
+      <li><a href="github)](https://github.com/jhund/filterrific">Source code</a>
+      <li><a href="https://github.com/jhund/filterrific/issues">Issues</a>
+      <li><a href="http://rubygems.org/gems/filterrific">Rubygems.org</a>
+    </ul>
+  </div>
 
-* Rails and ActiveRecord 3.x and 4
-* PostgreSQL or MySQL
-* Ruby 1.8.7 or greater
-* jQuery and Asset pipeline for form observers and spinner
+  <div class="span4">
+    <h3>Dependencies</h3>
+    <ul>
+      <li>Rails and ActiveRecord 3.x and 4</li>
+      <li>PostgreSQL or MySQL</li>
+      <li>Ruby 1.8.7 or greater</li>
+      <li>jQuery and Asset pipeline for form observers and spinner</li>
+    </ul>
+  </div>
 
+  <div class="span3">
+    <h3>License</h3>
+    <a href="https://github.com/jhund/filterrific/blob/master/MIT-LICENSE">MIT licensed</a>
+    <h3>Copyright</h3>
+    Copyright (c) 2010 - 2013 Jo Hund.
+  </div>
 
-
-### Installation
-
-`gem install filterrific`
-
-or with bundler in your Gemfile:
-
-`gem 'filterrific'`
-
-
-
-### Resources
-
-* [Documentation](http://filterrific.clearcove.ca)
-* [Live demo](http://filterrific-demo.herokuapp.com)
-* [Changelog](https://github.com/jhund/filterrific/blob/master/CHANGELOG.md)
-* [Source code (github)](https://github.com/jhund/filterrific)
-* [Issues](https://github.com/jhund/filterrific/issues)
-* [Rubygems.org](http://rubygems.org/gems/filterrific)
-
-
-
-### License
-
-[MIT licensed](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE).
-
-
-
-### Copyright
-
-Copyright (c) 2010 - 2013 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
-
-<p>
-  <a href="/pages/example_application.html" class='btn btn-success'>Learn about the example application &rarr;</a>
-</p>
-
+</div>

@@ -17,7 +17,38 @@ Use the Filterrific ActionView API to:
 Filterrific works best with AJAX updates. The library comes with form observers
 for jQuery and an AJAX spinner.
 
-Please see below for all the view files involved:
+### View example 1
+<p class="unconstrained">
+  <img src="/images/screenshot_s.png" alt="Filterrific in action" class="img-polaroid" />
+  <div class="img_caption">
+    Example 1: The example app's student list.
+  </div>
+</p>
+
+### View example 2
+
+<p class="unconstrained">
+  <img src="/images/screenshot_c.png" alt="Filterrific in action" class="img-polaroid" />
+  <div class="img_caption">
+    Example 2: Filtering a list of members, with saved searches,
+    pagination and filter reset. List at the left, filters to the right.
+  </div>
+</p>
+
+
+### View example 3
+
+<p class="unconstrained">
+  <img src="/images/screenshot_q.png" alt="Filterrific in action" class="img-polaroid" />
+  <div class="img_caption">
+    Example 3: Filtering a list of questions. Filters above, list below.
+  </div>
+</p>
+
+
+
+
+## View code walk through
 
 ### index.html
 
