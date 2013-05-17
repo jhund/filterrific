@@ -22,16 +22,14 @@ layout: default
 It comes with the following features:
 
 * Let your app's users search, filter and sort lists of ActiveRecord objects.
-* Add as many filters as you want.
 * Persist filter settings in the HTTP session or DB (for saved searches).
 * Integrates with pagination.
 * Filters can be reset to default settings.
-* Relies on ActiveRecord scopes for building DB queries.
 * Shuttles filter settings from a filter UI to the controller and ActiveRecord.
-* Can be used for HTML/JS/JSON/XML response formats.
+* Can be used with HTML/JS/JSON/XML response formats.
 
 All you have to do is to define the required ActiveRecord scopes and style your
-filter form and record lists.
+filter form and records list.
 
 <div style="margin: 3em 0; width: 560px;" class="well">
   <blockquote style="margin-bottom: 0;">
@@ -115,9 +113,7 @@ end
   <div class="span4">
     <h3>Dependencies</h3>
     <ul>
-      <li>Rails and ActiveRecord 3.x and 4</li>
-      <li>PostgreSQL or MySQL</li>
-      <li>Ruby 1.8.7 or greater</li>
+      <li>Rails and ActiveRecord 3 or greater</li>
       <li>jQuery and Asset pipeline for form observers and spinner</li>
     </ul>
   </div>
