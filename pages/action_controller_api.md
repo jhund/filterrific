@@ -1,5 +1,6 @@
 ---
 layout: default
+nav_id: controller_api
 ---
 
 <div class="page-header">

@@ -42,3 +42,23 @@ kramdown:
     coderay_tab_width: 4
     coderay_bold_every: 10
     coderay_css: style
+
+nav_items:
+- url: /
+  text: Start page
+  nav_id: start_page
+- url: /pages/example_application.html
+  text: Example application
+  nav_id: example_application
+- url: /pages/active_record_model_api.html
+  text: Model API
+  nav_id: model_api
+- url: /pages/action_controller_api.html
+  text: Controller API
+  nav_id: controller_api
+- url: /pages/action_view_api.html
+  text: View API
+  nav_id: view_api
+- url: /pages/active_record_scope_patterns.html
+  text: Scope patterns
+  nav_id: scope_patterns

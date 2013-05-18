@@ -1,5 +1,6 @@
 ---
 layout: default
+nav_id: start_page
 ---
 
 <div class="page-header">

@@ -1,10 +1,13 @@
-<div class="marginalia_right">
-  <ul class="unstyled well">
-    <li><a href="/">Start page</a></li>
-    <li><a href="/pages/example_application.html">Example application</a></li>
-    <li><a href="/pages/active_record_model_api.html">Model API</a></li>
-    <li><a href="/pages/action_controller_api.html">Controller API</a></li>
-    <li><a href="/pages/action_view_api.html">View API</a></li>
-    <li><a href="/pages/active_record_scope_patterns.html">Scope patterns</a></li>
+<div class="marginalia_right tabbable tabs-right">
+  <ul class="nav nav-tabs">
+    {% for nav_item in site.nav_items %}
+      {% assign css_class = nil %}
+      {% if page.nav_id == nav_item.nav_id %}
+        {% assign css_class = 'active' %}
+      {% endif %}
+      <li class="{{ css_class }}">
+        <a href="{{ nav_item.url }}">{{ nav_item.text }}</a>
+      </li>
+    {% endfor %}
   </ul>
 </div>

@@ -1,5 +1,6 @@
 ---
 layout: default
+nav_id: scope_patterns
 ---
 
 <div class="page-header">

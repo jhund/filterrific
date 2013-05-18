@@ -1,5 +1,6 @@
 ---
 layout: default
+nav_id: example_application
 ---
 
 <div class="page-header">

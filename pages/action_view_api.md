@@ -1,5 +1,6 @@
 ---
 layout: default
+nav_id: view_api
 ---
 
 <div class="page-header">
