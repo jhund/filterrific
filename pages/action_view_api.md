@@ -7,7 +7,7 @@ nav_id: view_api
   <h2>View API</h2>
 </div>
 
-{% include project_navigation.html %}
+{% include site_navigation.html %}
 
 Use the Filterrific ActionView API to:
 

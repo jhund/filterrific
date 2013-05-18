@@ -9,7 +9,7 @@ nav_id: start_page
 
 
 
-{% include project_navigation.html %}
+{% include site_navigation.html %}
 
 <p class="lead">
   Filterrific is a Rails Engine plugin that makes it easy to add filtering,

@@ -7,7 +7,7 @@ nav_id: controller_api
   <h2>Controller API</h2>
 </div>
 
-{% include project_navigation.html %}
+{% include site_navigation.html %}
 
 The Filterrific ActionController API has the following functions:
 

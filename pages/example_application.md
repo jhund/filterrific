@@ -9,7 +9,7 @@ nav_id: example_application
 
 
 
-{% include project_navigation.html %}
+{% include site_navigation.html %}
 
 All patterns and instructions in this documentation refer to the filterrific
 demo Rails application below. You can view a

@@ -7,7 +7,7 @@ nav_id: model_api
   <h2>Model API</h2>
 </div>
 
-{% include project_navigation.html %}
+{% include site_navigation.html %}
 
 Use the ActiveRecord model API to make your model filterrific:
 

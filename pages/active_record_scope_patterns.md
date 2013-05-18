@@ -8,7 +8,7 @@ nav_id: scope_patterns
 </div>
 
 
-{% include project_navigation.html %}
+{% include site_navigation.html %}
 
 Filterrific makes heavy use of ActiveRecord scopes. The controller forwards
 the filter settings to the model where each filter setting is shuttled as argument to the
