@@ -47,14 +47,14 @@ form and record lists.
 
 Let's say you want a list of students that can be filtered by your app's users.
 
-#### 1) Add the gem to your app
+1) Add the gem to your app
 
 ```ruby
 # Gemfile
 gem 'filterrific'
 ```
 
-#### 2) Add Filterrific to your `Student` model:
+2) Add Filterrific to your `Student` model:
 
 ```ruby
 filterrific(
@@ -65,7 +65,7 @@ filterrific(
 # :search_query, :sorted_by, and :with_country_id
 ```
 
-#### 3) Use Filterrific in `StudentsController#index`:
+3) Use Filterrific in `StudentsController#index`:
 
 ```ruby
 def index
@@ -79,7 +79,8 @@ def index
 end
 ```
 
-#### 4) And finally build your view in `app/views/students/index.html.erb`:
+4) And finally build your view files as explained in the 
+[View API](/pages/action_view_api.html):
 
 <p class="unconstrained">
   <img src="/images/screenshot_s.png" alt="Filterrific in action" class="img-polaroid" />

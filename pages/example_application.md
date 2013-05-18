@@ -13,9 +13,8 @@ nav_id: example_application
 
 All patterns and instructions in this documentation refer to the filterrific
 demo Rails application below. You can view a
-[live demo](http://filterrific-demo.herokuapp.com), and the source for the demo
-app on github:
-[github.com/jhund/filterrific_demo](https://github.com/jhund/filterrific_demo).
+[live demo](http://filterrific-demo.herokuapp.com), and the 
+[source for the demo app](https://github.com/jhund/filterrific_demo).
 
 I have included only the parts of the code required to demonstrate Filterrific.
 In a production app you would have to add a lot more code to handle permissions,
