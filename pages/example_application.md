@@ -68,5 +68,6 @@ class Country < ActiveRecord::Base
 end
 ```
 
-
-<a href="/pages/active_record_model_api.html" class='btn btn-success'>Learn about the Model API &rarr;</a>
+<p>
+  <a href="/pages/active_record_model_api.html" class='btn btn-success'>Learn about the Model API &rarr;</a>
+</p>

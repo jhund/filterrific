@@ -324,3 +324,10 @@ In certain cases, you can replace scopes with class methods. We recommend to
 use scopes. Please read this blog post to learn more:
 
 [http://blog.plataformatec.com.br/2013/02/active-record-scopes-vs-class-methods/](http://blog.plataformatec.com.br/2013/02/active-record-scopes-vs-class-methods/)
+
+<p>
+  <a href="http://clearcove.ca/open-source/" class='btn btn-success'>
+    Check out more ClearCove open source projects &rarr;
+  </a>
+</p>
+

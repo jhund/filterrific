@@ -197,4 +197,7 @@ def self.options_for_select
   order('LOWER(name)').map { |e| [e.name, e.id] }
 end
 ```
-<a href="/pages/active_record_scope_patterns.html" class='btn btn-success'>Learn about scope patterns &rarr;</a>
+
+<p>
+  <a href="/pages/active_record_scope_patterns.html" class='btn btn-success'>Learn about scope patterns &rarr;</a>
+</p>
