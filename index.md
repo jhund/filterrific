@@ -59,10 +59,15 @@ gem 'filterrific'
 ```ruby
 filterrific(
   :default_settings => { :sorted_by => 'created_at_desc' },
-  :filter_names => %w[search_query sorted_by with_country_id]
+  :filter_names => [
+    :search_query,
+    :sorted_by,
+    :with_country_id,
+    :with_created_at_gte
+  ]
 )
 # define ActiveRecord scopes for
-# :search_query, :sorted_by, and :with_country_id
+# :search_query, :sorted_by, :with_country_id, and :with_created_at_gte
 ```
 
 3) Use Filterrific in `StudentsController#index`:
