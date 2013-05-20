@@ -89,9 +89,7 @@ Add a collection route to your `students` resources:
 ```ruby
 # config/routes.rb
 resources :students do
-  collection do
-    get :reset_filterrific
-  end
+  get :reset_filterrific, :on => :collection
 end
 ```
 
