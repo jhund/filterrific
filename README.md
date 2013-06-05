@@ -28,7 +28,7 @@ or with bundler in your Gemfile:
 * [Issues](https://github.com/jhund/filterrific/issues)
 * [Rubygems.org](http://rubygems.org/gems/filterrific)
 
-
+[![Code Climate](https://codeclimate.com/github/jhund/filterrific.png)](https://codeclimate.com/github/jhund/filterrific)
 
 ### License
 
