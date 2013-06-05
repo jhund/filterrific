@@ -8,7 +8,6 @@ module Filterrific
     attr_accessor :resource_class
 
     def initialize(a_resource_class, filterrific_params = {})
-
       self.resource_class = a_resource_class
 
       # Use either passed in filterrific_params or resource class' default_settings.
@@ -18,33 +17,9 @@ module Filterrific
       # Persistence, baby. By the time you submit changes to one dimension, all the others
       # will be already initialized with the defaults.
       filterrific_params = resource_class.filterrific_default_settings  if filterrific_params.blank?
-
-      # force all keys to strings
       filterrific_params.stringify_keys!
-
-      # condition filterrific_params
-      filterrific_params.each do |key, val|
-        case
-        when val.is_a?(Proc)
-          # evaulate Procs
-          filterrific_params[key] = val.call
-        when val.is_a?(Array)
-          # type cast integers in the array
-          filterrific_params[key] = filterrific_params[key].map { |e| e =~ /^\d+$/ ? e.to_i : e }
-        when val =~ /^\d+$/
-          # type cast integer
-          filterrific_params[key] = filterrific_params[key].to_i
-        end
-      end
-
-      # Define attr_accessor for each filterrific_filter_name
-      # on Filterrific::ParamSet instance and assign values from options
-      resource_class.filterrific_filter_names.each do |filter_name|
-        self.class.send(:attr_accessor, filter_name)
-        v = filterrific_params[filter_name]
-        self.send("#{ filter_name }=", v)  if v.present?
-      end
-
+      filterrific_params = condition_filterrific_params(filterrific_params)
+      define_attr_accessors_for_each_filter(filterrific_params)
     end
 
     # Returns Filterrific::ParamSet as hash (used for URL params and serialization)
@@ -70,12 +45,45 @@ module Filterrific
     end
 
     # Returns true if this Filterrific::ParamSet is not the model's default.
-    # TODO: this doesn't work for procs. I need to evaluate the 
+    # TODO: this doesn't work for procs. I need to evaluate the
     # filterrific_default_settings before comparing them to to_hash.
     #
     # def customized?
     #   resource_class.filterrific_default_settings != to_hash
     # end
+
+  protected
+
+    # Conditions params
+    # @param[Hash] fp the filterrific params hash
+    # @return[Hash] the conditioned params hash
+    def condition_filterrific_params(fp)
+      fp.each do |key, val|
+        case
+        when val.is_a?(Proc)
+          # evaulate Procs
+          fp[key] = val.call
+        when val.is_a?(Array)
+          # type cast integers in the array
+          fp[key] = fp[key].map { |e| e =~ /^\d+$/ ? e.to_i : e }
+        when val =~ /^\d+$/
+          # type cast integer
+          fp[key] = fp[key].to_i
+        end
+      end
+      fp
+    end
+
+    # Defines attr accessors for each filter name on self and assigns
+    # values based on fp
+    # @param[Hash] fp filterrific_params
+    def define_attr_accessors_for_each_filter(fp)
+      resource_class.filterrific_filter_names.each do |filter_name|
+        self.class.send(:attr_accessor, filter_name)
+        v = fp[filter_name]
+        self.send("#{ filter_name }=", v)  if v.present?
+      end
+    end
 
   end
 
