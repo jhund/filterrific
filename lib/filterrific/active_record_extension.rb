@@ -25,21 +25,10 @@ module Filterrific::ActiveRecordExtension
 
       options.stringify_keys!
 
-      # Raise exception if not filter_names are given
-      self.filterrific_filter_names = (
-        options['filter_names'] || options['scope_names'] || []
-      ).map { |e| e.to_s }
-      raise(ArgumentError, ":filter_names can't be empty")  if filterrific_filter_names.blank?
-
-      self.filterrific_default_settings = (
-        options['default_settings'] || options['defaults'] || {}
-      ).stringify_keys
-      # Raise exception if defaults contain keys that are not present in filter_names
-      if (
-        invalid_defaults = (filterrific_default_settings.keys - filterrific_filter_names)
-      ).any?
-        raise(ArgumentError, "Invalid default keys: #{ invalid_defaults.inspect }")
-      end
+      assign_filterrific_filter_names(options)
+      validate_filterrific_filter_names
+      assign_filterrific_default_settings(options)
+      validate_filterrific_default_settings
     end
 
     # Returns ActiveRecord relation based on given filterrific_param_set.
@@ -64,6 +53,34 @@ module Filterrific::ActiveRecordExtension
       end
 
       ar_proxy
+    end
+
+  protected
+
+    def assign_filterrific_filter_names(options)
+      self.filterrific_filter_names = (
+        options['filter_names'] || options['scope_names'] || []
+      ).map { |e| e.to_s }
+    end
+
+    def validate_filterrific_filter_names
+      # Raise exception if not filter_names are given
+      raise(ArgumentError, ":filter_names can't be empty")  if filterrific_filter_names.blank?
+    end
+
+    def assign_filterrific_default_settings(options)
+      self.filterrific_default_settings = (
+        options['default_settings'] || options['defaults'] || {}
+      ).stringify_keys
+    end
+
+    def validate_filterrific_default_settings
+      # Raise exception if defaults contain keys that are not present in filter_names
+      if (
+        invalid_defaults = (filterrific_default_settings.keys - filterrific_filter_names)
+      ).any?
+        raise(ArgumentError, "Invalid default keys: #{ invalid_defaults.inspect }")
+      end
     end
 
   end
