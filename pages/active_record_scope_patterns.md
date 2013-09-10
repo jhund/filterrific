@@ -83,12 +83,12 @@ like `[1, 2, 3]`. The `[*country_ids]` expression always casts it to an
 array.
 
 If you want to filter by a column value in a joined table, you can do one of the
-below:
+following:
 
 ```ruby
-# filters on 'country_name' column in countries table
+# filters on 'name' column in 'countries' table
 
-# using AR magic
+# using AR magic or ...
 scope :with_country_name, lambda { |country_name|
   where(:country => { :name => country_name).joins(:country)
 }
