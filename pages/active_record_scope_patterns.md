@@ -82,8 +82,22 @@ The `country_id` scope accepts either a single value like `42`, or an array of v
 like `[1, 2, 3]`. The `[*country_ids]` expression always casts it to an
 array.
 
+If you want to filter by a column value in a joined table, you can do one of the
+below:
 
+```ruby
+# filters on 'country_name' column in countries table
 
+# using AR magic
+scope :with_country_name, lambda { |country_name|
+  where(:country => { :name => country_name).joins(:country)
+}
+
+# using SQL for more complex needs (e.g., greater than)
+scope :with_country_name, lambda { |country_name|
+  where('countries.name = ?', country_name).joins(:country)
+}
+```
 
 
 <a id="search"></a>
@@ -295,21 +309,25 @@ scope :without_role_ids, lambda{ |role_ids|
 <a id="filter_by_ranges"></a>
 ### Filter by ranges
 
-This scope filters by a student's signup date range. The only important thing
-to keep in mind when working with ranges is that you are consistent with your
-boundaries. We suggest to always use semi-open intervals for consistency.
+This scope filters by a student's signup date range. The only important concept
+to keep in mind when working with ranges is that you stay consistent with your
+boundaries. We suggest to always use semi-open intervals for consistency (i.e.
+you always include the lower boundary and exclude the upper boundary).
 
-Please note that SQL's `BETWEEN` operator is inclusive.
+Please note that SQL's `BETWEEN` operator is inclusive, i.e. it includes both
+boundaries.
 
 Scope naming convention: `with_%{column name}_gte` and `with_%{column name}_lt`.
+`gte` is an abbreviation for 'Greater than or equal' and `lt` is an abbreviation
+for 'Less than'.
 
 ```ruby
-# include the lower bound
+# always include the lower boundary for semi open intervals
 scope :created_at_gte, lambda { |reference_time|
   where('students.created_at >= ?', reference_time)
 }
 
-# exclude the upper bound
+# always exclude the upper boundary for semi open intervals
 scope :created_at_lt, lambda { |reference_time|
   where('students.created_at < ?', reference_time)
 }
