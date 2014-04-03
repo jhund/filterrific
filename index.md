@@ -76,7 +76,7 @@ Let's say you want a list of students that can be filtered by your app's users.
     def index
       @filterrific = Filterrific.new(Student, params[:filterrific])
       @students = Student.filterrific_find(@filterrific).page(params[:page])
-    
+
       respond_to do |format|
         format.html
         format.js
@@ -125,7 +125,7 @@ Let's say you want a list of students that can be filtered by your app's users.
     <h3>License</h3>
     <a href="https://github.com/jhund/filterrific/blob/master/MIT-LICENSE">MIT licensed</a>
     <h3>Copyright</h3>
-    Copyright (c) 2010 - 2013 Jo Hund.
+    Copyright (c) 2010 - 2014 Jo Hund.
   </div>
 
 </div>
