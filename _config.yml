@@ -62,3 +62,6 @@ nav_items:
 - url: /pages/active_record_scope_patterns.html
   text: Scope patterns
   nav_id: scope_patterns
+- url: https://github.com/jhund/filterrific
+  text: Scource
+  nav_id: source
