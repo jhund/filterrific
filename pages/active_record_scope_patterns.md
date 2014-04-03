@@ -237,7 +237,7 @@ Naming convention: `without_%{plural association name}`.
 scope :without_comments, lambda {
   where(
     %(NOT EXISTS (
-      SELECT 1 FROM students s, comments c, WHERE c.student_id = s.id
+      SELECT 1 FROM students s, comments c WHERE c.student_id = s.id
     ))
   )
 }
