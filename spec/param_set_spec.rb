@@ -106,4 +106,24 @@ describe Filterrific::ParamSet do
 
   end
 
+  describe "#select_options" do
+    it "exists" do
+      expect(filterrific_param_set.select_options).to eq({})
+    end
+
+    it "does not let you set itself" do
+      expect{filterrific_param_set.select_options = nil}.to raise_error
+    end
+
+    it "lets you set a value" do
+      expect{filterrific_param_set.select_options[:value] = 1}.not_to raise_error
+    end
+
+    it "returns the same value you set" do
+      value = rand(1..200)
+      filterrific_param_set.select_options[:value] = value
+      expect(filterrific_param_set.select_options[:value]).to eq(value)
+    end
+  end
+
 end
