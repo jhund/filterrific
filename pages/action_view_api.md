@@ -90,7 +90,7 @@ we have had great success with Harvest's
     Country
     <%= f.select(
       :with_country_id,
-      Country.options_for_select,
+      @filterrific.select_options[:with_country_id],
       { :include_blank => '- Any -' }
     ) %>
     <%# See below for the Country.options_for_select presenter method %>
@@ -101,7 +101,7 @@ we have had great success with Harvest's
   </div>
   <div>
     Sorted by
-    <%= f.select(:sorted_by, Student.options_for_sorted_by) %>
+    <%= f.select(:sorted_by, @filterrific.select_options[:sorted_by]) %>
     <%# See below for the Student.options_for_sorted_by presenter method %>
   </div>
   <div>
