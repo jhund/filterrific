@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
       params[:filterrific] || session[:filterrific_students]
     )
 
-    # Set up our select options to keep code out of the view
+    # Set up your select options to keep code out of the view
     @filterrific.select_options = {
       sorted_by: Student.options_for_sorted_by,
       with_country_id: Country.options_for_select
