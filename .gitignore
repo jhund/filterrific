@@ -1,7 +1,8 @@
 *.gem
-.bundle
 .DS_Store
-.rvmrc
+.bundle
+.ruby-gemset
+.ruby-version
 pkg/*
 tmp
 
