@@ -38,6 +38,12 @@ class StudentsController < ApplicationController
       params[:filterrific] || session[:filterrific_students]
     )
 
+    # Set up our select options to keep code out of the view
+    @filterrific.select_options = {
+      sorted_by: Student.options_for_sorted_by,
+      with_country_id: Country.options_for_select
+    }
+
     # Get an ActiveRecord relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
