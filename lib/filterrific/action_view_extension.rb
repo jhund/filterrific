@@ -10,7 +10,7 @@ module Filterrific::ActionViewExtension
       options[:html] ||= {}
       options[:html][:method] ||= :get
       options[:html][:id] ||= :filterrific_filter
-      options[:url] ||= url_for({controller: controller.controller_name, action: controller.action_name})
+      options[:url] ||= url_for(:controller => controller.controller_name, :action => controller.action_name)
     end
     super
   end
