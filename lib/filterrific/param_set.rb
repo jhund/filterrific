@@ -1,4 +1,5 @@
 require 'active_support/all'
+require 'digest/sha1'
 
 module Filterrific
 
@@ -44,6 +45,11 @@ module Filterrific
 
     def to_json
       to_hash.to_json
+    end
+
+    # Returns a signature that is unique to self's params
+    def signature
+      Digest::SHA1.hexdigest(to_hash.to_a.sort.to_s)
     end
 
     # Returns true if this Filterrific::ParamSet is not the model's default.
