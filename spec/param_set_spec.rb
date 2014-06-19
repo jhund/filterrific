@@ -111,8 +111,8 @@ describe Filterrific::ParamSet do
       expect(filterrific_param_set.select_options).to eq({})
     end
 
-    it "does not let you set itself" do
-      expect{filterrific_param_set.select_options = nil}.to raise_error
+    it "lets you assign a hash" do
+      expect{filterrific_param_set.select_options = {}}.not_to raise_error
     end
 
     it "lets you set a value" do

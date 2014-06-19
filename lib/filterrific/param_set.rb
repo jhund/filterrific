@@ -7,11 +7,11 @@ module Filterrific
   class ParamSet
 
     attr_accessor :resource_class
-    attr_reader   :select_options
+    attr_accessor :select_options
 
     def initialize(a_resource_class, filterrific_params = {})
       self.resource_class = a_resource_class
-      @select_options     = {}
+      @select_options = {}
 
       # Use either passed in filterrific_params or resource class' default_settings.
       # Don't merge the hashes. This causes trouble if an option is set to nil
