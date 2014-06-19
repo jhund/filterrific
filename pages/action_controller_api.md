@@ -38,7 +38,10 @@ class StudentsController < ApplicationController
       params[:filterrific] || session[:filterrific_students]
     )
 
-    # Set up your select options to keep code out of the view
+    # Use `#select_options` as container to provide options to the select inputs
+    # in the filterrific form.
+    # In this example, the `#options_for_...` methods return arrays that can
+    # be passed as options to `f.select`
     @filterrific.select_options = {
       sorted_by: Student.options_for_sorted_by,
       with_country_id: Country.options_for_select
