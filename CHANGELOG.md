@@ -1,3 +1,9 @@
+### 1.3.1
+
+* Changed ParamSet#select_options so that a complete hash can be assigned
+
+
+
 ## 1.3.0
 
 * Added ParamSet#select_options (thanks @pnomolos).
@@ -15,9 +21,9 @@
 
 ## 1.2.0
 
-* Added simple wrapper for Filterrific::ParamSet.new so that it can be 
+* Added simple wrapper for Filterrific::ParamSet.new so that it can be
   instantiated with Filterrific.new instead of Filterrific::ParamSet.new.
-* Overrode ActionView's form_for to add filterrific magic when applied to a 
+* Overrode ActionView's form_for to add filterrific magic when applied to a
   Filterrific object.
 * Fixed bug with javascript periodic observer, changed css selector class to
   avoid conflicts.

@@ -25,3 +25,10 @@ Steps for an update
 
 
 http://prioritized.net/blog/gemify-assets-for-rails/
+
+
+
+How to run specs
+----------------
+
+`bundle exec rake`
