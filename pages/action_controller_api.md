@@ -62,6 +62,13 @@ class StudentsController < ApplicationController
       format.html
       format.js
     end
+
+  # Recover from invalid param sets, e.g., when a filter refers to the
+  # database id of a record that doesn’t exist any more.
+  # In this case we reset filterrific and discard all filter params.
+  rescue ActiveRecord::RecordNotFound
+    # There is an issue with the persisted param_set. Reset it.
+    redirect_to(action: :reset_filterrific) and return
   end
 
   ...

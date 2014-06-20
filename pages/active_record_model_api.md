@@ -13,7 +13,7 @@ Use the ActiveRecord model API to make your model filterrific:
 
 * Apply Filterrific to the model.
 * Specify which scopes are available to Filterrific. This is a safety mechanism
-  to prevent unauthorized access to your database. It is like `attr_accessible`,
+  to prevent unauthorized access to your database. It is like `strong_params`,
   just for filter settings.
 * Define default filter settings.
 

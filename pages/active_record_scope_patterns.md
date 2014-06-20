@@ -11,7 +11,7 @@ nav_id: scope_patterns
 {% include site_navigation.html %}
 
 Filterrific makes heavy use of ActiveRecord scopes. The controller forwards
-the filter settings to the model where each filter setting is shuttled as argument to the
+the filter settings to the model where each filter setting is passed as argument to the
 corresponding scope. This page provides resources to help you write awesome
 scopes for powerful filtering. You have to add these scopes to your Filterrific
 model.
@@ -88,12 +88,12 @@ following:
 ```ruby
 # filters on 'name' column in 'countries' table
 
-# using AR magic or ...
+# using AR hash syntax ...
 scope :with_country_name, lambda { |country_name|
-  where(country: { name: country_name).joins(:country)
+  where(country: { name: country_name }).joins(:country)
 }
 
-# using SQL for more complex needs (e.g., greater than)
+# or sanitized SQL snippets for more complex needs (e.g., greater than)
 scope :with_country_name, lambda { |country_name|
   where('countries.name = ?', country_name).joins(:country)
 }
