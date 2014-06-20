@@ -40,8 +40,8 @@ class Student < ActiveRecord::Base
   # We define a default sorting by most recent sign up, and then
   # we make a number of filters available through Filterrific.
   filterrific(
-    :default_settings => { :sorted_by => 'created_at_desc' },
-    :filter_names => [
+    default_settings: { sorted_by: 'created_at_desc' },
+    filter_names: [
       :sorted_by,
       :search_query,
       :with_country_id,

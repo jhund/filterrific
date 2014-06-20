@@ -83,7 +83,7 @@ we have had great success with Harvest's
     <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
     <%= f.text_field(
       :search_query,
-      :class => 'filterrific-periodically-observed'
+      class: 'filterrific-periodically-observed'
     ) %>
   </div>
   <div>
@@ -91,13 +91,13 @@ we have had great success with Harvest's
     <%= f.select(
       :with_country_id,
       @filterrific.select_options[:with_country_id],
-      { :include_blank => '- Any -' }
+      { include_blank: '- Any -' }
     ) %>
     <%# See below for the Country.options_for_select presenter method %>
   </div>
   <div>
     Registered after
-    <%= f.text_field(:with_created_at_gte, :class => 'js-datepicker') %>
+    <%= f.text_field(:with_created_at_gte, class: 'js-datepicker') %>
   </div>
   <div>
     Sorted by
@@ -115,8 +115,8 @@ we have had great success with Harvest's
 <% end %>
 
 <%= render(
-  :partial => 'students/list',
-  :locals => { :students => @students }
+  partial: 'students/list',
+  locals: { students: @students }
 ) %>
 ```
 
@@ -162,7 +162,7 @@ were changed.
 ```erb
 <%# app/views/students/index.js.erb %>
 <% js = escape_javascript(
-  render(:partial => 'students/list', :locals => { :students => @students })
+  render(partial: 'students/list', locals: { students: @students })
 ) %>
 $("#filterrific_results").html("<%= js %>");
 ```

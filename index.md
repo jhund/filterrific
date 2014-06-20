@@ -58,8 +58,8 @@ Let's say you want a list of students that can be filtered by your app's users.
 
     ```ruby
     filterrific(
-      :default_settings => { :sorted_by => 'created_at_desc' },
-      :filter_names => [
+      default_settings: { sorted_by: 'created_at_desc' },
+      filter_names: [
         :search_query,
         :sorted_by,
         :with_country_id,

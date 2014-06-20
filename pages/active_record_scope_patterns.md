@@ -46,7 +46,7 @@ Rails has good documentation on
 
 TL;DR:
 
-* OK: `where(:country_id => param)`
+* OK: `where(country_id: param)`
 * OK: `where('students.country_id = ?', param)`
 * NOT OK: `where("students.country_id = '#{ param }'")`
 
@@ -69,12 +69,12 @@ Scope naming convention: `with_%{column name}`.
 ```ruby
 # filters on 'country_id' foreign key
 scope :with_country_id, lambda { |country_ids|
-  where(:country_id => [*country_ids])
+  where(country_id: [*country_ids])
 }
 
 # filters on 'gender' attribute
 scope :with_gender, lambda { |genders|
-  where(:gender => [*genders])
+  where(gender: [*genders])
 }
 ```
 
@@ -90,7 +90,7 @@ following:
 
 # using AR magic or ...
 scope :with_country_name, lambda { |country_name|
-  where(:country => { :name => country_name).joins(:country)
+  where(country: { name: country_name).joins(:country)
 }
 
 # using SQL for more complex needs (e.g., greater than)
@@ -199,7 +199,7 @@ Naming convention: `with_%{plural association name}`.
 ```ruby
 scope :with_comments, lambda {
   where(
-    'EXISTS (SELECT 1 from students s, comments c WHERE s.id = c.student_id)'
+    'EXISTS (SELECT 1 from students, comments WHERE students.id = comments.student_id)'
   )
 }
 ```
@@ -209,16 +209,16 @@ posted a comment since a given reference_time:
 
 ```ruby
 scope :with_comments_since, lambda { |reference_time|
-  where(
+  where([
     %(
       EXISTS (
         SELECT 1
-          FROM students s, comments c
-         WHERE s.id = c.student_id
-           AND c.created_at >= ?)
+          FROM students, comments
+         WHERE students.id = comments.student_id
+           AND comments.created_at >= ?)
     ),
     reference_time
-  )
+  ])
 }
 ```
 
@@ -237,7 +237,7 @@ Naming convention: `without_%{plural association name}`.
 scope :without_comments, lambda {
   where(
     %(NOT EXISTS (
-      SELECT 1 FROM students s, comments c WHERE c.student_id = s.id
+      SELECT 1 FROM students, comments WHERE comments.student_id = students.id
     ))
   )
 }

@@ -87,7 +87,7 @@ class StudentsController < ApplicationController
     # Clear session persistence
     session[:filterrific_students] = nil
     # Redirect back to the index action for default filter settings.
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
 end
@@ -98,7 +98,7 @@ Add a collection route to your `students` resources:
 ```ruby
 # config/routes.rb
 resources :students do
-  get :reset_filterrific, :on => :collection
+  get :reset_filterrific, on: :collection
 end
 ```
 
