@@ -40,4 +40,4 @@ or with bundler in your Gemfile:
 
 ### Copyright
 
-Copyright (c) 2010 - 2013 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2014 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
