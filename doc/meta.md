@@ -32,3 +32,14 @@ How to run specs
 ----------------
 
 `bundle exec rake`
+
+
+Travis CI
+---------
+
+filterrific uses Travis CI for testing. Currently we test the following ruby
+versions:
+
+* 1.9.3
+* 2.0.0
+* 2.1.1
