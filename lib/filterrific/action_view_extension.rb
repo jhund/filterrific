@@ -49,19 +49,19 @@ module Filterrific::ActionViewExtension
   #       Default: {} (current URL).
   def filterrific_sorting_link(filterrific, sort_key, options = {})
     options = {
-      active_column_class: 'filterrific_current_sort_column',
-      ascending_indicator: '⬆',
-      default_sort_direction: 'asc',
-      descending_indicator: '⬇',
-      html_attrs: {},
-      label: sort_key.to_s.humanize,
-      sorting_scope_name: :sorted_by,
-      url_for_attrs: {},
+      :active_column_class => 'filterrific_current_sort_column',
+      :ascending_indicator => '⬆',
+      :default_sort_direction => 'asc',
+      :descending_indicator => '⬇',
+      :html_attrs => {},
+      :label => sort_key.to_s.humanize,
+      :sorting_scope_name => :sorted_by,
+      :url_for_attrs => {},
     }.merge(options)
     options[:html_attrs] = options[:html_attrs].with_indifferent_access
     current_sorting = filterrific.send(options[:sorting_scope_name])
     current_sort_key = current_sorting ? current_sorting.gsub(/_asc|_desc/, '') : nil
-    current_sort_direction = current_sorting ? current_sorting =~ /_desc\z/ ? 'desc' : 'asc' : nil
+    current_sort_direction = current_sorting ? (current_sorting =~ /_desc\z/ ? 'desc' : 'asc') : nil
     new_sort_key = sort_key.to_s
     if new_sort_key == current_sort_key
       # current sort column, toggle search_direction
@@ -78,11 +78,11 @@ module Filterrific::ActionViewExtension
       new_filterrific_params = filterrific.to_hash
                                           .with_indifferent_access
                                           .merge(options[:sorting_scope_name] => new_sorting)
-      url_for_attrs = options[:url_for_attrs].merge(filterrific: new_filterrific_params)
+      url_for_attrs = options[:url_for_attrs].merge(:filterrific => new_filterrific_params)
       link_to(
         [options[:label], current_sort_direction_indicator].join(' '),
         url_for(url_for_attrs),
-        options[:html_attrs].merge(class: css_classes, method: :get, remote: true)
+        options[:html_attrs].merge(:class => css_classes, :method => :get, :remote => true)
       )
     else
       # new sort column, change sort column
@@ -91,11 +91,11 @@ module Filterrific::ActionViewExtension
       new_filterrific_params = filterrific.to_hash
                                           .with_indifferent_access
                                           .merge(options[:sorting_scope_name] => new_sorting)
-      url_for_attrs = options[:url_for_attrs].merge(filterrific: new_filterrific_params)
+      url_for_attrs = options[:url_for_attrs].merge(:filterrific => new_filterrific_params)
       link_to(
         options[:label],
         url_for(url_for_attrs),
-        options[:html_attrs].merge(method: :get, remote: true)
+        options[:html_attrs].merge(:method => :get, :remote => true)
       )
     end
   end
