@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #
 # Adds view helpers to ActionView
 #
