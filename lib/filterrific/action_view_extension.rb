@@ -84,7 +84,7 @@ module Filterrific::ActionViewExtension
       link_to(
         [options[:label], current_sort_direction_indicator].join(' '),
         url_for(url_for_attrs),
-        options[:html_attrs].merge(:class => css_classes, :method => :get, :remote => true)
+        options[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
       )
     else
       # new sort column, change sort column
@@ -97,7 +97,7 @@ module Filterrific::ActionViewExtension
       link_to(
         options[:label],
         url_for(url_for_attrs),
-        options[:html_attrs].merge(:method => :get, :remote => true)
+        options[:html_attrs].reverse_merge(:method => :get, :remote => true)
       )
     end
   end
