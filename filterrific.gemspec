@@ -20,12 +20,13 @@ Gem::Specification.new do |gem|
     'MIT-LICENSE',
     'Rakefile',
     'README*',
-    '{doc,lib,spec,vendor}/**/*'
+    '{app,bin,doc,lib,spec}/**/*'
   ]
 
-  gem.add_dependency 'rails', '>= 3.0.0'
+  gem.add_dependency 'rails', ['>= 3.1.0']
 
-  gem.add_development_dependency 'sqlite3', ['>= 0']
-  gem.add_development_dependency 'bundler', ['>= 1.0.0']
-  gem.add_development_dependency 'rake', ['>= 0']
+  gem.add_development_dependency 'bundler', ['>= 1.6.1']
+  gem.add_development_dependency 'gem-release'
+  gem.add_development_dependency 'rake', ['>= 10.3.2']
+  gem.add_development_dependency 'wwtd', ['~> 0.5.5'] # to simulate travis locally
 end
