@@ -1,3 +1,14 @@
+### 1.4.0
+
+* Better support for new versions of Rails (integration tests are done in filterrific_demo)
+* Fixed asset pipeline for filterrific-spinner.gif.
+* Isolate_namespace
+* Update Gem dependencies
+* Switch from Rspec to Minitest
+* Require Rails 3.1 or greater
+
+
+
 ### 1.3.1
 
 * Changed ParamSet#select_options so that a complete hash can be assigned
