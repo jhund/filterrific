@@ -28,5 +28,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'sqlite3', ['>= 0']
   gem.add_development_dependency 'bundler', ['>= 1.0.0']
   gem.add_development_dependency 'rake', ['>= 0']
-  gem.add_development_dependency 'rspec-rails', ['>= 0']
 end

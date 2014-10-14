@@ -1,6 +1,7 @@
-require 'rubygems'
+ENV["RAILS_ENV"] = "test"
 require 'bundler/setup'
+require 'minitest/autorun'
+require 'rails'
+require 'filterrific'
 
-RSpec.configure do |config|
-  # Nothing to do
-end
+#MiniTest::Unit.autorun
