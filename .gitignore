@@ -1,10 +1,10 @@
 *.gem
-.DS_Store
 .bundle
+.DS_Store
 .ruby-gemset
 .ruby-version
-pkg/*
-tmp
-
+doc/scratchpad.md
 Gemfile.lock
-gemfiles/*.lock
+log/*.log
+pkg/
+tmp
