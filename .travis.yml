@@ -1,6 +1,6 @@
 language: ruby
 
-script: "bundle exec rake wwtd"
+script: "bundle exec rake test"
 
 rvm:
   - 1.9.3
