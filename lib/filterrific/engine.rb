@@ -1,10 +1,10 @@
-require 'rails'
-
 module Filterrific
   class Engine < ::Rails::Engine
 
     # It's an engine so that we can add javascript and image assets
     # to the asset pipeline.
+
+    isolate_namespace Filterrific
 
     require 'filterrific/param_set'
 
