@@ -22,5 +22,9 @@ module Filterrific
       end
     end
 
+    initializer "filterrific.assets.precompile" do |app|
+      app.config.assets.precompile += %w(filterrific-spinner.gif)
+    end
+
   end
 end

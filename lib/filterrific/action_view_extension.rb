@@ -21,7 +21,7 @@ module Filterrific::ActionViewExtension
   def render_filterrific_spinner
     %(
       <span class="filterrific_spinner" style="display:none;">
-        #{ image_tag('filterrific-spinner.gif') }
+        #{ image_tag('filterrific/filterrific-spinner.gif') }
       </span>
     ).html_safe
   end
