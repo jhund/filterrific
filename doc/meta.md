@@ -1,12 +1,12 @@
-Workflow to Maintain This Gem
-=============================
+# Workflow to Maintain This Gem
 
 I use the gem-release gem
 
 For more info see: https://github.com/svenfuchs/gem-release#usage
 
-Steps for an update
--------------------
+
+
+## Steps for an update
 
 1. Update code and commit it.
 2. Add entry to CHANGELOG and commit it:
@@ -24,22 +24,24 @@ Steps for an update
    `gem tag`
 
 
-http://prioritized.net/blog/gemify-assets-for-rails/
 
-
-
-How to run specs
-----------------
+## How to run specs
 
 `bundle exec rake`
 
 
-Travis CI
----------
 
-filterrific uses Travis CI for testing. Currently we test the following ruby
-versions:
+## Travis CI
 
-* 1.9.3
-* 2.0.0
-* 2.1.1
+Filterrific uses Travis CI for testing. We test filterrific code directly here
+in the gem. We test Rails integration in the filterrific_demo app. There we have
+a branch for each minor version of Rails that is tested and supported.
+
+Sequence of a release:
+
+* finish updates in filterrific
+* run specs in each filterrific_demo branch (via `rake`)
+* when all specs pass, release filterrific (see above for steps)
+* after new filterrific is released, add new release version to each branch in
+  filterrific_demo and push each branch to trigger a Travis CI build for the
+  new filterrific release.
