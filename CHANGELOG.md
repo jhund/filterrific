@@ -1,3 +1,9 @@
+### 1.4.1
+
+* Updated initialization of ActiveRecord and ActionView extensions
+
+
+
 ### 1.4.0
 
 * Better support for new versions of Rails (integration tests are done in filterrific_demo)
@@ -43,7 +49,6 @@
 
 
 
-
 ## 1.1.0
 
 * Major refactor.
@@ -52,10 +57,10 @@
 * Added gh-pages branch for documentation.
 
 
+
 ### 1.0.1
 
 * Bug fix: Replaced stringify_keys with map.to_s (filter_names is an Array, not a Hash!).
-
 
 
 
@@ -69,6 +74,7 @@
 ## 0.1.0, released 2010-08-01
 
 * Replicate functionality of Rails 2.3 version.
+
 
 
 ### 0.0.1, released 2010-07-30
