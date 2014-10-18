@@ -1,3 +1,9 @@
+### 1.4.2
+
+* Updated initialization of ActiveRecord and ActionView extensions again
+
+
+
 ### 1.4.1
 
 * Updated initialization of ActiveRecord and ActionView extensions
