@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'active_record'
 require 'filterrific/active_record_extension'
 
-ActiveRecord::Base.extend Filterrific::ActiveRecordExtension::ClassMethods
+ActiveRecord::Base.extend Filterrific::ActiveRecordExtension
 
 module Filterrific
 
