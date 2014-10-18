@@ -173,7 +173,7 @@ If you use jQuery and the asset pipeline, then just add this line to your
 application.js file to get the form observers and the spinner:
 
 ```javascript
-//= require filterrific-jquery
+//= require filterrific/filterrific-jquery
 ```
 
 ### Select options presenter methods
