@@ -3,9 +3,8 @@
 #
 require 'filterrific/param_set'
 
-module Filterrific::ActiveRecordExtension
-
-  module ClassMethods
+module Filterrific
+  module ActiveRecordExtension
 
     # Adds filterrific behavior to class when called like so:
     #
@@ -84,5 +83,4 @@ module Filterrific::ActiveRecordExtension
     end
 
   end
-
 end
