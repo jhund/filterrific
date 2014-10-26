@@ -43,6 +43,7 @@ I'm happy to help you if you encounter problems when using filterrific. You'll m
     * what version of Ruby are you using? (run `ruby -v` in your app root)
 * If you get an exception, include the entire stack trace, including the error message.
 * Include any relevant code snippets (your model, controller, and view code).
+* When pasting code, please use [markdown code  formatting](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks). It will be much easier to read.
 
 
 ### Resources
