@@ -53,6 +53,7 @@ module Filterrific
     def filterrific_sorting_link(filterrific, sort_key, options = {})
       options = {
         :active_column_class => 'filterrific_current_sort_column',
+        :inactive_column_class => 'filterrific_sort_column',
         :ascending_indicator => '⬆',
         :default_sort_direction => 'asc',
         :descending_indicator => '⬇',
@@ -91,6 +92,10 @@ module Filterrific
         # new sort column, change sort column
         new_sort_direction = options[:default_sort_direction]
         new_sorting = [new_sort_key, new_sort_direction].join('_')
+        css_classes = [
+          options[:inactive_column_class],
+          options[:html_attrs].delete(:class)
+        ].compact.join(' ')
         new_filterrific_params = filterrific.to_hash
                                             .with_indifferent_access
                                             .merge(options[:sorting_scope_name] => new_sorting)
@@ -98,7 +103,7 @@ module Filterrific
         link_to(
           options[:label],
           url_for(url_for_attrs),
-          options[:html_attrs].reverse_merge(:method => :get, :remote => true)
+          options[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
         )
       end
     end
