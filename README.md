@@ -2,7 +2,7 @@ Filterrific
 ===========
 
 Filterrific is a Rails Engine plugin that makes it easy to filter,
-search, and sort to your ActiveRecord lists:
+search, and sort your ActiveRecord lists:
 
 ***
 
