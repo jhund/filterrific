@@ -12,8 +12,8 @@ nav_id: start_page
 {% include site_navigation.html %}
 
 <p class="lead">
-  Filterrific is a Rails Engine plugin that makes it easy to add filtering,
-  searching, and sorting to your ActiveRecord lists.
+  Filterrific is a Rails Engine plugin that makes it easy to filter,
+  search, and sort your ActiveRecord lists.
 </p>
 
 <a href="http://filterrific-demo.herokuapp.com/students" class="btn btn-success btn-large">
