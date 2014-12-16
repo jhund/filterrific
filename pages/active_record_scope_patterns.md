@@ -353,7 +353,7 @@ You will use a scope called `with_distance`. You declare it as usual in the
 Here is the view code, using `fields_for`:
 
 ```erb
-<%# app/views/students/index.html.erb %>
+<%# app/views/students/index.html.erb
   Add a `fields_for` helper to your filterrific form:
 %>
 <%= form_for @filterrific do |f| %>
