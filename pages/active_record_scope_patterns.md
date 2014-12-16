@@ -31,6 +31,7 @@ get the context for the patterns below.
 * [Filter by existence of many-to-many association](#filter_by_existence_many_to_many)
 * [Filter by non-existence of many-to-many association](#filter_by_non_existence_many_to_many)
 * [Filter by ranges](#filter_by_ranges)
+* [Multiple form inputs for single scope](#multiple_form_inputs_for_single_scope)
 * [Scopes vs. Class methods](#scopes_vs_class_methods)
 
 
@@ -330,6 +331,53 @@ scope :created_at_gte, lambda { |reference_time|
 # always exclude the upper boundary for semi open intervals
 scope :created_at_lt, lambda { |reference_time|
   where('students.created_at < ?', reference_time)
+}
+```
+
+
+
+<a id="multiple_form_inputs_for_single_scope"></a>
+### Multiple form inputs for single scope
+
+Sometimes you need multiple form inputs for a single scope. An example would be
+a scope that finds locations within a certain distance from a city. You'd need
+two inputs: one for the maximum distance, and one to choose a city.
+
+You can accomplish this using Rails' `fields_for` form helper. It allows you
+to combine more than one form input's value into a single param. So here is what
+you do:
+
+You will use a scope called `with_distance`. You declare it as usual in the
+`filterrific` directive at the top of your model.
+
+Here is the view code, using `fields_for`:
+
+```erb
+<%# app/views/students/index.html.erb %>
+  Add a `fields_for` helper to your filterrific form:
+%>
+<%= form_for @filterrific do |f| %>
+  ...
+  <div>
+    Distance
+    <%= f.fields_for :with_distance do |with_distance_fields| %>
+      <%= with_distance_fields.text_field :max_distance %>
+      <%= with_distance_fields.text_field :city %>
+    <% end %>
+  </div>
+  ...
+```
+
+Then you specify the scope like so:
+
+```ruby
+scope :with_distance, lambda { |distance_attrs|
+  # `distance_attrs` is a hash with two keys:
+  # {
+  #   :max_distance => '10',
+  #   :city => 'Vancouver',
+  # }
+  where(...)
 }
 ```
 
