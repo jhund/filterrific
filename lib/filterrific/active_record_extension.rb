@@ -41,17 +41,27 @@ module Filterrific
         raise(ArgumentError, "Invalid Filterrific::ParamSet: #{ filterrific_param_set.inspect }")
       end
 
-      # set initial ar_proxy to including class
-      ar_proxy = self
+      # initialize active record relation
+      # AR 3/4 detection is taken from WillPaginate::ActiveRecord::Pagination.page
+      ar_rel = if ::ActiveRecord::Relation === self
+        # self is already an ActiveRecord::Relation, use as is
+        self
+      elsif 3 >= Rails::VERSION::MAJOR
+        # Active Record 3: send `:scoped` to class to get an ActiveRecord::Relation
+        scoped
+      else
+        # Active Record 4 and later: Send `:all` to class to get an ActiveRecord::Relation
+        all
+      end
 
       # apply filterrific params
       self.filterrific_filter_names.each do |filter_name|
         filter_param = filterrific_param_set.send(filter_name)
         next if filter_param.blank? # skip blank filter_params
-        ar_proxy = ar_proxy.send(filter_name, filter_param)
+        ar_rel = ar_rel.send(filter_name, filter_param)
       end
 
-      ar_proxy
+      ar_rel
     end
 
   protected
