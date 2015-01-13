@@ -42,7 +42,6 @@ module Filterrific
       end
 
       # initialize active record relation
-      # AR 3/4 detection is taken from WillPaginate::ActiveRecord::Pagination.page
       ar_rel = if ::ActiveRecord::Relation === self
         # self is already an ActiveRecord::Relation, use as is
         self
