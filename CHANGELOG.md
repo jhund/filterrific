@@ -1,3 +1,7 @@
+### 1.4.3
+
+* Handle case where Filterrific filter params are empty.
+
 ### 1.4.2
 
 * Updated initialization of ActiveRecord and ActionView extensions again
