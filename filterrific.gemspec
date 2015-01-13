@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.homepage = 'http://filterrific.clearcove.ca'
   gem.licenses = ['MIT']
   gem.summary = 'A Rails engine plugin for filtering ActiveRecord lists.'
-  gem.description = %(Filterrific is a Rails Engine plugin that makes it easy to add filtering, searching, and sorting to your ActiveRecord lists.)
+  gem.description = %(Filterrific is a Rails Engine plugin that makes it easy to filter, search, and sort your ActiveRecord lists.)
 
   gem.files = Dir[
     'CHANGELOG*',

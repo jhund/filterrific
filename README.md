@@ -1,13 +1,17 @@
 Filterrific
 ===========
 
-Filterrific is a Rails Engine plugin that makes it easy to add filtering,
-searching, and sorting to your ActiveRecord lists.
+Filterrific is a Rails Engine plugin that makes it easy to filter,
+search, and sort your ActiveRecord lists:
+
+***
+
+![A filterrific enhanced list](https://github.com/jhund/filterrific/blob/gh-pages/images/screenshot_s.png)
+
+***
 
 Make sure to go to the fantastic [Filterrific documentation](http://filterrific.clearcove.ca)
 to find out more!
-
-
 
 ### Installation
 
@@ -43,6 +47,7 @@ I'm happy to help you if you encounter problems when using filterrific. You'll m
     * what version of Ruby are you using? (run `ruby -v` in your app root)
 * If you get an exception, include the entire stack trace, including the error message.
 * Include any relevant code snippets (your model, controller, and view code).
+* When pasting code, please use [markdown code  formatting](https://help.github.com/articles/github-flavored-markdown/#fenced-code-blocks). It will be much easier to read.
 
 
 ### Resources
@@ -66,4 +71,4 @@ I'm happy to help you if you encounter problems when using filterrific. You'll m
 
 ### Copyright
 
-Copyright (c) 2010 - 2014 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2015 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
