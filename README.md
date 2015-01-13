@@ -71,4 +71,4 @@ I'm happy to help you if you encounter problems when using filterrific. You'll m
 
 ### Copyright
 
-Copyright (c) 2010 - 2014 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2015 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
