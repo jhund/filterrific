@@ -70,14 +70,14 @@ we have had great success with Harvest's
 <h1>Students</h1>
 
 <%#
-  Filterrific adds the `form_for_filterrific` view helper:
+  Filterrific adds some magic when you use form_for with @filterrific:
   * adds dom id 'filterrific_filter'
   * applies javascript behaviors:
       * AJAX form submission on change
       * AJAX spinner while AJAX request is being processed
   * sets form_for options like :url, :method and input name prefix
 %>
-<%= form_for_filterrific @filterrific do |f| %>
+<%= form_for @filterrific do |f| %>
   <div>
     Search
     <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
@@ -107,7 +107,7 @@ we have had great success with Harvest's
   <div>
     <%= link_to(
       'Reset filters',
-      reset_filterrific_url,
+      reset_filterrific_students_path,
     ) %>
   </div>
   <%# add an automated spinner to your form when the list is refreshed %>
