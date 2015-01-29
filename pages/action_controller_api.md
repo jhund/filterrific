@@ -59,9 +59,9 @@ class StudentsController < ApplicationController
         sorted_by: Student.options_for_sorted_by,
         with_country_id: Country.options_for_select
       },
-      persistence_id: 'asdf', # defaults to "controller#action" string, used for session key and saved searches
-      default_filter_params: {}, # to override model defaults
-      available_filters: [], # to further restrict which filters are available here
+      persistence_id: 'shared_key',
+      default_filter_params: {},
+      available_filters: [],
     ) or return
     # Get an ActiveRecord::Relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
