@@ -74,7 +74,10 @@ Let's say you want a list of students that can be filtered by your app's users.
 
     ```ruby
     def index
-      @filterrific = initialize_filterrific(Student, params[:filterrific])
+      @filterrific = initialize_filterrific(
+        Student,
+        params[:filterrific]
+      ) or return
       @students = @filterrific.find.page(params[:page])
 
       respond_to do |format|

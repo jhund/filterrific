@@ -49,6 +49,9 @@ class StudentsController < ApplicationController
     #       in this filterrific instance.
     # This method also persists the params in the session and handles resetting
     # the filterrific params.
+    # In order for reset_filterrific to work, it's important that you add the
+    # `or return` bit after the call to `initialize_filterrific`. Otherwise the
+    # redirect will not work.
     @filterrific = initialize_filterrific(
       Student,
       params[:filterrific],
@@ -59,7 +62,7 @@ class StudentsController < ApplicationController
       persistence_id: 'asdf', # defaults to "controller#action" string, used for session key and saved searches
       default_filter_params: {}, # to override model defaults
       available_filters: [], # to further restrict which filters are available here
-    )
+    ) or return
     # Get an ActiveRecord::Relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
