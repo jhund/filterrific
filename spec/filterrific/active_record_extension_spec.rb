@@ -9,11 +9,11 @@ module Filterrific
   # Container for test data
   class TestData
 
-    def self.filterrific_filter_names
-      %w[sorted_by search_query with_country_id]
+    def self.filterrific_available_filters
+      %w[search_query sorted_by with_country_id]
     end
 
-    def self.filterrific_default_settings
+    def self.filterrific_default_filter_params
       { 'sorted_by' => 'name_asc' }
     end
 
@@ -24,8 +24,8 @@ module Filterrific
     let(:filterrific_class){
       Class.new(ActiveRecord::Base) do
         filterrific(
-          :filter_names => TestData.filterrific_filter_names,
-          :default_settings => TestData.filterrific_default_settings
+          available_filters: TestData.filterrific_available_filters,
+          default_filter_params: TestData.filterrific_default_filter_params
         )
       end
     }
@@ -44,19 +44,19 @@ module Filterrific
 
     describe "Filterrific initialization" do
 
-      it "initializes filterrific_filter_names" do
-        filterrific_class.filterrific_filter_names.must_equal(TestData.filterrific_filter_names)
+      it "initializes filterrific_available_filters" do
+        filterrific_class.filterrific_available_filters.must_equal(TestData.filterrific_available_filters)
       end
 
-      it "initializes filterrific_default_settings" do
-        filterrific_class.filterrific_default_settings.must_equal(TestData.filterrific_default_settings)
+      it "initializes filterrific_default_filter_params" do
+        filterrific_class.filterrific_default_filter_params.must_equal(TestData.filterrific_default_filter_params)
       end
 
       it "raises when no filter_names are given" do
         proc {
           Class.new(ActiveRecord::Base) do
             filterrific(
-              :filter_names => []
+              available_filters: []
             )
           end
         }.must_raise(ArgumentError)
@@ -66,8 +66,8 @@ module Filterrific
         proc {
           Class.new(ActiveRecord::Base) do
             filterrific(
-              :filter_names => [:one, :two],
-              :default_settings => { :three => '' }
+              available_filters: [:one, :two],
+              default_filter_params:{ three: '' }
             )
           end
         }.must_raise(ArgumentError)

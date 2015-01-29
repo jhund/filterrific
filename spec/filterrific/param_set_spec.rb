@@ -6,17 +6,17 @@ module Filterrific
   # Container for test data
   class TestData
 
-    def self.filterrific_filter_names
+    def self.filterrific_available_filters
       %w[
-        filter_proc
         filter_array_int
         filter_array_string
         filter_int
+        filter_proc
         filter_string
       ]
     end
 
-    def self.filterrific_default_settings
+    def self.filterrific_default_filter_params
       { 'filter_int' => 42 }
     end
 
@@ -32,10 +32,10 @@ module Filterrific
 
     def self.filterrific_params_after_sanitizing
       {
-        'filter_proc' => 2,
         'filter_array_int' => [1, 2, 3],
         'filter_array_string' => %w[one two three],
         'filter_int' => 42,
+        'filter_proc' => 2,
         'filter_string' => 'forty-two'
       }
     end
@@ -43,13 +43,13 @@ module Filterrific
   end
 
   # Simulates a class that would include the filterrific directive
-  class ResourceClass
+  class ModelClass
 
-    def self.filterrific_default_settings
-      TestData.filterrific_default_settings
+    def self.filterrific_default_filter_params
+      TestData.filterrific_default_filter_params
     end
-    def self.filterrific_filter_names
-      TestData.filterrific_filter_names
+    def self.filterrific_available_filters
+      TestData.filterrific_available_filters
     end
 
   end
@@ -57,18 +57,18 @@ module Filterrific
   describe ParamSet do
 
     let(:filterrific_param_set){
-      Filterrific::ParamSet.new(ResourceClass, TestData.filterrific_params)
+      Filterrific::ParamSet.new(ModelClass, TestData.filterrific_params)
     }
 
     describe "initialization" do
 
       it "assigns resource class" do
-        filterrific_param_set.resource_class.must_equal(ResourceClass)
+        filterrific_param_set.model_class.must_equal(ModelClass)
       end
 
       describe "dynamic filter_name attr_accessors" do
 
-        TestData.filterrific_filter_names.each do |filter_name|
+        TestData.filterrific_available_filters.each do |filter_name|
 
           it "defines a getter for '#{ filter_name }'" do
             filterrific_param_set.must_respond_to(filter_name)
