@@ -39,6 +39,13 @@
       },
     )
 
+### 2.0.2
+
+* Fixed bugs in ActionControllerExtension
+* Improved test coverage
+
+
+
 ### 2.0.1
 
 * Fixed regression with Rails 3.2 (doesn't support `#deep_stringify_keys`)
