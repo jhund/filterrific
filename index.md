@@ -125,7 +125,7 @@ Let's say you want a list of students that can be filtered by your app's users.
     <h3>License</h3>
     <a href="https://github.com/jhund/filterrific/blob/master/MIT-LICENSE">MIT licensed</a>
     <h3>Copyright</h3>
-    Copyright (c) 2010 - 2014 Jo Hund.
+    Copyright (c) 2010 - 2015 Jo Hund.
   </div>
 
 </div>
