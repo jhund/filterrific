@@ -58,10 +58,10 @@ Let's say you want a list of students that can be filtered by your app's users.
 
     ```ruby
     filterrific(
-      default_settings: { sorted_by: 'created_at_desc' },
-      filter_names: [
-        :search_query,
+      default_filter_params: { sorted_by: 'created_at_desc' },
+      available_filters: [
         :sorted_by,
+        :search_query,
         :with_country_id,
         :with_created_at_gte
       ]
@@ -74,8 +74,8 @@ Let's say you want a list of students that can be filtered by your app's users.
 
     ```ruby
     def index
-      @filterrific = Filterrific.new(Student, params[:filterrific])
-      @students = Student.filterrific_find(@filterrific).page(params[:page])
+      @filterrific = initialize_filterrific(Student, params[:filterrific])
+      @students = @filterrific.find.page(params[:page])
 
       respond_to do |format|
         format.html
