@@ -37,7 +37,7 @@ module Filterrific
         redirect_to url_for({})  and return false # works with `or return` in calling action.
       end
 
-      f_params = compute_filterrific_params(model_class, f_params, opts)
+      f_params = compute_filterrific_params(model_class, f_params, opts, pi)
 
       filterrific = Filterrific::ParamSet.new(model_class, f_params)
       filterrific.select_options = opts['select_options']
@@ -55,14 +55,15 @@ module Filterrific
     # @param model_class [ActiveRecord::Base]
     # @param filterrific_params [Hash]
     # @param opts [Hash]
-    def compute_filterrific_params(model_class, filterrific_params, opts)
+    # @param persistence_id [String]
+    def compute_filterrific_params(model_class, filterrific_params, opts, persistence_id)
       r = (
         filterrific_params.presence || # start with passed in params
-        session[pi].presence || # then try session persisted params
+        session[persistence_id].presence || # then try session persisted params
         opts['default_filter_params'] || # then use passed in opts
         model_class.filterrific_default_filter_params # finally use model_class defaults
       ).stringify_keys
-      r.slice!(opts['available_filters'].map(&:to_s))  if opts['available_filters']
+      r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
       r
     end
 

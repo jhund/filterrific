@@ -9,15 +9,20 @@ module Filterrific
 
   describe ActionViewExtension do
 
-    describe '#render_filterrific_spinner' do
-      it "renders filterrific spinner" do
-        ViewContext.new.must_respond_to(:render_filterrific_spinner)
-      end
+    it 'responds to #form_for_filterrific' do
+      ViewContext.new.must_respond_to(:form_for_filterrific)
     end
 
-    describe '#filterrific_sorting_link' do
-      it 'changes sorting on new column' do
-      end
+    it 'responds to #render_filterrific_spinner' do
+      ViewContext.new.must_respond_to(:render_filterrific_spinner)
+    end
+
+    it 'responds to #filterrific_sorting_link' do
+      ViewContext.new.must_respond_to(:filterrific_sorting_link)
+    end
+
+    it 'responds to #reset_filterrific_url' do
+      ViewContext.new.must_respond_to(:reset_filterrific_url)
     end
 
   end

@@ -45,11 +45,15 @@ module Filterrific
     describe "Filterrific initialization" do
 
       it "initializes filterrific_available_filters" do
-        filterrific_class.filterrific_available_filters.must_equal(TestData.filterrific_available_filters)
+        filterrific_class.filterrific_available_filters.must_equal(
+          TestData.filterrific_available_filters
+        )
       end
 
       it "initializes filterrific_default_filter_params" do
-        filterrific_class.filterrific_default_filter_params.must_equal(TestData.filterrific_default_filter_params)
+        filterrific_class.filterrific_default_filter_params.must_equal(
+          TestData.filterrific_default_filter_params
+        )
       end
 
       it "raises when no filter_names are given" do

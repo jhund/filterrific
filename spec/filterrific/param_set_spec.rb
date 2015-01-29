@@ -92,10 +92,18 @@ module Filterrific
 
     end
 
+    describe 'find' do
+      it 'responds to #find' do
+        filterrific_param_set.must_respond_to(:find)
+      end
+    end
+
     describe "to_hash" do
 
       it "returns all filterrific_params as hash" do
-        filterrific_param_set.to_hash.must_equal(TestData.filterrific_params_after_sanitizing)
+        filterrific_param_set.to_hash.must_equal(
+          TestData.filterrific_params_after_sanitizing
+        )
       end
 
     end
@@ -103,7 +111,9 @@ module Filterrific
     describe "to_json" do
 
       it "returns all filterrific_params as json string" do
-        filterrific_param_set.to_json.must_equal(TestData.filterrific_params_after_sanitizing.to_json)
+        filterrific_param_set.to_json.must_equal(
+          TestData.filterrific_params_after_sanitizing.to_json
+        )
       end
 
     end
