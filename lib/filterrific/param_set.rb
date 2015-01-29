@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require 'active_support/all'
 require 'digest/sha1'
 
@@ -6,29 +8,44 @@ module Filterrific
   # FilterParamSet is a container to store FilterParams
   class ParamSet
 
-    attr_accessor :resource_class
+    attr_accessor :model_class
     attr_accessor :select_options
 
-    def initialize(a_resource_class, filterrific_params = {})
-      self.resource_class = a_resource_class
+    # Initializes a new Filterrific::ParamSet. This is the core of Filterrific
+    # where all the action happens.
+    # @param a_model_class [Class] the class you want to filter records of
+    # @param filterrific_params [Hash, optional] the filter params, uses
+    #   model_class' default_settings
+    # @return [Filterrific::ParamSet]
+    def initialize(a_model_class, filterrific_params = {})
+      self.model_class = a_model_class
       @select_options = {}
 
       # Use either passed in filterrific_params or resource class' default_settings.
       # Don't merge the hashes. This causes trouble if an option is set to nil
       # by the user, then it will be overriden by default_settings.
       # You might wonder "what if I want to change only one thing from the defaults?"
-      # Persistence, baby. By the time you submit changes to one dimension, all the others
+      # Persistence, baby. By the time you submit changes to one filter, all the others
       # will be already initialized with the defaults.
-      filterrific_params = resource_class.filterrific_default_settings  if filterrific_params.blank?
+      filterrific_params = model_class.filterrific_default_settings  if filterrific_params.blank?
       filterrific_params.stringify_keys!
       filterrific_params = condition_filterrific_params(filterrific_params)
-      define_attr_accessors_for_each_filter(filterrific_params)
+      define_and_assign_attr_accessors_for_each_filter(filterrific_params)
+    end
+
+    # A shortcut to run the ActiveRecord query on model_class. Use this if
+    # you want to start with the model_class, and not an existing ActiveRecord::Relation.
+    # Allows `@filterrific.find` in controller instead of
+    # `ModelClass.filterrific_find(@filterrific)`
+    def find
+      model_class.filterrific_find(self)
     end
 
     # Returns Filterrific::ParamSet as hash (used for URL params and serialization)
+    # @return [Hash] with stringified keys
     def to_hash
       {}.tap { |h|
-        resource_class.filterrific_filter_names.each do |filter_name|
+        model_class.filterrific_available_filters.each do |filter_name|
           param_value = self.send(filter_name)
           case
           when param_value.blank?
@@ -43,27 +60,16 @@ module Filterrific
       }
     end
 
+    # Returns params as JSON string.
+    # @return [String]
     def to_json
       to_hash.to_json
     end
 
-    # Returns a signature that is unique to self's params
-    def signature
-      Digest::SHA1.hexdigest(to_hash.to_a.sort.to_s)
-    end
-
-    # Returns true if this Filterrific::ParamSet is not the model's default.
-    # TODO: this doesn't work for procs. I need to evaluate the
-    # filterrific_default_settings before comparing them to to_hash.
-    #
-    # def customized?
-    #   resource_class.filterrific_default_settings != to_hash
-    # end
-
   protected
 
-    # Conditions params
-    # @param[Hash] fp the filterrific params hash
+    # Conditions params: Evaluates Procs and type casts integer values.
+    # @param fp [Hash] the filterrific params hash
     # @return[Hash] the conditioned params hash
     def condition_filterrific_params(fp)
       fp.each do |key, val|
@@ -82,11 +88,11 @@ module Filterrific
       fp
     end
 
-    # Defines attr accessors for each filter name on self and assigns
-    # values based on fp
-    # @param[Hash] fp filterrific_params
-    def define_attr_accessors_for_each_filter(fp)
-      resource_class.filterrific_filter_names.each do |filter_name|
+    # Defines attr accessors for each available_filter on self and assigns
+    # values based on fp.
+    # @param fp [Hash] filterrific_params with stringified keys
+    def define_and_assign_attr_accessors_for_each_filter(fp)
+      model_class.filterrific_available_filters.each do |filter_name|
         self.class.send(:attr_accessor, filter_name)
         v = fp[filter_name]
         self.send("#{ filter_name }=", v)  if v.present?

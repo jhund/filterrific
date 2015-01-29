@@ -1,21 +1,24 @@
 # -*- coding: utf-8 -*-
-
 #
-# Adds view helpers to ActionView
+# Adds Filterrific view helpers to ActionView instances
 #
 module Filterrific
   module ActionViewExtension
 
-    # Sets all options on form_for to defaults if called with Filterrific object
-    def form_for(record, options = {}, &block)
-      if record.is_a?(Filterrific::ParamSet)
-        options[:as] ||= :filterrific
-        options[:html] ||= {}
-        options[:html][:method] ||= :get
-        options[:html][:id] ||= :filterrific_filter
-        options[:url] ||= url_for(:controller => controller.controller_name, :action => controller.action_name)
-      end
-      super
+    # Sets all options on form_for to defaults that work with Filterrific
+    # @param record [Filterrific] the @filterrific object
+    # @param options [Hash] standard options for form_for
+    # @param block [Proc] the form body
+    def form_for_filterrific(record, options = {}, &block)
+      options[:as] ||= :filterrific
+      options[:html] ||= {}
+      options[:html][:method] ||= :get
+      options[:html][:id] ||= :filterrific_filter
+      options[:url] ||= url_for(
+        :controller => controller.controller_name,
+        :action => controller.action_name
+      )
+      form_for(record, options, &block)
     end
 
     # Renders a spinner while the list is being updated
@@ -29,29 +32,37 @@ module Filterrific
 
     # Renders a link which indicates the current sorting and which can be used to
     # toggle the list sorting (set column and direction).
+    #
     # NOTE: Make sure that this is used in the list partial that is re-rendered
     # when the filterrific params are changed, so that the filterrific params in
     # the URL are always current.
-    # @param[Filterrific::ParamSet] filterrific the current filterrific instance
-    # @param[String, Symbol] sort_key the key to sort by, without direction.
+    #
+    # NOTE: Currently the filterrific_sorting_link is not synchronized with a
+    # SELECT input you may have in the filter form for sorting. We recommend you
+    # use one or the other to avoid conflicting sort settings in the UI.
+    #
+    # @param filterrific [Filterrific::ParamSet] the current filterrific instance
+    # @param sort_key [String, Symbol] the key to sort by, without direction.
     #     Example: 'name', 'created_at'
-    # @param[Hash, optional] options:
-    #     * active_column_class: CSS class applied to current sort column.
-    #       Default: 'filterrific_current_sort_column'
-    #     * ascending_indicator: HTML string to indicate ascending sort direction.
-    #       Default: Triangle pointing up.
-    #     * default_sort_direction: override the default sorting when selecting
-    #       a new sort column. Default: 'asc'.
-    #     * descending_indicator: HTML string to indicate descending sort direction.
-    #       Default: Triangle pointing down.
-    #     * html_attrs: HTML attributes to be added to the sorting link. Default: {}
-    #     * label: override label. Default: `sort_key.humanize`.
-    #     * sorting_scope_name: override the name of the scope used for sorting.
-    #       Default: `:sorted_by`
-    #     * url_for_attrs: override the target URL attributes to be used for `url_for`.
-    #       Default: {} (current URL).
-    def filterrific_sorting_link(filterrific, sort_key, options = {})
-      options = {
+    # @param opts [Hash, optional]
+    # @options opts [String, optional] active_column_class
+    #     CSS class applied to current sort column. Default: 'filterrific_current_sort_column'
+    # @options opts [String, optional] ascending_indicator
+    #     HTML string to indicate ascending sort direction. Default: '⬆'
+    # @options opts [String, optional] default_sort_direction
+    #     Override the default sorting when selecting a new sort column. Default: 'asc'.
+    # @options opts [String, optional] descending_indicator
+    #     HTML string to indicate descending sort direction. Default: '⬇'
+    # @options opts [Hash, optional] html_attrs
+    #     HTML attributes to be added to the sorting link. Default: {}
+    # @options opts [String, optional] label
+    #     Override label. Default: `sort_key.to_s.humanize`.
+    # @options opts [String, Symbol, optional] sorting_scope_name
+    #     Override the name of the scope used for sorting. Default: :sorted_by
+    # @options opts [Hash, optional] url_for_attrs
+    #     Override the target URL attributes to be used for `url_for`. Default: {} (current URL).
+    def filterrific_sorting_link(filterrific, sort_key, opts = {})
+      opts = {
         :active_column_class => 'filterrific_current_sort_column',
         :inactive_column_class => 'filterrific_sort_column',
         :ascending_indicator => '⬆',
@@ -61,51 +72,81 @@ module Filterrific
         :label => sort_key.to_s.humanize,
         :sorting_scope_name => :sorted_by,
         :url_for_attrs => {},
-      }.merge(options)
-      options[:html_attrs] = options[:html_attrs].with_indifferent_access
-      current_sorting = filterrific.send(options[:sorting_scope_name])
-      current_sort_key = current_sorting ? current_sorting.gsub(/_asc|_desc/, '') : nil
-      current_sort_direction = current_sorting ? (current_sorting =~ /_desc\z/ ? 'desc' : 'asc') : nil
+      }.merge(opts)
+      opts.merge!(
+        :html_attrs => opts[:html_attrs].with_indifferent_access,
+        :current_sorting => filterrific.send(opts[:sorting_scope_name]),
+        :current_sort_key => current_sorting ? current_sorting.gsub(/_asc|_desc/, '') : nil,
+        :current_sort_direction => current_sorting ? (current_sorting =~ /_desc\z/ ? 'desc' : 'asc') : nil,
+      )
       new_sort_key = sort_key.to_s
-      if new_sort_key == current_sort_key
-        # current sort column, toggle search_direction
-        new_sort_direction, current_sort_direction_indicator = if 'asc' == current_sort_direction
-          ['desc', options[:ascending_indicator]]
-        else
-          ['asc', options[:descending_indicator]]
-        end
-        new_sorting = [new_sort_key, new_sort_direction].join('_')
-        css_classes = [
-          options[:active_column_class],
-          options[:html_attrs].delete(:class)
-        ].compact.join(' ')
-        new_filterrific_params = filterrific.to_hash
-                                            .with_indifferent_access
-                                            .merge(options[:sorting_scope_name] => new_sorting)
-        url_for_attrs = options[:url_for_attrs].merge(:filterrific => new_filterrific_params)
-        link_to(
-          [options[:label], current_sort_direction_indicator].join(' '),
-          url_for(url_for_attrs),
-          options[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
-        )
+      if new_sort_key == opts[:current_sort_key]
+        # same sort column, reverse order
+        filterrific_sorting_link_reverse_order(filterrific, new_sort_key, opts)
       else
-        # new sort column, change sort column
-        new_sort_direction = options[:default_sort_direction]
-        new_sorting = [new_sort_key, new_sort_direction].join('_')
-        css_classes = [
-          options[:inactive_column_class],
-          options[:html_attrs].delete(:class)
-        ].compact.join(' ')
-        new_filterrific_params = filterrific.to_hash
-                                            .with_indifferent_access
-                                            .merge(options[:sorting_scope_name] => new_sorting)
-        url_for_attrs = options[:url_for_attrs].merge(:filterrific => new_filterrific_params)
-        link_to(
-          options[:label],
-          url_for(url_for_attrs),
-          options[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
-        )
+        # new sort column, default sort order
+        filterrific_sorting_link_new_column(filterrific, new_sort_key, opts)
       end
+    end
+
+    # Returns a url that can be used to reset the Filterrific params
+    def reset_filterrific_url(opts = {})
+      url_for(
+        { filterrific: { reset_filterrific: true } }.merge(opts)
+      )
+    end
+
+  protected
+
+    # Renders HTML to reverse sort order on currently sorted column.
+    # @param filterrific [Filterrific::ParamSet]
+    # @param new_sort_key [String]
+    # @param opts [Hash]
+    # @return [String] an HTML fragment
+    def filterrific_sorting_link_reverse_order(filterrific, new_sort_key, opts)
+      # current sort column, toggle search_direction
+      new_sort_direction, current_sort_direction_indicator = if 'asc' == opts[:current_sort_direction]
+        ['desc', opts[:ascending_indicator]]
+      else
+        ['asc', opts[:descending_indicator]]
+      end
+      new_sorting = [new_sort_key, new_sort_direction].join('_')
+      css_classes = [
+        opts[:active_column_class],
+        opts[:html_attrs].delete(:class)
+      ].compact.join(' ')
+      new_filterrific_params = filterrific.to_hash
+                                          .with_indifferent_access
+                                          .merge(opts[:sorting_scope_name] => new_sorting)
+      url_for_attrs = opts[:url_for_attrs].merge(:filterrific => new_filterrific_params)
+      link_to(
+        [opts[:label], opts[:current_sort_direction_indicator]].join(' '),
+        url_for(url_for_attrs),
+        opts[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
+      )
+    end
+
+    # Renders HTML to sort by a new column.
+    # @param filterrific [Filterrific::ParamSet]
+    # @param new_sort_key [String]
+    # @param opts [Hash]
+    # @return [String] an HTML fragment
+    def filterrific_sorting_link_new_column(filterrific, new_sort_key, opts)
+      new_sort_direction = opts[:default_sort_direction]
+      new_sorting = [new_sort_key, new_sort_direction].join('_')
+      css_classes = [
+        opts[:inactive_column_class],
+        opts[:html_attrs].delete(:class)
+      ].compact.join(' ')
+      new_filterrific_params = filterrific.to_hash
+                                          .with_indifferent_access
+                                          .merge(opts[:sorting_scope_name] => new_sorting)
+      url_for_attrs = opts[:url_for_attrs].merge(:filterrific => new_filterrific_params)
+      link_to(
+        opts[:label],
+        url_for(url_for_attrs),
+        opts[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
+      )
     end
 
   end
