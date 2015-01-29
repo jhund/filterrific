@@ -340,14 +340,13 @@ scope :created_at_lt, lambda { |reference_time|
 ### Multiple form inputs for single scope
 
 Sometimes you need multiple form inputs for a single scope. An example would be
-a scope that finds locations within a certain distance from a city. You'd need
+a scope that finds locations within a certain distance of a city. You'd need
 two inputs: one for the maximum distance, and one to choose a city.
 
 You can accomplish this using Rails' `fields_for` form helper. It allows you
-to combine more than one form input's value into a single param. So here is what
-you do:
+to combine multiple form input values into a single param:
 
-You will use a scope called `with_distance`. You declare it as usual in the
+Let's use a scope called `with_distance`. Declare it as usual in the
 `filterrific` directive at the top of your model.
 
 Here is the view code, using `fields_for`:
