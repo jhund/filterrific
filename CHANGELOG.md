@@ -1,3 +1,50 @@
+* using the "sorted_by" magic method will add entries to select_options automatically
+    filterrific(
+      default_filter_params: { sorted_by: 'name_asc' },
+      available_filters: [
+        :with_country,
+        ...
+      ],
+      search_query: {
+        match_terms: :any, # [:all]
+        auto_wildcard: :suffix, # [:prefix, :both, :none]
+        columns: [:first_name, :email, :last_name],
+        case_sensitive: false, # [true]
+      },
+      sorted_by: {
+        name_asc: 'Name (A-Z)',
+        name_desc: 'Name (Z-A)',
+      },
+    )
+
+    filterrific(
+      default_filter_params: { sorted_by: 'name_asc' },
+      custom_scopes: [
+        :with_country,
+        ...
+      ],
+      lookup_filters: [ # column_value_filters:, value_filters:
+        :with_country_id,
+        :with_state,
+      ]
+      search_query: {
+        match_terms: :any, # [:all]
+        auto_wildcard: :suffix, # [:prefix, :both, :none]
+        columns: [:first_name, :email, :last_name],
+        case_sensitive: false, # [true]
+      },
+      sorted_by: {
+        name_asc: 'Name (A-Z)',
+        name_desc: 'Name (Z-A)',
+      },
+    )
+
+### 2.0.1
+
+* Fixed regression with Rails 3.2 (doesn't support `#deep_stringify_keys`)
+
+
+
 # 2.0.0
 
 API changes:
