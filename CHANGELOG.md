@@ -1,6 +1,26 @@
+# 2.0.0
+
+API changes:
+
+* Filterrific model API option names have changed.
+* Better initialization of Filterrific via `initialize_filterrific` method:
+    * It resets the filter params, so the `reset_filterrific` action is not required any more.
+    * It persists filter params in session.
+* Simplified `@filterrific.find` method to load collection from DB.
+  Replaces `Student.filterrific_find(@filterrific)`
+* The `form_for_filterrific` form builder doesn't override the standard
+  `form_for` method any more.
+* Dropped support for Ruby 1.8.7 (because of 1.9 Hash syntax)
+* Dropped support for Rails <= 3.0.0 (because of ActiveRecord
+  bug fixes in 3.1, and use of asset pipeline)
+
+
+
 ### 1.4.3
 
 * Handle case where Filterrific filter params are empty.
+
+
 
 ### 1.4.2
 
