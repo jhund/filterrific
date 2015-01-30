@@ -176,28 +176,6 @@ application.js file to get the form observers and the spinner:
 //= require filterrific/filterrific-jquery
 ```
 
-### Select options presenter methods
-
-We create the following presenter methods on Student and Country to provide
-select options for the filter view:
-
-```ruby
-# app/models/student.rb
-def self.options_for_sorted_by
-  [
-    ['Name (a-z)', 'name_asc'],
-    ['Registration date (newest first)', 'created_at_desc'],
-    ['Registration date (oldest first)', 'created_at_asc'],
-    ['Country (a-z)', 'country_name_asc']
-  ]
-end
-
-# app/models/country.rb
-def self.options_for_select
-  order('LOWER(name)').map { |e| [e.name, e.id] }
-end
-```
-
 <p>
   <a href="/pages/active_record_scope_patterns.html" class='btn btn-success'>Learn about scope patterns &rarr;</a>
 </p>

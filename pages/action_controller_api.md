@@ -40,6 +40,7 @@ class StudentsController < ApplicationController
     #     * select_options: You can store any options for `<select>` inputs in
     #       the filterrific form here. In this example, the `#options_for_...`
     #       methods return arrays that can be passed as options to `f.select`
+    #       These methods are defined in the model.
     #     * persistence_id: optional, defaults to "<controller>#<action>" string
     #       to isolate session persistence of multiple filterrific instances.
     #       Override this to share session persisted filter params between

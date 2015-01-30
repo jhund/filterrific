@@ -71,8 +71,30 @@ class Student < ActiveRecord::Base
     ...
   }
 
+  # This method provides select options for the `sorted_by` filter select input.
+  # It is called in the controller as part of `initialize_filterrific`.
+  def self.options_for_sorted_by
+    [
+      ['Name (a-z)', 'name_asc'],
+      ['Registration date (newest first)', 'created_at_desc'],
+      ['Registration date (oldest first)', 'created_at_asc'],
+      ['Country (a-z)', 'country_name_asc']
+    ]
+  end
+
 end
 ```
+
+We also create a presenter method on Country to provide select options for the
+`with_country_id` filter select input:
+
+```ruby
+# app/models/country.rb
+def self.options_for_select
+  order('LOWER(name)').map { |e| [e.name, e.id] }
+end
+```
+
 
 <p>
   <a href="/pages/action_controller_api.html" class='btn btn-success'>Learn about the Controller API &rarr;</a>
