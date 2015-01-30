@@ -56,7 +56,7 @@ module Filterrific
         )
       end
 
-      it "raises when no filter_names are given" do
+      it "raises when no available_filters are given" do
         proc {
           Class.new(ActiveRecord::Base) do
             filterrific(
@@ -66,7 +66,7 @@ module Filterrific
         }.must_raise(ArgumentError)
       end
 
-      it "raises when default_settings contains keys that are not in filter_names" do
+      it "raises when default_settings contains keys that are not in available_filters" do
         proc {
           Class.new(ActiveRecord::Base) do
             filterrific(

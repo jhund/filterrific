@@ -27,7 +27,7 @@ module Filterrific
       # You might wonder "what if I want to change only one thing from the defaults?"
       # Persistence, baby. By the time you submit changes to one filter, all the others
       # will be already initialized with the defaults.
-      filterrific_params = model_class.filterrific_default_settings  if filterrific_params.blank?
+      filterrific_params = model_class.filterrific_default_filter_params  if filterrific_params.blank?
       filterrific_params.stringify_keys!
       filterrific_params = condition_filterrific_params(filterrific_params)
       define_and_assign_attr_accessors_for_each_filter(filterrific_params)
