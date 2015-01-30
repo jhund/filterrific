@@ -25,6 +25,9 @@ module Filterrific
 
       opts.stringify_keys!
 
+      # define_sorted_by_scope(opts['sorted_by'])  if opts['sorted_by']
+      # define_search_query_scope(opts['search_query'])  if opts['search_query']
+
       assign_filterrific_available_filters(opts)
       validate_filterrific_available_filters
       assign_filterrific_default_filter_params(opts)
@@ -68,6 +71,12 @@ module Filterrific
     end
 
   protected
+
+    # Defines a :sorted_by scope based on attrs
+    # @param attrs [Hash] with keys as
+    # def define_sorted_by_scope(attrs)
+    #   scope :sorted_by, lambda {}
+    # end
 
     # Assigns available filters.
     # @param opts [Hash] the complete options hash passed to `filterrific`.
