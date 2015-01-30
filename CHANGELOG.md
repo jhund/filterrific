@@ -39,6 +39,12 @@
       },
     )
 
+### 2.0.3
+
+* Cleaned up obsolete option names
+
+
+
 ### 2.0.2
 
 * Fixed bugs in ActionControllerExtension
