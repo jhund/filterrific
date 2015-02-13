@@ -186,7 +186,7 @@ Then you can add a regular submit button, and make sure you don't add the `.filt
 <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
 ...
   <%= f.submit 'Filter' %>
-<% end%>
+<% end %>
 ~~~
 
 <p>
