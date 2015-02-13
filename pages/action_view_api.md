@@ -16,7 +16,7 @@ Use the Filterrific ActionView API to:
 * Reset the filter settings.
 
 Filterrific works best with AJAX updates. The library comes with form observers
-for jQuery and an AJAX spinner.
+for jQuery and an AJAX spinner. See below for a code example without AJAX.
 
 ### View example 1
 <p class="unconstrained">
@@ -175,6 +175,19 @@ application.js file to get the form observers and the spinner:
 ```javascript
 //= require filterrific/filterrific-jquery
 ```
+
+## Disable AJAX auto form submits
+
+By default Filterrific will automatically submit the filter form when you make any changes. This is managed via the filter form's id which is automatically added by the `form_for_filterrific` helper method. In order to deactivate AJAX auto submits, just override the DOM id for the form.
+
+Then you can add a regular submit button, and make sure you don't add the `.filterrific-periodically-observed` class to any inputs. Now Filterrific will update the list only when you manually submit the form:
+
+~~~ erb
+<%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
+...
+  <%= f.submit 'Filter' %>
+<% end%>
+~~~
 
 <p>
   <a href="/pages/active_record_scope_patterns.html" class='btn btn-success'>Learn about scope patterns &rarr;</a>
