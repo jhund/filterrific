@@ -178,9 +178,11 @@ application.js file to get the form observers and the spinner:
 
 ## Disable AJAX auto form submits
 
-By default Filterrific will automatically submit the filter form when you make any changes. This is managed via the filter form's id which is automatically added by the `form_for_filterrific` helper method. In order to deactivate AJAX auto submits, just override the DOM id for the form.
+By default Filterrific will automatically submit the filter form as soon as you change any of the filter settings. Sometimes you may not want this behavior, e.g., if the rendering of the filtered records is fairly expensive. 
 
-Then you can add a regular submit button, and make sure you don't add the `.filterrific-periodically-observed` class to any inputs. Now Filterrific will update the list only when you manually submit the form:
+The auto submit behavior is triggered by the filter form's id which is automatically added by the `form_for_filterrific` helper method. In order to deactivate AJAX auto submits, just override the DOM id for the form with something other than the default of `filterrific_filter`. If you still want to submit the form via AJAX (just not automatically on every change), also add the `remote: true` option to `form_for_filterrific`. Otherwise the form will be submitted as regular POST request and the entire page will reload.
+
+Then you must add a regular submit button, and make sure you don't add the `.filterrific-periodically-observed` class to any inputs. Now Filterrific will update the list only when you manually submit the form:
 
 ~~~ erb
 <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
