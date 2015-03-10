@@ -10,6 +10,7 @@ module Filterrific
       %w[
         filter_array_int
         filter_array_string
+        filter_hash
         filter_int
         filter_proc
         filter_string
@@ -22,21 +23,34 @@ module Filterrific
 
     def self.filterrific_params
       {
-        'filter_proc' => lambda { 1 + 1 },
         'filter_array_int' => %w[1 2 3],
         'filter_array_string' => %w[one two three],
+        'filter_hash' => { a: 1, b: 2 },
         'filter_int' => '42',
-        'filter_string' => 'forty-two'
+        'filter_proc' => lambda { 1 + 1 },
+        'filter_string' => 'forty-two',
       }
     end
 
-    def self.filterrific_params_after_sanitizing
+    def self.filterrific_params_after_conditioning
       {
         'filter_array_int' => [1, 2, 3],
         'filter_array_string' => %w[one two three],
+        'filter_hash' => OpenStruct.new(a: 1, b: 2),
         'filter_int' => 42,
         'filter_proc' => 2,
-        'filter_string' => 'forty-two'
+        'filter_string' => 'forty-two',
+      }
+    end
+
+    def self.filterrific_params_as_hash
+      {
+        'filter_array_int' => [1, 2, 3],
+        'filter_array_string' => %w[one two three],
+        'filter_hash' => { a: 1, b: 2 },
+        'filter_int' => 42,
+        'filter_proc' => 2,
+        'filter_string' => 'forty-two',
       }
     end
 
@@ -82,8 +96,8 @@ module Filterrific
 
         TestData.filterrific_params.keys.each do |key|
 
-          it "assigns sanitized param to '#{ key }' attr" do
-            filterrific_param_set.send(key).must_equal(TestData.filterrific_params_after_sanitizing[key])
+          it "assigns conditioned param to '#{ key }' attr" do
+            filterrific_param_set.send(key).must_equal(TestData.filterrific_params_after_conditioning[key])
           end
 
         end
@@ -102,7 +116,7 @@ module Filterrific
 
       it "returns all filterrific_params as hash" do
         filterrific_param_set.to_hash.must_equal(
-          TestData.filterrific_params_after_sanitizing
+          TestData.filterrific_params_as_hash
         )
       end
 
@@ -112,7 +126,7 @@ module Filterrific
 
       it "returns all filterrific_params as json string" do
         filterrific_param_set.to_json.must_equal(
-          TestData.filterrific_params_after_sanitizing.to_json
+          TestData.filterrific_params_as_hash.to_json
         )
       end
 
@@ -140,6 +154,25 @@ module Filterrific
         filterrific_param_set.select_options[:value] = value
         filterrific_param_set.select_options[:value].must_equal(value)
       end
+    end
+
+    describe "#condition_filterrific_params" do
+
+      [
+        [{ a_proc: lambda { 1 + 1 } }, { a_proc: 2 }],
+        [{ an_array: [1, 'a'] }, { an_array: [1, 'a'] }],
+        [{ a_hash: { 'a' => 1, 'b' => 2 } }, { a_hash: OpenStruct.new({ 'a' => 1, 'b' => 2 }) }],
+        [{ a_string_that_looks_like_int: '123' }, { a_string_that_looks_like_int: 123 }],
+        [{ a_string: 'abc' }, { a_string: 'abc' }],
+      ].each do |test_params, xpect|
+        it "Handles #{ test_params.inspect }" do
+          filterrific_param_set.send(
+            :condition_filterrific_params,
+            test_params
+          ).must_equal(xpect)
+        end
+      end
+
     end
 
   end

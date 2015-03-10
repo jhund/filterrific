@@ -53,6 +53,9 @@ module Filterrific
           when param_value.is_a?(Proc)
             # evaluate Proc so it can be serialized
             h[filter_name] = param_value.call
+          when param_value.is_a?(OpenStruct)
+            # convert OpenStruct to hash
+            h[filter_name] = param_value.marshal_dump
           else
             h[filter_name] = param_value
           end
@@ -81,6 +84,10 @@ module Filterrific
           # type cast integers in the array
           fp[key] = fp[key].map { |e| e =~ /^\d+$/ ? e.to_i : e }
         when val =~ /^\d+$/
+        when val.is_a?(Hash)
+          # type cast Hash to OpenStruct so that nested params render correctly
+          # in the form
+          fp[key] = OpenStruct.new(fp[key])
           # type cast integer
           fp[key] = fp[key].to_i
         end
