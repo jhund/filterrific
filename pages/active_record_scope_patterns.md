@@ -250,14 +250,14 @@ scope :without_comments, lambda {
 <a id="filter_by_existence_many_to_many"></a>
 ### Filter by existence of many-to-many association
 
-This scope finds any students who have a given role, using `EXISTS` and a SQL
+This scope finds students who have `ANY` of the given roles, using `EXISTS` and a SQL
 sub query. This scope traverses the `has_many :through` association between
 `Student` and `Role` via `RoleAssignment`.
 
-Naming convention: `with_%{singular association name}_ids`
+Naming convention: `with_any_%{singular association name}_ids`
 
 ```ruby
-scope :with_role_ids, lambda{ |role_ids|
+scope :with_any_role_ids, lambda{ |role_ids|
   # get a reference to the join table
   role_assignments = RoleAssignment.arel_table
   # get a reference to the filtered table
@@ -280,6 +280,27 @@ Filterrific query. E.g., your database might complain about sort keys not being
 part of the `SELECT` statement.
 
 
+Use the scope below if you want to find students who have `ALL` of the given roles:
+
+Naming convention: `with_all_%{singular association name}_ids`
+
+```ruby
+scope :with_all_role_ids, lambda{ |role_ids|
+  # get a reference to the join table
+  role_assignments = RoleAssignment.arel_table
+  # get a reference to the filtered table
+  students = Student.arel_table
+  # let AREL generate a complex SQL query
+  role_ids.map(&:to_i).inject(self) { |rel, role_id|
+    rel.where(
+      RoleAssignment \
+        .where(role_assignments[:student_id].eq(students[:id])) \
+        .where(role_assignments[:role_id].eq(role_id)) \
+        .exists
+    )
+  }
+}
+```
 
 
 
