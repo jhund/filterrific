@@ -8,6 +8,7 @@ module Filterrific
 
     def self.filterrific_available_filters
       %w[
+        filter_almost_int
         filter_array_int
         filter_array_string
         filter_hash
@@ -23,6 +24,7 @@ module Filterrific
 
     def self.filterrific_params
       {
+        'filter_almost_int' => '042',
         'filter_array_int' => %w[1 2 3],
         'filter_array_string' => %w[one two three],
         'filter_hash' => { a: 1, b: 2 },
@@ -34,6 +36,7 @@ module Filterrific
 
     def self.filterrific_params_after_conditioning
       {
+        'filter_almost_int' => '042',
         'filter_array_int' => [1, 2, 3],
         'filter_array_string' => %w[one two three],
         'filter_hash' => OpenStruct.new(a: 1, b: 2),
@@ -45,6 +48,7 @@ module Filterrific
 
     def self.filterrific_params_as_hash
       {
+        'filter_almost_int' => '042',
         'filter_array_int' => [1, 2, 3],
         'filter_array_string' => %w[one two three],
         'filter_hash' => { a: 1, b: 2 },
@@ -163,6 +167,8 @@ module Filterrific
         [{ an_array: [1, 'a'] }, { an_array: [1, 'a'] }],
         [{ a_hash: { 'a' => 1, 'b' => 2 } }, { a_hash: OpenStruct.new({ 'a' => 1, 'b' => 2 }) }],
         [{ a_string_that_looks_like_int: '123' }, { a_string_that_looks_like_int: 123 }],
+        [{ a_string_that_almost_looks_like_int: '0123' }, { a_string_that_almost_looks_like_int: '0123' }],
+        [{ an_array_with_almost_int: ['0123', '123'] }, { an_array_with_almost_int: ['0123', 123] }],
         [{ a_string: 'abc' }, { a_string: 'abc' }],
       ].each do |test_params, xpect|
         it "Handles #{ test_params.inspect }" do
