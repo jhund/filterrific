@@ -13,9 +13,9 @@ module Filterrific
 
     # Initializes a new Filterrific::ParamSet. This is the core of Filterrific
     # where all the action happens.
-    # @param a_model_class [Class] the class you want to filter records of
-    # @param filterrific_params [Hash, optional] the filter params, uses
-    #   model_class' default_settings
+    # @param a_model_class [Class] the class you want to filter records of.
+    # @param filterrific_params [Hash, optional] the filter params, falls back
+    #   to model_class' default_settings.
     # @return [Filterrific::ParamSet]
     def initialize(a_model_class, filterrific_params = {})
       self.model_class = a_model_class
@@ -75,7 +75,7 @@ module Filterrific
       fp.each do |key, val|
         case
         when val.is_a?(Proc)
-          # evaulate Procs
+          # evaluate Procs
           fp[key] = val.call
         when val.is_a?(Array)
           # type cast integers in the array

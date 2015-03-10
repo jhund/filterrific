@@ -34,7 +34,7 @@ module Filterrific
       if (f_params.delete('reset_filterrific'))
         # Reset query and session_persisted params
         session[pi] = nil
-        redirect_to url_for({})  and return false # works with `or return` in calling action.
+        redirect_to url_for({})  and return false # requires `or return` in calling action.
       end
 
       f_params = compute_filterrific_params(model_class, f_params, opts, pi)
