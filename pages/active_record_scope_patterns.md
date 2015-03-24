@@ -380,7 +380,7 @@ Here is the view code, using `fields_for`:
   ...
   <div>
     Distance
-    <%= f.fields_for :with_distance do |with_distance_fields| %>
+    <%= f.fields_for :with_distance, @filterrific.with_distance do |with_distance_fields| %>
       <%= with_distance_fields.text_field :max_distance %>
       <%= with_distance_fields.text_field :city %>
     <% end %>
