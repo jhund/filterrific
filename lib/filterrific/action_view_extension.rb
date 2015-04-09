@@ -75,9 +75,10 @@ module Filterrific
       }.merge(opts)
       opts.merge!(
         :html_attrs => opts[:html_attrs].with_indifferent_access,
-        :current_sorting => filterrific.send(opts[:sorting_scope_name]),
+        :current_sorting => (current_sorting = filterrific.send(opts[:sorting_scope_name])),
         :current_sort_key => current_sorting ? current_sorting.gsub(/_asc|_desc/, '') : nil,
         :current_sort_direction => current_sorting ? (current_sorting =~ /_desc\z/ ? 'desc' : 'asc') : nil,
+        :current_sort_direction_indicator => (current_sorting =~ /_desc\z/ ? opts[:ascending_indicator] : opts[:descending_indicator]),
       )
       new_sort_key = sort_key.to_s
       if new_sort_key == opts[:current_sort_key]
