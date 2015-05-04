@@ -39,6 +39,16 @@
       },
     )
 
+
+### 2.0.4
+
+* Objectify nested params so that they render correctly on the form when
+  restored from session or URL params.
+* Don't convert strings that almost look like integers to integers. Example:
+  `"0123"` as part of a phone number should not be converted to `123`.
+
+
+
 ### 2.0.3
 
 * Cleaned up obsolete option names
