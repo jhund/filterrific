@@ -29,7 +29,7 @@ module Filterrific
       # went back to #stringify_keys which should be sufficient.
       f_params = (filterrific_params || {}).stringify_keys
       opts = opts.stringify_keys
-      pi = if false == opts['persistence_id']
+      pers_id = if false == opts['persistence_id']
         nil
       else
         opts['persistence_id'] || compute_default_persistence_id
@@ -37,15 +37,15 @@ module Filterrific
 
       if (f_params.delete('reset_filterrific'))
         # Reset query and session_persisted params
-        session[pi] = nil  if pi
+        session[pers_id] = nil  if pers_id
         redirect_to url_for({})  and return false # requires `or return` in calling action.
       end
 
-      f_params = compute_filterrific_params(model_class, f_params, opts, pi)
+      f_params = compute_filterrific_params(model_class, f_params, opts, pers_id)
 
       filterrific = Filterrific::ParamSet.new(model_class, f_params)
       filterrific.select_options = opts['select_options']
-      session[pi] = filterrific.to_hash  if pi
+      session[pers_id] = filterrific.to_hash  if pers_id
       filterrific
     end
 
@@ -63,7 +63,7 @@ module Filterrific
     def compute_filterrific_params(model_class, filterrific_params, opts, persistence_id)
       r = (
         filterrific_params.presence || # start with passed in params
-        (pi && session[persistence_id].presence) || # then try session persisted params if pi is present
+        (persistence_id && session[persistence_id].presence) || # then try session persisted params if persistence_id is present
         opts['default_filter_params'] || # then use passed in opts
         model_class.filterrific_default_filter_params # finally use model_class defaults
       ).stringify_keys
