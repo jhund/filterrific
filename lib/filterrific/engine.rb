@@ -2,6 +2,8 @@
 
 require 'filterrific/param_set'
 
+require 'filterrific/has_reset_filterrific_url_mixin'
+
 require 'filterrific/action_controller_extension'
 require 'filterrific/action_view_extension'
 require 'filterrific/active_record_extension'
