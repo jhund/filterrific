@@ -19,7 +19,7 @@ module Filterrific
     # @option opts [String, Symbol, optional] :persistence_id
     #   defaults to "namespace/controller#action" string, used for session key
     #   and saved searches to isolate different filters' persisted params from
-    #   each other.
+    #   each other. Set to false to turn off session persistence.
     # @option opts [Hash, optional] :select_options
     #   these are available in the view to populate select lists and other
     #   dynamic values.
@@ -29,11 +29,15 @@ module Filterrific
       # went back to #stringify_keys which should be sufficient.
       f_params = (filterrific_params || {}).stringify_keys
       opts = opts.stringify_keys
-      pi = opts['persistence_id'] || compute_default_persistence_id
+      pi = if false == opts['persistence_id']
+        nil
+      else
+        opts['persistence_id'] || compute_default_persistence_id
+      end
 
       if (f_params.delete('reset_filterrific'))
         # Reset query and session_persisted params
-        session[pi] = nil
+        session[pi] = nil  if pi
         redirect_to url_for({})  and return false # requires `or return` in calling action.
       end
 
@@ -41,7 +45,7 @@ module Filterrific
 
       filterrific = Filterrific::ParamSet.new(model_class, f_params)
       filterrific.select_options = opts['select_options']
-      session[pi] = filterrific.to_hash
+      session[pi] = filterrific.to_hash  if pi
       filterrific
     end
 
@@ -55,11 +59,11 @@ module Filterrific
     # @param model_class [ActiveRecord::Base]
     # @param filterrific_params [Hash]
     # @param opts [Hash]
-    # @param persistence_id [String]
+    # @param persistence_id [String, nil]
     def compute_filterrific_params(model_class, filterrific_params, opts, persistence_id)
       r = (
         filterrific_params.presence || # start with passed in params
-        session[persistence_id].presence || # then try session persisted params
+        (pi && session[persistence_id].presence) || # then try session persisted params if pi is present
         opts['default_filter_params'] || # then use passed in opts
         model_class.filterrific_default_filter_params # finally use model_class defaults
       ).stringify_keys
