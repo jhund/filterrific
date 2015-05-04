@@ -44,7 +44,8 @@ class StudentsController < ApplicationController
     #     * persistence_id: optional, defaults to "<controller>#<action>" string
     #       to isolate session persistence of multiple filterrific instances.
     #       Override this to share session persisted filter params between
-    #       multiple filterrific instances.
+    #       multiple filterrific instances. Set to `false` to disable session
+    #       persistence.
     #     * default_filter_params: optional, to override model defaults
     #     * available_filters: optional, to further restrict which filters are
     #       in this filterrific instance.
