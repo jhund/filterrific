@@ -1,43 +1,11 @@
-* using the "sorted_by" magic method will add entries to select_options automatically
-    filterrific(
-      default_filter_params: { sorted_by: 'name_asc' },
-      available_filters: [
-        :with_country,
-        ...
-      ],
-      search_query: {
-        match_terms: :any, # [:all]
-        auto_wildcard: :suffix, # [:prefix, :both, :none]
-        columns: [:first_name, :email, :last_name],
-        case_sensitive: false, # [true]
-      },
-      sorted_by: {
-        name_asc: 'Name (A-Z)',
-        name_desc: 'Name (Z-A)',
-      },
-    )
+### 2.0.5
 
-    filterrific(
-      default_filter_params: { sorted_by: 'name_asc' },
-      custom_scopes: [
-        :with_country,
-        ...
-      ],
-      lookup_filters: [ # column_value_filters:, value_filters:
-        :with_country_id,
-        :with_state,
-      ]
-      search_query: {
-        match_terms: :any, # [:all]
-        auto_wildcard: :suffix, # [:prefix, :both, :none]
-        columns: [:first_name, :email, :last_name],
-        case_sensitive: false, # [true]
-      },
-      sorted_by: {
-        name_asc: 'Name (A-Z)',
-        name_desc: 'Name (Z-A)',
-      },
-    )
+* Feature: Allow disabling of session persistence by passing `false` as
+  `:persistence_id` option.
+* Fix: Direction indicators on sortable headers are now correct.
+* Fix: Make JS event observers work with TurboLinks.
+* Fix: Make reset_filterrific_url available in controller.
+
 
 
 ### 2.0.4
