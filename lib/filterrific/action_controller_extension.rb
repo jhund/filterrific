@@ -5,6 +5,8 @@
 module Filterrific
   module ActionControllerExtension
 
+    include HasResetFilterrificUrlMixin
+
   protected
 
     # @param model_class [Class]

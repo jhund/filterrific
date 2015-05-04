@@ -102,5 +102,15 @@ module Filterrific
 
     end
 
+    describe '#reset_filterrific_url' do
+
+      it 'responds to #reset_filterrific_url' do
+        TestController.new.must_respond_to(:reset_filterrific_url)
+      end
+
+    end
+
   end
 end
+
+

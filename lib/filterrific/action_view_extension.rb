@@ -5,6 +5,8 @@
 module Filterrific
   module ActionViewExtension
 
+    include HasResetFilterrificUrlMixin
+
     # Sets all options on form_for to defaults that work with Filterrific
     # @param record [Filterrific] the @filterrific object
     # @param options [Hash] standard options for form_for
@@ -88,13 +90,6 @@ module Filterrific
         # new sort column, default sort order
         filterrific_sorting_link_new_column(filterrific, new_sort_key, opts)
       end
-    end
-
-    # Returns a url that can be used to reset the Filterrific params
-    def reset_filterrific_url(opts = {})
-      url_for(
-        { filterrific: { reset_filterrific: true } }.merge(opts)
-      )
     end
 
   protected
