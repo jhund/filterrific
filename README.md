@@ -58,6 +58,7 @@ I'm happy to help you if you encounter problems when using filterrific. You'll m
 * [Changelog](https://github.com/jhund/filterrific/blob/master/CHANGELOG.md)
 * [Source code (github)](https://github.com/jhund/filterrific)
 * [Issues](https://github.com/jhund/filterrific/issues)
+* [Questions on Stack Overflow](http://stackoverflow.com/questions/tagged/filterrific) (tagged `filterrific`)
 * [Rubygems.org](http://rubygems.org/gems/filterrific)
 
 [![Build Status](https://travis-ci.org/jhund/filterrific.svg?branch=master)](https://travis-ci.org/jhund/filterrific)
