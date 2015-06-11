@@ -82,12 +82,12 @@ module Filterrific
           fp[key] = val.call
         when val.is_a?(Array)
           # type cast integers in the array
-          fp[key] = fp[key].map { |e| e =~ /^[1-9\-]\d*$/ ? e.to_i : e }
+          fp[key] = fp[key].map { |e| e =~ /\A[1-9\-]\d*\z/ ? e.to_i : e }
         when val.is_a?(Hash)
           # type cast Hash to OpenStruct so that nested params render correctly
           # in the form
           fp[key] = OpenStruct.new(fp[key])
-        when val =~ /^[1-9\-]\d*$/
+        when val =~ /\A[1-9\-]\d*\z/
           # type cast integer
           fp[key] = fp[key].to_i
         end
