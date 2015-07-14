@@ -39,7 +39,9 @@ the 1.x branch is not supported any more.
 
 ### Guidelines for submitting issues
 
-I'm happy to help you if you encounter problems when using filterrific. You'll make my job easier if you follow these guidelines:
+Please post questions related to usage at [StackOverflow](http://stackoverflow.com/questions/tagged/filterrific) under the `filterrific` tag.
+
+If you think you've found a bug, or have a feature request, then create an issue here on Github. You'll make my job easier if you follow these guidelines:
 
 * Please keep in mind that I do this in my spare time. I appreciate it if you first do everything you can on your own: read the detailed filterrific documentation, look for similar issues on StackOverflow, search the internets, etc.
 * If you're stuck, give me sufficient context so that I have a chance to identify the issue:
