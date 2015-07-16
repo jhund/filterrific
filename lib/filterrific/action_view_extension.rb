@@ -17,8 +17,8 @@ module Filterrific
       options[:html][:method] ||= :get
       options[:html][:id] ||= :filterrific_filter
       options[:url] ||= url_for(
-        :controller => controller.controller_name,
-        :action => controller.action_name
+        :controller => controller.request.path_parameters[:controller],
+        :action => controller.request.path_parameters[:action]
       )
       form_for(record, options, &block)
     end
