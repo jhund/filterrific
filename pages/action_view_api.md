@@ -176,7 +176,7 @@ application.js file to get the form observers and the spinner:
 
 ## Disable AJAX auto form submits
 
-By default Filterrific will automatically submit the filter form as soon as you change any of the filter settings. Sometimes you may not want this behavior, e.g., if the rendering of the filtered records is fairly expensive. 
+By default Filterrific will automatically submit the filter form as soon as you change any of the filter settings. Sometimes you may not want this behavior, e.g., if the rendering of the filtered records is fairly expensive.
 
 The auto submit behavior is triggered by the filter form's id which is automatically added by the `form_for_filterrific` helper method. In order to deactivate AJAX auto submits, just override the DOM id for the form with something other than the default of `filterrific_filter`. If you still want to submit the form via AJAX (just not automatically on every change), also add the `remote: true` option to `form_for_filterrific`. Otherwise the form will be submitted as regular POST request and the entire page will reload.
 
@@ -189,6 +189,74 @@ Then you must add a regular submit button, and make sure you don't add the `.fil
 <% end %>
 ~~~
 
+## Sort by Column Title
+
+Filterrific provides sortable column header links which toggle sort direction
+with the `filterrific_sorting_link()` method.
+
+### filterrific_sorting_link
+
+The `filterrific_sorting_link(@filterrific, ...)` method provides toggle
+sorting of attributes defined in a `sorted_by` scope.
+
+```erb
+<%# app/views/students/_list.html.erb %>
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info students # provided by will_paginate %>
+  </div>
+
+  <table>
+    <tr>
+      <th><%= filterrific_sorting_link(@filterrific, :name) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :email) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :country) %></th>
+      <th><%= filterrific_sorting_link(@filterrific, :registered_at) %></th>
+    </tr>
+    <% students.each do |student| %>
+      <tr>
+        <td><%= link_to(student.full_name, student_path(student)) %></td>
+        <td><%= student.email %></td>
+        <td><%= student.country_name %></td>
+        <td><%= student.decorated_created_at %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate students # provided by will_paginate %>
+```
+
+`filterrific_sorting_link()` must be placed in the view partial.
+
+### sorted_by
+
+The `filterrific_sorting_link()` method is expecting a`sorted_by` scope which
+contains the column headers and the model attribute to sort by. Column headers
+are automatically capitalized.
+
+```
+scope :sorted_by, lambda { |sort_option|
+  direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+  case sort_option.to_s
+  when /^name/
+    order("LOWER(students.name) #{ direction }")
+  when /^email/
+    order("LOWER(students.email) #{ direction }")
+  when /^country/
+    order("LOWER(students.country) #{ direction }")
+  when /^registered_at/
+    order("LOWER(students.decorated_created_at) #{ direction }")
+  else
+    raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+  end
+}
+```
+
+[More on sorting scope...](/pages/active_record_scope_patterns.html#sort)
+
+----
 <p>
   <a href="/pages/active_record_scope_patterns.html" class='btn btn-success'>Learn about scope patterns &rarr;</a>
 </p>
