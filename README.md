@@ -28,10 +28,10 @@ Every commit to Filterrific is automatically tested against the following scenar
 
 | Rails version | Ruby environments              | Database adapters                  | Build status |
 |---------------|--------------------------------|------------------------------------|--------------|
-| Rails 4.2     | MRI 1.9.3, 2.0.0, 2.1.2, 2.2.0 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.2)](https://travis-ci.org/jhund/filterrific_demo)|
-| Rails 4.1     | MRI 1.9.3, 2.0.0, 2.1.2, 2.2.0 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.1)](https://travis-ci.org/jhund/filterrific_demo)|
-| Rails 4.0     | MRI 1.9.3, 2.0.0, 2.1.2, 2.2.0 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.0)](https://travis-ci.org/jhund/filterrific_demo)|
-| Rails 3.2     | MRI 1.9.3, 2.0.0, 2.1.2        | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-3.2)](https://travis-ci.org/jhund/filterrific_demo)|
+| Rails 4.2     | MRI 1.9.3, 2.0.0, 2.1.7, 2.2.3 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.2)](https://travis-ci.org/jhund/filterrific_demo)|
+| Rails 4.1     | MRI 1.9.3, 2.0.0, 2.1.7, 2.2.3 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.1)](https://travis-ci.org/jhund/filterrific_demo)|
+| Rails 4.0     | MRI 1.9.3, 2.0.0, 2.1.7, 2.2.3 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.0)](https://travis-ci.org/jhund/filterrific_demo)|
+| Rails 3.2     | MRI 1.9.3, 2.0.0, 2.1.7        | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-3.2)](https://travis-ci.org/jhund/filterrific_demo)|
 
 Filterrific version 1.x should work on older versions of Rails and Ruby, however
 the 1.x branch is not supported any more.
