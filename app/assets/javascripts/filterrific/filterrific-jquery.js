@@ -80,7 +80,7 @@ Filterrific.submitFilterForm = function(){
 
 
 // Initialize event observers on document ready and turbolinks page:load
-jQuery(document).on('ready page:load', function() {
+jQuery(document).on('ready page:load turbolinks:load', function() {
   // Add change event handler to all Filterrific filter inputs.
   $('#filterrific_filter').on(
     "change",
