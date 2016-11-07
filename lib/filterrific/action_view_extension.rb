@@ -101,11 +101,7 @@ module Filterrific
     # @return [String] an HTML fragment
     def filterrific_sorting_link_reverse_order(filterrific, new_sort_key, opts)
       # current sort column, toggle search_direction
-      new_sort_direction, current_sort_direction_indicator = if 'asc' == opts[:current_sort_direction]
-        ['desc', opts[:ascending_indicator]]
-      else
-        ['asc', opts[:descending_indicator]]
-      end
+      new_sort_direction = 'asc' == opts[:current_sort_direction] ? 'desc' : 'asc'
       new_sorting = [new_sort_key, new_sort_direction].join('_')
       css_classes = [
         opts[:active_column_class],
