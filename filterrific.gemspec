@@ -23,11 +23,4 @@ Gem::Specification.new do |gem|
     'README*',
     '{app,bin,doc,lib,spec}/**/*'
   ]
-
-  gem.add_dependency 'rails', ['>= 3.1.0']
-
-  gem.add_development_dependency 'bundler', ['>= 1.6.1']
-  gem.add_development_dependency 'gem-release', ['>= 0.7.3']
-  gem.add_development_dependency 'rake', ['>= 10.3.2']
-  gem.add_development_dependency 'wwtd', ['>= 0.5.5'] # to simulate travis locally
 end
