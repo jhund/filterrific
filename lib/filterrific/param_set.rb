@@ -28,7 +28,11 @@ module Filterrific
       # Persistence, baby. By the time you submit changes to one filter, all the others
       # will be already initialized with the defaults.
       filterrific_params = model_class.filterrific_default_filter_params  if filterrific_params.blank?
-      filterrific_params.stringify_keys!
+      if defined?(ActionController::Parameters) && filterrific_params.is_a?(ActionController::Parameters)
+        filterrific_params = filterrific_params.permit(model_class.filterrific_available_filters).to_h.stringify_keys
+      else
+        filterrific_params.stringify_keys!
+      end
       filterrific_params = condition_filterrific_params(filterrific_params)
       define_and_assign_attr_accessors_for_each_filter(filterrific_params)
     end
