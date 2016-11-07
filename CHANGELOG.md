@@ -1,3 +1,14 @@
+## 2.1.0
+
+* Updated filterrific for Rails 5 compatibility:
+    * Turbolinks compatibility (thanks @olegantonyan)
+    * Updated to Ruby 2.2.2 in CI test matrix
+    * Added Ruby 2.3.1 to CI test matrix (thanks @rodrigoargumedo)
+    * Fixed #stringify_keys deprecation warning (thanks @olegantonyan)
+* When generating sorting headers, allow usage of HTML (e.g., for icons) using #safe_join (thanks @ScottKolo)
+* Improved param casting to Int: hyphens and zeros (thanks @grit96)
+
+
 ### 2.0.5
 
 * Feature: Allow disabling of session persistence by passing `false` as
