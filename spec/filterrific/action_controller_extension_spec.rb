@@ -3,28 +3,28 @@ require 'filterrific/action_controller_extension'
 
 module Filterrific
 
-  class TestController
-    include ActionControllerExtension
-    def action_name; 'index'; end
-    def controller_name; 'test_controller'; end
-    def session
-      {
-        'test_controller#index' => {
-          'filter1' => '1_from_session',
-          'filter2' => '2_from_session',
-        }
-      }
-    end
-  end
-
-  class TestModelClass
-    def self.filterrific_available_filters; %w[filter1 filter2]; end
-    def self.filterrific_default_filter_params
-      { 'filter1' => '1_from_model_defaults' }
-    end
-  end
-
   describe ActionControllerExtension do
+
+    class TestController
+      include ActionControllerExtension
+      def action_name; 'index'; end
+      def controller_name; 'test_controller'; end
+      def session
+        {
+          'test_controller#index' => {
+            'filter1' => '1_from_session',
+            'filter2' => '2_from_session',
+          }
+        }
+      end
+    end
+
+    class TestModelClass
+      def self.filterrific_available_filters; %w[filter1 filter2]; end
+      def self.filterrific_default_filter_params
+        { 'filter1' => '1_from_model_defaults' }
+      end
+    end
 
     describe '#initialize_filterrific' do
 

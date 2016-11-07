@@ -6,26 +6,26 @@ ActiveRecord::Base.extend Filterrific::ActiveRecordExtension
 
 module Filterrific
 
-  # Container for test data
-  class TestData
-
-    def self.filterrific_available_filters
-      %w[search_query sorted_by with_country_id]
-    end
-
-    def self.filterrific_default_filter_params
-      { 'sorted_by' => 'name_asc' }
-    end
-
-  end
-
   describe ActiveRecordExtension do
+
+    # Container for test data
+    class TestDataARES
+
+      def self.filterrific_available_filters
+        %w[search_query sorted_by with_country_id]
+      end
+
+      def self.filterrific_default_filter_params
+        { 'sorted_by' => 'name_asc' }
+      end
+
+    end
 
     let(:filterrific_class){
       Class.new(ActiveRecord::Base) do
         filterrific(
-          available_filters: TestData.filterrific_available_filters,
-          default_filter_params: TestData.filterrific_default_filter_params
+          available_filters: TestDataARES.filterrific_available_filters,
+          default_filter_params: TestDataARES.filterrific_default_filter_params
         )
       end
     }
@@ -46,13 +46,13 @@ module Filterrific
 
       it "initializes filterrific_available_filters" do
         filterrific_class.filterrific_available_filters.must_equal(
-          TestData.filterrific_available_filters
+          TestDataARES.filterrific_available_filters
         )
       end
 
       it "initializes filterrific_default_filter_params" do
         filterrific_class.filterrific_default_filter_params.must_equal(
-          TestData.filterrific_default_filter_params
+          TestDataARES.filterrific_default_filter_params
         )
       end
 

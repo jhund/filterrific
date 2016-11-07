@@ -3,11 +3,11 @@ require 'filterrific/action_view_extension'
 
 module Filterrific
 
-  class ViewContext
-    include ActionViewExtension
-  end
-
   describe ActionViewExtension do
+
+    class ViewContext
+      include ActionViewExtension
+    end
 
     it 'responds to #form_for_filterrific' do
       ViewContext.new.must_respond_to(:form_for_filterrific)

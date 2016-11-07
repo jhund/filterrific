@@ -3,83 +3,93 @@ require 'filterrific/param_set'
 
 module Filterrific
 
-  # Container for test data
-  class TestData
-
-    def self.filterrific_available_filters
-      %w[
-        filter_almost_int
-        filter_array_int
-        filter_array_string
-        filter_hash
-        filter_int
-        filter_negative_int
-        filter_proc
-        filter_string
-      ]
-    end
-
-    def self.filterrific_default_filter_params
-      { 'filter_int' => 42 }
-    end
-
-    def self.filterrific_params
-      {
-        'filter_almost_int' => '042',
-        'filter_array_int' => %w[1 2 3],
-        'filter_array_string' => %w[one two three],
-        'filter_hash' => { a: 1, b: 2 },
-        'filter_int' => '42',
-        'filter_negative_int' => '-42',
-        'filter_proc' => lambda { 1 + 1 },
-        'filter_string' => 'forty-two',
-      }
-    end
-
-    def self.filterrific_params_after_conditioning
-      {
-        'filter_almost_int' => '042',
-        'filter_array_int' => [1, 2, 3],
-        'filter_array_string' => %w[one two three],
-        'filter_hash' => OpenStruct.new(a: 1, b: 2),
-        'filter_int' => 42,
-        'filter_negative_int' => -42,
-        'filter_proc' => 2,
-        'filter_string' => 'forty-two',
-      }
-    end
-
-    def self.filterrific_params_as_hash
-      {
-        'filter_almost_int' => '042',
-        'filter_array_int' => [1, 2, 3],
-        'filter_array_string' => %w[one two three],
-        'filter_hash' => { a: 1, b: 2 },
-        'filter_int' => 42,
-        'filter_negative_int' => -42,
-        'filter_proc' => 2,
-        'filter_string' => 'forty-two',
-      }
-    end
-
-  end
-
-  # Simulates a class that would include the filterrific directive
-  class ModelClass
-
-    def self.filterrific_default_filter_params
-      TestData.filterrific_default_filter_params
-    end
-    def self.filterrific_available_filters
-      TestData.filterrific_available_filters
-    end
-
-  end
-
   describe ParamSet do
 
+    # Container for test data
+    class TestData
+
+      def self.filterrific_available_filters
+        %w[
+          filter_almost_int
+          filter_array_int
+          filter_array_string
+          filter_hash
+          filter_hyphen
+          filter_int
+          filter_negative_int
+          filter_proc
+          filter_string
+          filter_zero
+        ]
+      end
+
+      def self.filterrific_default_filter_params
+        { 'filter_int' => 42 }
+      end
+
+      def self.filterrific_params
+        {
+          'filter_almost_int' => '042',
+          'filter_array_int' => %w[1 2 3],
+          'filter_array_string' => %w[one two three],
+          'filter_hash' => { a: 1, b: 2 },
+          'filter_hyphen' => '-',
+          'filter_int' => '42',
+          'filter_negative_int' => '-42',
+          'filter_proc' => lambda { 1 + 1 },
+          'filter_string' => 'forty-two',
+          'filter_zero' => '0',
+        }
+      end
+
+      def self.filterrific_params_after_conditioning
+        {
+          'filter_almost_int' => '042',
+          'filter_array_int' => [1, 2, 3],
+          'filter_array_string' => %w[one two three],
+          'filter_hash' => OpenStruct.new(a: 1, b: 2),
+          'filter_hyphen' => '-',
+          'filter_int' => 42,
+          'filter_negative_int' => -42,
+          'filter_proc' => 2,
+          'filter_string' => 'forty-two',
+          'filter_zero' => 0,
+        }
+      end
+
+      def self.filterrific_params_as_hash
+        {
+          'filter_almost_int' => '042',
+          'filter_array_int' => [1, 2, 3],
+          'filter_array_string' => %w[one two three],
+          'filter_hash' => { a: 1, b: 2 },
+          'filter_hyphen' => '-',
+          'filter_int' => 42,
+          'filter_negative_int' => -42,
+          'filter_proc' => 2,
+          'filter_string' => 'forty-two',
+          'filter_zero' => 0,
+        }
+      end
+
+    end
+
+    # Simulates a class that would include the filterrific directive
+    class ModelClass
+
+      def self.filterrific_default_filter_params
+        TestData.filterrific_default_filter_params
+      end
+      def self.filterrific_available_filters
+        TestData.filterrific_available_filters
+      end
+
+    end
+
     let(:filterrific_param_set){
-      Filterrific::ParamSet.new(ModelClass, TestData.filterrific_params)
+      Kernel::silence_warnings {
+        Filterrific::ParamSet.new(ModelClass, TestData.filterrific_params)
+      }
     }
 
     describe "initialization" do
