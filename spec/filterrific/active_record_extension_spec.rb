@@ -90,4 +90,25 @@ module Filterrific
     end
 
   end
+
+  describe "Single Table Inheritance" do
+
+    class Daddy < ActiveRecord::Base
+      filterrific(available_filters: [:one, :two])
+    end
+
+    class Girl < Daddy
+      filterrific(available_filters: [:three, :four])
+    end
+
+    %w(one two).each do |value|
+      it { Daddy.filterrific_available_filters.must_include value }
+    end
+
+    %w(three four).each do |value|
+      it { Girl.filterrific_available_filters.must_include value }
+    end
+
+  end
+
 end

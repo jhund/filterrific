@@ -78,9 +78,7 @@ Filterrific.submitFilterForm = function(){
 })(jQuery);
 
 
-
-// Initialize event observers on document ready and turbolinks page:load
-jQuery(document).on('ready page:load', function() {
+Filterrific.init = function() {
   // Add change event handler to all Filterrific filter inputs.
   $('#filterrific_filter').on(
     "change",
@@ -94,4 +92,17 @@ jQuery(document).on('ready page:load', function() {
     0.5,
     Filterrific.submitFilterForm
   );
+};
+
+
+// Initialize event observers on document ready and turbolinks page:load
+jQuery(document).on('turbolinks:load', function() {
+  // Prevent double initilisation. With turbolinks 5 this function
+  // will be called twice: on 'ready' and 'turbolinks:load'
+  jQuery(document).off('ready page:load')
+  Filterrific.init();
+});
+
+jQuery(document).on('ready page:load', function() {
+  Filterrific.init();
 });

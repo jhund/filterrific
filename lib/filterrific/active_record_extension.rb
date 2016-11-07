@@ -19,8 +19,10 @@ module Filterrific
     # @option opts [Hash, optional] default_filter_params: default filter parameters
     # @return [void]
     def filterrific(opts)
-      cattr_accessor :filterrific_available_filters
-      cattr_accessor :filterrific_default_filter_params
+      class << self
+        attr_accessor :filterrific_available_filters
+        attr_accessor :filterrific_default_filter_params
+      end
       self.filterrific_available_filters = []
 
       opts.stringify_keys!
