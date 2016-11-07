@@ -106,17 +106,17 @@ module Filterrific
       else
         ['asc', opts[:descending_indicator]]
       end
-      new_sorting = [new_sort_key, new_sort_direction].join('_')
-      css_classes = [
+      new_sorting = safe_join([new_sort_key, new_sort_direction], '_')
+      css_classes = safe_join([
         opts[:active_column_class],
         opts[:html_attrs].delete(:class)
-      ].compact.join(' ')
+      ].compact, ' ')
       new_filterrific_params = filterrific.to_hash
                                           .with_indifferent_access
                                           .merge(opts[:sorting_scope_name] => new_sorting)
       url_for_attrs = opts[:url_for_attrs].merge(:filterrific => new_filterrific_params)
       link_to(
-        [opts[:label], opts[:current_sort_direction_indicator]].join(' '),
+        safe_join([opts[:label], opts[:current_sort_direction_indicator]], ' '),
         url_for(url_for_attrs),
         opts[:html_attrs].reverse_merge(:class => css_classes, :method => :get, :remote => true)
       )
@@ -129,11 +129,11 @@ module Filterrific
     # @return [String] an HTML fragment
     def filterrific_sorting_link_new_column(filterrific, new_sort_key, opts)
       new_sort_direction = opts[:default_sort_direction]
-      new_sorting = [new_sort_key, new_sort_direction].join('_')
-      css_classes = [
+      new_sorting = safe_join([new_sort_key, new_sort_direction], '_')
+      css_classes = safe_join([
         opts[:inactive_column_class],
         opts[:html_attrs].delete(:class)
-      ].compact.join(' ')
+      ].compact, ' ')
       new_filterrific_params = filterrific.to_hash
                                           .with_indifferent_access
                                           .merge(opts[:sorting_scope_name] => new_sorting)
