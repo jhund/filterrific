@@ -31,8 +31,8 @@ module Filterrific
     # sprockets-rails 3 tracks down the calls to `font_path` and `image_path`
     # and automatically precompiles the referenced assets.
     unless Rails::VERSION::MAJOR < 5
-      initializer "filterrific.assets.precompile" do |app|
-        app.config.assets.precompile += %w(filterrific/filterrific-spinner.gif)
+      initializer "filterrific" do |app|
+        app.config.assets.precompile += %w(filterrific-spinner.gif)
       end
     end
 
