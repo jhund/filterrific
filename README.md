@@ -28,7 +28,7 @@ Every commit to Filterrific is automatically tested against the following scenar
 
 | Rails version | Ruby environments              | Database adapters                  | Build status |
 |---------------|--------------------------------|------------------------------------|--------------|
-| Rails 5.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql, sqlite3        |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-5.x)](https://travis-ci.org/jhund/filterrific_demo)|
+| Rails 5.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql                 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-5.x)](https://travis-ci.org/jhund/filterrific_demo)|
 | Rails 4.2     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.2)](https://travis-ci.org/jhund/filterrific_demo)|
 | Rails 4.1     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.1)](https://travis-ci.org/jhund/filterrific_demo)|
 | Rails 4.0     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.0)](https://travis-ci.org/jhund/filterrific_demo)|
@@ -46,7 +46,7 @@ Please post questions related to usage at [StackOverflow](http://stackoverflow.c
 
 If you think you've found a bug, or have a feature request, then create an issue here on Github. You'll make my job easier if you follow these guidelines:
 
-* Please keep in mind that I do this in my spare time. I appreciate it if you first do everything you can on your own: read the detailed filterrific documentation, look for similar issues on StackOverflow, search the internets, etc. To you this software is free as in `beer`, to me it's free as in `baby`.
+* Please keep in mind that I do this in my spare time. To you this software is free as in `beer`, to me it's free as in `baby`. I appreciate it if you first do everything you can on your own: read the detailed [Filterrific documentation](http://filterrific.clearcove.ca), look for similar issues on [StackOverflow](http://stackoverflow.com/questions/tagged/filterrific), search the internets, etc.
 * If you're stuck, give me sufficient context so that I have a chance to identify the issue:
     * what version of filterrific are you using? (look in your `Gemfile.lock`)
     * what version of Rails are you using? (look in your `Gemfile.lock`)
