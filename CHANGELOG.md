@@ -1,3 +1,7 @@
+### 2.1.1
+
+* Reverted asset initialization back to working state for versions prior to Rails5.
+
 ## 2.1.0
 
 * Updated filterrific for Rails 5 compatibility:
