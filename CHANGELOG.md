@@ -1,3 +1,7 @@
+### 2.1.2
+
+* Removed older way of initializing assets, relying on config/initializers/assets.rb for all versions of Rails.
+
 ### 2.1.1
 
 * Reverted asset initialization back to working state for versions prior to Rails5.
