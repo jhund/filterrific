@@ -29,7 +29,11 @@ module Filterrific
       # will be already initialized with the defaults.
       filterrific_params = model_class.filterrific_default_filter_params  if filterrific_params.blank?
       if defined?(ActionController::Parameters) && filterrific_params.is_a?(ActionController::Parameters)
-        filterrific_params = filterrific_params.permit(model_class.filterrific_available_filters).to_h.stringify_keys
+        permissible_filter_params = []
+        model_class.filterrific_available_filters.each do |p|
+          permissible_filter_params << (filterrific_params[p].is_a?(Hash) ? { p => filterrific_params[p].keys } : p)
+        end
+        filterrific_params = filterrific_params.permit(permissible_filter_params).to_h.stringify_keys
       else
         filterrific_params.stringify_keys!
       end
