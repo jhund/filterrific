@@ -23,8 +23,14 @@ Filterrific.submitFilterForm = function(){
       url = form.attr("action");
   // turn on spinner
   $('.filterrific_spinner').show();
+
+  // Abort previous ajax request
+  if (Filterrific.lastRequest && Filterrific.lastRequest.readyState != 4) {
+    Filterrific.lastRequest.abort();
+  }
+
   // Submit ajax request
-  $.ajax({
+  Filterrific.lastRequest = $.ajax({
     url: url,
     data: form.serialize(),
     type: 'GET',
