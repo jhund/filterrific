@@ -66,9 +66,12 @@ module Filterrific
       filterrific_available_filters.each do |filter_name|
         filter_param = filterrific_param_set.send(filter_name)
         next if filter_param.blank? # skip blank filter_params
-        ar_rel = ar_rel.send(filter_name, filter_param)
+        begin
+          ar_rel = ar_rel.send(filter_name, filter_param)
+        rescue ArgumentError #if we have a scope with arity 0 or enum query, we can perform the request without the parameter
+          ar_rel = ar_rel.send(filter_name) if (filter_param == 1)
+        end
       end
-
       ar_rel
     end
 
