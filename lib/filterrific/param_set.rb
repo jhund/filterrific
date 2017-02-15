@@ -31,7 +31,7 @@ module Filterrific
       if defined?(ActionController::Parameters) && filterrific_params.is_a?(ActionController::Parameters)
         permissible_filter_params = []
         model_class.filterrific_available_filters.each do |p|
-          if filterrific_params[p].is_a?(Hash)
+          if filterrific_params[p].is_a?(ActionController::Parameters)
             permissible_filter_params << { p => filterrific_params[p].keys }
           elsif filterrific_params[p].is_a?(Array)
             permissible_filter_params << { p => [] }
