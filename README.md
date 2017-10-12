@@ -1,7 +1,7 @@
 terriffilter
 ===========
 
-It's just [filterrific](github.com/jhund/filterrific) but, you know, maintained and stuff.
+It's just [filterrific](https://github.com/jhund/filterrific) but, you know, maintained and stuff.
 
 ### Installation
 
