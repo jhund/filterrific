@@ -2,6 +2,6 @@ ENV["RAILS_ENV"] = "test"
 require 'bundler/setup'
 require 'minitest/autorun'
 require 'rails'
-require 'filterrific'
+require 'terriffilter'
 
 #MiniTest::Unit.autorun

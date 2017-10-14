@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-describe Filterrific do
+describe Terriffilter do
 end

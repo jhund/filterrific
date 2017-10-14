@@ -3,7 +3,6 @@
 .DS_Store
 .ruby-gemset
 .ruby-version
-doc/scratchpad.md
 Gemfile.lock
 log/*.log
 pkg/

@@ -1,6 +1,6 @@
 /**
- * Javascript behaviors for Filterrific.
- * http://filterrific.clearcove.ca
+ * Javascript behaviors for terriffilter.
+ * http://terriffilter.clearcove.ca
  *
  * Requires jQuery 1.7.0 or later.
  *
@@ -10,19 +10,22 @@
 
 
 
-// Create global Filterrific namespace
-if (typeof Filterrific === 'undefined') {
-  var Filterrific = {};
+// Create global terriffilter namespace
+if (typeof terriffilter === 'undefined') {
+  var terriffilter = {};
 }
 
 
 
-// Define function to submit Filterrific filter form
-Filterrific.submitFilterForm = function(){
+// Define function to submit terriffilter filter form
+terriffilter.submitFilterForm = function(){
   var form = $(this).parents("form"),
       url = form.attr("action");
   // turn on spinner
-  $('.filterrific_spinner').show();
+  $('.terriffilter_spinner').show();
+  // Trigger a custom event so that others may then bind to it, if they want to.
+  // Example: I want to do something whenever the filtered results changes.
+  $('#filterrific_filter').trigger('filterrific_filter:submit');
   // Submit ajax request
   $.ajax({
     url: url,
@@ -30,21 +33,21 @@ Filterrific.submitFilterForm = function(){
     type: 'GET',
     dataType: 'script'
   }).done(function( msg ) {
-    $('.filterrific_spinner').hide();
+    $('.terriffilter_spinner').hide();
   });
 };
 
 
 
 //
-// Embed jquery.observe_field.js to observe Filterrific filter inputs
+// Embed jquery.observe_field.js to observe terriffilter filter inputs
 //
 // Copied from https://github.com/splendeo/jquery.observe_field
 // Wrap in immediately invoked function for compatibility with other js libraries
 //
 (function($) {
 
-  $.fn.filterrific_observe_field = function(frequency, callback) {
+  $.fn.terriffilter_observe_field = function(frequency, callback) {
     frequency = frequency * 1000; // translate to milliseconds
     return this.each(function(){
       var $this = $(this);
@@ -78,19 +81,19 @@ Filterrific.submitFilterForm = function(){
 })(jQuery);
 
 
-Filterrific.init = function() {
-  // Add change event handler to all Filterrific filter inputs.
-  $('#filterrific_filter').on(
+terriffilter.init = function() {
+  // Add change event handler to all terriffilter filter inputs.
+  $('#terriffilter_filter').on(
     "change",
     ":input",
-    Filterrific.submitFilterForm
+    terriffilter.submitFilterForm
   );
 
   // Add periodic observer to selected inputs.
   // Use this for text fields you want to observe for change, e.g., a search input.
-  $(".filterrific-periodically-observed").filterrific_observe_field(
+  $(".terriffilter-periodically-observed").terriffilter_observe_field(
     0.5,
-    Filterrific.submitFilterForm
+    terriffilter.submitFilterForm
   );
 };
 
@@ -100,9 +103,9 @@ jQuery(document).on('turbolinks:load', function() {
   // Prevent double initilisation. With turbolinks 5 this function
   // will be called twice: on 'ready' and 'turbolinks:load'
   jQuery(document).off('ready page:load')
-  Filterrific.init();
+  terriffilter.init();
 });
 
 jQuery(document).on('ready page:load', function() {
-  Filterrific.init();
+  terriffilter.init();
 });

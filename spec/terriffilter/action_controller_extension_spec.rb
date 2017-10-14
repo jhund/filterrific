@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'filterrific/action_controller_extension'
+require 'terriffilter/action_controller_extension'
 
-module Filterrific
+module Terriffilter
 
   describe ActionControllerExtension do
 
@@ -20,17 +20,17 @@ module Filterrific
     end
 
     class TestModelClass
-      def self.filterrific_available_filters; %w[filter1 filter2]; end
-      def self.filterrific_default_filter_params
+      def self.terriffilter_available_filters; %w[filter1 filter2]; end
+      def self.terriffilter_default_filter_params
         { 'filter1' => '1_from_model_defaults' }
       end
     end
 
-    describe '#initialize_filterrific' do
+    describe '#initialize_terriffilter' do
 
-      it 'returns a Filterrific::ParamSet' do
+      it 'returns a terriffilter::ParamSet' do
         TestController.new.send(
-          :initialize_filterrific,
+          :initialize_terriffilter,
           TestModelClass,
           { 'filter1' => 1, 'filter2' => 2 },
         ).must_be_instance_of(ParamSet)
@@ -48,11 +48,11 @@ module Filterrific
 
     end
 
-    describe '#compute_filterrific_params' do
+    describe '#compute_terriffilter_params' do
 
-      it 'uses filterrific_params if given' do
+      it 'uses terriffilter_params if given' do
         TestController.new.send(
-          :compute_filterrific_params,
+          :compute_terriffilter_params,
           TestModelClass,
           { 'filter1' => 1, 'filter2' => 2 },
           { },
@@ -60,9 +60,9 @@ module Filterrific
         ).must_equal({ 'filter1' => 1, 'filter2' => 2 })
       end
 
-      it 'uses session if filterrific_params are blank' do
+      it 'uses session if terriffilter_params are blank' do
         TestController.new.send(
-          :compute_filterrific_params,
+          :compute_terriffilter_params,
           TestModelClass,
           {},
           { },
@@ -72,7 +72,7 @@ module Filterrific
 
       it "uses opts['default_filter_params'] if session is blank" do
         TestController.new.send(
-          :compute_filterrific_params,
+          :compute_terriffilter_params,
           TestModelClass,
           {},
           { 'default_filter_params' => { 'filter1' => '1_from_opts' } },
@@ -82,7 +82,7 @@ module Filterrific
 
       it "uses model default_filter_params if opts is blank" do
         TestController.new.send(
-          :compute_filterrific_params,
+          :compute_terriffilter_params,
           TestModelClass,
           {},
           { },
@@ -92,7 +92,7 @@ module Filterrific
 
       it "limits filter params to opts['available_filters']" do
         TestController.new.send(
-          :compute_filterrific_params,
+          :compute_terriffilter_params,
           TestModelClass,
           { 'filter1' => 1, 'filter2' => 2 },
           { 'available_filters' => %w[filter1] },
@@ -102,10 +102,10 @@ module Filterrific
 
     end
 
-    describe '#reset_filterrific_url' do
+    describe '#reset_terriffilter_url' do
 
-      it 'responds to #reset_filterrific_url' do
-        TestController.new.must_respond_to(:reset_filterrific_url)
+      it 'responds to #reset_terriffilter_url' do
+        TestController.new.must_respond_to(:reset_terriffilter_url)
       end
 
     end
