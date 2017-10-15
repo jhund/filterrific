@@ -82,7 +82,7 @@ Filterrific.init = function() {
   // Add change event handler to all Filterrific filter inputs.
   $('#filterrific_filter').on(
     "change",
-    ":input",
+    ":input:not(.filterrific-periodically-observed)",
     Filterrific.submitFilterForm
   );
 
