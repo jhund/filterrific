@@ -54,12 +54,9 @@ module Filterrific
       ar_rel = if ActiveRecord::Relation === self
         # self is already an ActiveRecord::Relation, use as is
         self
-      elsif Rails::VERSION::MAJOR <= 3
-        # Active Record 3: send `:scoped` to class to get an ActiveRecord::Relation
-        scoped
       else
-        # Active Record 4 and later: Send `:all` to class to get an ActiveRecord::Relation
-        all
+        # Send `:scoped` to class to get an ActiveRecord::Relation
+        scoped
       end
 
       # Apply filterrific params

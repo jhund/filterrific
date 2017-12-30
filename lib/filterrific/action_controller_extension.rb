@@ -27,8 +27,6 @@ module Filterrific
     #   dynamic values.
     # @return [Filterrific::ParamSet]
     def initialize_filterrific(model_class, filterrific_params, opts = {})
-      # We used #deep_stringify_keys, however that breaks on Rails 3.x, so we
-      # went back to #stringify_keys which should be sufficient.
       f_params = (filterrific_params || {}).stringify_keys
       opts = opts.stringify_keys
       pers_id = if false == opts['persistence_id']

@@ -1,8 +1,17 @@
-Filterrific
-===========
+# Filterrific
 
 Filterrific is a Rails Engine plugin that makes it easy to filter,
 search, and sort your ActiveRecord lists:
+
+
+### Features
+
+* Makes heavy use of ActiveRecord Scopes
+* ActionController helpers to shuttle filter params from ActionView forms to ActiveRecord based models, and to return matching records back from ActiveRecord to ActionView.
+* Form helpers to build powerful search and filter forms with ease.
+* Javascript assets to auto-submit filter form on change via AJAX.
+* Image asset to show a spinner in the Filterrific form when new records are being loaded via AJAX.
+* API option to use Filterrific with Rails API mode. Just use `gem 'filterrific', require: 'filterrific_api'` in your Gemfile.
 
 ***
 
@@ -10,8 +19,6 @@ search, and sort your ActiveRecord lists:
 
 ***
 
-Make sure to go to the fantastic [Filterrific documentation](http://filterrific.clearcove.ca)
-to find out more!
 
 ### Installation
 
@@ -20,6 +27,12 @@ to find out more!
 or with bundler in your Gemfile:
 
 `gem 'filterrific'`
+
+
+### Usage
+
+Make sure to go to the fantastic [Filterrific documentation](http://filterrific.clearcove.ca)
+to find out more!
 
 
 ### Compatibility
@@ -78,4 +91,4 @@ If you think you've found a bug, or have a feature request, then create an issue
 
 ### Copyright
 
-Copyright (c) 2010 - 2016 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2018 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
