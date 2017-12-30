@@ -1,8 +1,17 @@
-Filterrific
-===========
+# Filterrific
 
 Filterrific is a Rails Engine plugin that makes it easy to filter,
 search, and sort your ActiveRecord lists:
+
+
+### Features
+
+* Makes heavy use of ActiveRecord Scopes
+* ActionController helpers to shuttle filter params from ActionView forms to ActiveRecord based models, and to return matching records back from ActiveRecord to ActionView.
+* Form helpers to build powerful search and filter forms with ease.
+* Javascript assets to auto-submit filter form on change via AJAX.
+* Image asset to show a spinner in the Filterrific form when new records are being loaded via AJAX.
+* API option to use Filterrific with Rails API mode. Just use `gem 'filterrific', require: 'filterrific_api'` in your Gemfile.
 
 ***
 
@@ -10,8 +19,6 @@ search, and sort your ActiveRecord lists:
 
 ***
 
-Make sure to go to the fantastic [Filterrific documentation](http://filterrific.clearcove.ca)
-to find out more!
 
 ### Installation
 
@@ -22,18 +29,23 @@ or with bundler in your Gemfile:
 `gem 'filterrific'`
 
 
+### Usage
+
+Make sure to go to the fantastic [Filterrific documentation](http://filterrific.clearcove.ca)
+to find out more!
+
+
 ### Compatibility
 
 Every commit to Filterrific is automatically tested against the following scenarios:
 
-| Rails version | Ruby environments              | Database adapters                  | Build status |
-|---------------|--------------------------------|------------------------------------|--------------|
-| Rails 5.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql                 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-5.x)](https://travis-ci.org/jhund/filterrific_demo)|
-| Rails 4.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql                 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.x)](https://travis-ci.org/jhund/filterrific_demo)|
-
-Filterrific up to version 2.1.x should work on Rails 3.2 and Ruby 1.9.3. I stopped testing it though as it became too cumbersome to manage gem dependencies.
-
-Filterrific version 1.x should work on versions prior to Rails 3.2 and older Rubies, however the 1.x branch is not supported any more.
+|Filterrific version | Rails version | Ruby environments              | Database adapters                  | Build status |
+|--------------------|---------------|--------------------------------|------------------------------------|--------------|
+| 5.x                | Rails 5.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql                 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-5.x)](https://travis-ci.org/jhund/filterrific_demo)|
+| 4.x                | Rails 4.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.x)](https://travis-ci.org/jhund/filterrific_demo)|
+| 3.x                | Rails 3.2     | MRI 2.0.0, 2.1.7               | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-3.x)](https://travis-ci.org/jhund/filterrific_demo)|
+| 2.x                | Rails 3.2     | MRI 1.9.3                      | mysql, mysql2, postgresql, sqlite3 | [N/A]
+| 1.x                | < 3.2         | MRI <= 1.9.3                   | mysql, mysql2, postgresql, sqlite3 | [N/A]
 
 ### Guidelines for submitting issues
 

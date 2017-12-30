@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem 'rails'
+gem 'rails', '~> 5.0'
 
 group :development, :test do
   gem 'gem-release'

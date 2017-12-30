@@ -54,11 +54,8 @@ module Filterrific
       ar_rel = if ActiveRecord::Relation === self
         # self is already an ActiveRecord::Relation, use as is
         self
-      elsif Rails::VERSION::MAJOR <= 3
-        # Active Record 3: send `:scoped` to class to get an ActiveRecord::Relation
-        scoped
       else
-        # Active Record 4 and later: Send `:all` to class to get an ActiveRecord::Relation
+        # Send `:all` to class to get an ActiveRecord::Relation
         all
       end
 
@@ -101,7 +98,7 @@ module Filterrific
     def assign_filterrific_default_filter_params(opts)
       self.filterrific_default_filter_params = (
         opts['default_filter_params'] || {}
-      ).stringify_keys
+      ).deep_stringify_keys
     end
 
     def validate_filterrific_default_filter_params

@@ -27,10 +27,8 @@ module Filterrific
     #   dynamic values.
     # @return [Filterrific::ParamSet]
     def initialize_filterrific(model_class, filterrific_params, opts = {})
-      # We used #deep_stringify_keys, however that breaks on Rails 3.x, so we
-      # went back to #stringify_keys which should be sufficient.
-      f_params = (filterrific_params || {}).stringify_keys
-      opts = opts.stringify_keys
+      f_params = (filterrific_params || {}).deep_stringify_keys
+      opts = opts.deep_stringify_keys
       pers_id = if false == opts['persistence_id']
         nil
       else
@@ -68,7 +66,7 @@ module Filterrific
         (persistence_id && session[persistence_id].presence) || # then try session persisted params if persistence_id is present
         opts['default_filter_params'] || # then use passed in opts
         model_class.filterrific_default_filter_params # finally use model_class defaults
-      ).stringify_keys
+      ).deep_stringify_keys
       r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
       r
     end
