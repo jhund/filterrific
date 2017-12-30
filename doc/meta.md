@@ -9,10 +9,7 @@ For more info see: https://github.com/svenfuchs/gem-release#usage
 ## Steps for an update
 
 1. Update code and commit it.
-2. Add entry to CHANGELOG and commit it:
-   * h1 for major release
-   * h2 for minor release
-   * h3 for patch release
+2. Add entry to CHANGELOG and commit it.
 3. Bump the version with one of these commands:
    * `gem bump --version 1.1.1` # Bump the gem version to the given version number
    * `gem bump --version major` # 0.0.1 -> 1.0.0
