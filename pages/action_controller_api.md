@@ -63,7 +63,7 @@ class StudentsController < ApplicationController
       },
       persistence_id: 'shared_key',
       default_filter_params: {},
-      available_filters: [],
+      available_filters: [:sorted_by, :with_country_id],
     ) or return
     # Get an ActiveRecord::Relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
