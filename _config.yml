@@ -25,16 +25,20 @@ redcarpet:
   extensions: [no_intra_emphasis]
 
 kramdown:
-  auto_ids: true,
+  input: GFM
+  css_class: highlight
+  auto_ids: true
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
   enable_coderay: false
-
   syntax_highlighter_opts:
     wrap: div
-    line_numbers: inline
-    line_numbers_start: 1
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
     tab_width: 4
     bold_every: 10
     css: style
