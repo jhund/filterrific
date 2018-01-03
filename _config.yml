@@ -7,7 +7,7 @@ destination: ./_site
 
 future:      true
 lsi:         false
-highlighter: true
+highlighter: rouge
 markdown:    redcarpet
 permalink:   date
 
