@@ -98,7 +98,7 @@ module Filterrific
     def assign_filterrific_default_filter_params(opts)
       self.filterrific_default_filter_params = (
         opts['default_filter_params'] || {}
-      ).deep_stringify_keys
+      ).stringify_keys
     end
 
     def validate_filterrific_default_filter_params

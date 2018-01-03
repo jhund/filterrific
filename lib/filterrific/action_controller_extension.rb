@@ -10,8 +10,9 @@ module Filterrific
   protected
 
     # @param model_class [Class]
-    # @param filterrific_params [Hash] typically the Rails request params under
-    #    the :filterrific key (params[:filterrific]), however can be any Hash.
+    # @param filterrific_params [ActionController::Params, Hash] typically the
+    #    Rails request params under the :filterrific key (params[:filterrific]),
+    #    however can be any Hash.
     # @param opts [Hash, optional]
     # @option opts [Array<String>, optional] :available_filters
     #   further restrict which of the filters specified in the model are
@@ -27,8 +28,8 @@ module Filterrific
     #   dynamic values.
     # @return [Filterrific::ParamSet]
     def initialize_filterrific(model_class, filterrific_params, opts = {})
-      f_params = (filterrific_params || {}).deep_stringify_keys
-      opts = opts.deep_stringify_keys
+      f_params = (filterrific_params || {}).stringify_keys
+      opts = opts.stringify_keys
       pers_id = if false == opts['persistence_id']
         nil
       else
@@ -57,7 +58,7 @@ module Filterrific
     # Computes filterrific params using a number of strategies. Limits params
     # to 'available_filters' if given via opts.
     # @param model_class [ActiveRecord::Base]
-    # @param filterrific_params [Hash]
+    # @param filterrific_params [ActionController::Params, Hash]
     # @param opts [Hash]
     # @param persistence_id [String, nil]
     def compute_filterrific_params(model_class, filterrific_params, opts, persistence_id)
@@ -66,7 +67,7 @@ module Filterrific
         (persistence_id && session[persistence_id].presence) || # then try session persisted params if persistence_id is present
         opts['default_filter_params'] || # then use passed in opts
         model_class.filterrific_default_filter_params # finally use model_class defaults
-      ).deep_stringify_keys
+      ).stringify_keys
       r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
       r
     end
