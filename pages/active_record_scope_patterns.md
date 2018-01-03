@@ -179,7 +179,7 @@ scope :sorted_by, lambda { |sort_option|
     # This sorts by a student's country name, so we need to include
     # the country. We can't use JOIN since not all students might have
     # a country.
-    order("LOWER(countries.name) #{ direction }").includes(:country)
+    order("LOWER(countries.name) #{ direction }").includes(:country).references(:country)
   else
     raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
   end
