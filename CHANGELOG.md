@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.0.1] - Jan. 2, 2018
+
+* Changed all instances of #deep_stringify_keys back to #stringify_keys. This was changed in 5.0.0, but it shouldn't have been changed.
+
 ## [5.0.0] - Dec. 31, 2017
 
 * We're switching to a new versioning strategy for Filterrific: Filterrific major releases (the first number in the version) will be matched with the supported major version of Rails. Minor and path versions may diverge from Rails. That means for any version of Rails 5.x you will use the most current version of Filterrific 5.x.

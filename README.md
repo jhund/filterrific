@@ -85,4 +85,4 @@ If you think you've found a bug, or have a feature request, then create an issue
 
 ### Copyright
 
-Copyright (c) 2010 - 2017 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2018 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
