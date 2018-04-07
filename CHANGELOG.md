@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [4.0.1] - Apr. 6, 2018
+
+* Updated Filterific JS initialization on page load.
+
 ## [4.0.0] - Dec. 31, 2017
 
 * This is the first release of Filterrific specifically geared towards Rails 4.x. No functional changes, just new versioning system and removal of unused code.
