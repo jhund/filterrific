@@ -78,7 +78,7 @@ module Filterrific
       r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
       # Sanitize params to prevent reflected XSS attack
       if opts["sanitize_params"]
-        r.each { |k,v| r[k] = sanitize_value(r[k]) }
+        r.each { |k,v| r[k] = sanitize_filterrific_param(r[k]) }
       end
       r
     end
@@ -87,14 +87,14 @@ module Filterrific
     # Uses Rails ActionView::Helpers::SanitizeHelper.
     # @param val [Object] the value to sanitize. Can be any kind of object. Collections
     #   will have their members sanitized recursively.
-    def sanitize_value(val)
+    def sanitize_filterrific_param(val)
       case val
       when Array
         # Return Array
-        val.map { |e| sanitize_value(e) }
+        val.map { |e| sanitize_filterrific_param(e) }
       when Hash
         # Return Hash
-        val.inject({}) { |m, (k,v)| m[k] = sanitize_value(v); m }
+        val.inject({}) { |m, (k,v)| m[k] = sanitize_filterrific_param(v); m }
       when NilClass
         # Nothing to do, use val as is
         val
