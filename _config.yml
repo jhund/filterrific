@@ -1,17 +1,13 @@
 safe:        true
-auto:        true
-server:      false
-server_port: 4000
 baseurl:     /
 url: http://localhost:4000
 
 source:      .
 destination: ./_site
-plugins:     ./_plugins
 
 future:      true
 lsi:         false
-pygments:    true
+highlighter: rouge
 markdown:    redcarpet
 permalink:   date
 
@@ -29,19 +25,23 @@ redcarpet:
   extensions: [no_intra_emphasis]
 
 kramdown:
-  auto_ids: true,
+  input: GFM
+  css_class: highlight
+  auto_ids: true
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
-  use_coderay: false
-
-  coderay:
-    coderay_wrap: div
-    coderay_line_numbers: inline
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: style
+  enable_coderay: false
+  syntax_highlighter_opts:
+    wrap: div
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+    tab_width: 4
+    bold_every: 10
+    css: style
 
 nav_items:
 - url: /

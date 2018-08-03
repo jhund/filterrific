@@ -179,7 +179,7 @@ scope :sorted_by, lambda { |sort_option|
     # This sorts by a student's country name, so we need to include
     # the country. We can't use JOIN since not all students might have
     # a country.
-    order("LOWER(countries.name) #{ direction }").includes(:country)
+    order("LOWER(countries.name) #{ direction }").includes(:country).references(:country)
   else
     raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
   end
@@ -200,7 +200,7 @@ Naming convention: `with_%{plural association name}`.
 ```ruby
 scope :with_comments, lambda {
   where(
-    'EXISTS (SELECT 1 from students, comments WHERE students.id = comments.student_id)'
+    'EXISTS (SELECT 1 from comments WHERE students.id = comments.student_id)'
   )
 }
 ```
@@ -214,7 +214,7 @@ scope :with_comments_since, lambda { |reference_time|
     %(
       EXISTS (
         SELECT 1
-          FROM students, comments
+          FROM comments
          WHERE students.id = comments.student_id
            AND comments.created_at >= ?)
     ),
@@ -238,7 +238,7 @@ Naming convention: `without_%{plural association name}`.
 scope :without_comments, lambda {
   where(
     %(NOT EXISTS (
-      SELECT 1 FROM students, comments WHERE comments.student_id = students.id
+      SELECT 1 FROM comments WHERE comments.student_id = students.id
     ))
   )
 }
