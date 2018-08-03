@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.1.0] - Aug. 3, 2018
+
+* Breaking change: all Filterrific params are sanitized by default to prevent XSS attacks. You can disable sanitization (you really shouldn't!) by setting the :sanitize_params option to false when calling #initialize_filterrific in the controller.
+
 ## [5.0.1] - Jan. 2, 2018
 
 * Changed all instances of #deep_stringify_keys back to #stringify_keys. This was changed in 5.0.0, but it shouldn't have been changed.
