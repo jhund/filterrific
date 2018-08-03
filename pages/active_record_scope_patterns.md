@@ -380,15 +380,13 @@ Here is the view code, using `fields_for`:
   ...
   <div>
     Distance
-    <%= f.fields_for :with_distance, OpenStruct.new(@filterrific.with_distance) do |with_distance_fields| %>
+    <%= f.fields_for :with_distance do |with_distance_fields| %>
       <%= with_distance_fields.text_field :max_distance %>
       <%= with_distance_fields.text_field :city %>
     <% end %>
   </div>
   ...
 ```
-
-Note that we wrap the `with_distance` Hash as OpenStruct. This is so that the field values will be populated correctly from existing values, and also to avoid a strange issue: I have observed stack overflows when Rails tries to persist filterrific params to the session. Somehow, when using just `@filterrific.with_distance` in `fields_for`, the entire form_builder object gets added to the filterrific object, and that breaks Rails writing it to the session store (Cookie by default). By wrapping the filterrific params as OpenStruct, the original filterrific object won't get polluted.
 
 Then you specify the scope like so:
 
