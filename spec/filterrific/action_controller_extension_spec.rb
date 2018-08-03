@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'filterrific/action_controller_extension'
+require 'action_view/helpers/sanitize_helper'
 
 module Filterrific
 
@@ -9,6 +10,12 @@ module Filterrific
       include ActionControllerExtension
       def action_name; 'index'; end
       def controller_name; 'test_controller'; end
+      # In a production app the #helpers method makes Rails helpers available in
+      # a controller instance. For testing our module outside of rails, we just
+      # include the required helpers in the TestController class
+      # and then delegate #helpers to self.
+      include ActionView::Helpers::SanitizeHelper
+      def helpers; self; end
       def session
         {
           'test_controller#index' => {
@@ -98,6 +105,46 @@ module Filterrific
           { 'available_filters' => %w[filter1] },
           'test_controller#index'
         ).must_equal({ 'filter1' => 1 })
+      end
+
+      it "sanitizes filterrific params by default" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filter1' => "1' <script>alert('xss attack!');</script>" },
+          { },
+          'test_controller#index'
+        ).must_equal({ 'filter1' => "1' alert('xss attack!');" })
+      end
+
+      it "sanitizes filterrific Array params" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filter1' => ["1' <script>alert('xss attack!');</script>", 3] },
+          { },
+          'test_controller#index'
+        ).must_equal({ 'filter1' => ["1' alert('xss attack!');", 3] })
+      end
+
+      it "sanitizes filterrific Hash params" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filter1' => { 1 => "1' <script>alert('xss attack!');</script>", 2 =>  3} },
+          { },
+          'test_controller#index'
+        ).must_equal({ 'filter1' => { 1 => "1' alert('xss attack!');", 2 => 3 } })
+      end
+
+      it "skips param sanitization if told so via options" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filter1' => "1' <script>alert('xss attack!');</script>" },
+          { :sanitize_params => false },
+          'test_controller#index'
+        ).must_equal({ 'filter1' => "1' <script>alert('xss attack!');</script>" })
       end
 
     end
