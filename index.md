@@ -107,19 +107,19 @@ Let's say you want a list of students that can be filtered by your app's users.
   <div class="span3">
     <h3>Resources</h3>
     <ul>
-      <li><a href="http://filterrific.clearcove.ca">Documentation</a>
-      <li><a href="http://filterrific-demo.herokuapp.com">Live demo</a>
-      <li><a href="https://github.com/jhund/filterrific/blob/master/CHANGELOG.md">Changelog</a>
-      <li><a href="https://github.com/jhund/filterrific">Source code</a>
-      <li><a href="https://github.com/jhund/filterrific/issues">Issues</a>
-      <li><a href="http://rubygems.org/gems/filterrific">Rubygems.org</a>
+      <li><a href="http://filterrific.clearcove.ca">Documentation</a></li>
+      <li><a href="http://filterrific-demo.herokuapp.com">Live demo</a></li>
+      <li><a href="https://github.com/jhund/filterrific/blob/master/CHANGELOG.md">Changelog</a></li>
+      <li><a href="https://github.com/jhund/filterrific">Source code</a></li>
+      <li><a href="https://github.com/jhund/filterrific/issues">Issues</a></li>
+      <li><a href="http://rubygems.org/gems/filterrific">Rubygems.org</a></li>
     </ul>
   </div>
 
   <div class="span4">
     <h3>Dependencies</h3>
     <ul>
-      <li>Rails and ActiveRecord 3.x and 4</li>
+      <li>Rails and ActiveRecord 3.x, 4.x, or 5.x</li>
       <li>jQuery and Asset pipeline for form observers and spinner</li>
     </ul>
   </div>
@@ -127,8 +127,6 @@ Let's say you want a list of students that can be filtered by your app's users.
   <div class="span3">
     <h3>License</h3>
     <a href="https://github.com/jhund/filterrific/blob/master/MIT-LICENSE">MIT licensed</a>
-    <h3>Copyright</h3>
-    Copyright (c) 2010 - 2015 Jo Hund.
   </div>
 
 </div>

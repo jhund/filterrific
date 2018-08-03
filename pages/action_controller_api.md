@@ -49,6 +49,8 @@ class StudentsController < ApplicationController
     #     * default_filter_params: optional, to override model defaults
     #     * available_filters: optional, to further restrict which filters are
     #       in this filterrific instance.
+    #     * sanitize_params: optional, defaults to `true`. If true, all filterrific
+    #       params will be sanitized to prevent reflected XSS attacks.
     # This method also persists the params in the session and handles resetting
     # the filterrific params.
     # In order for reset_filterrific to work, it's important that you add the
@@ -64,6 +66,7 @@ class StudentsController < ApplicationController
       persistence_id: 'shared_key',
       default_filter_params: {},
       available_filters: [:sorted_by, :with_country_id],
+      sanitize_params: true
     ) or return
     # Get an ActiveRecord::Relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
