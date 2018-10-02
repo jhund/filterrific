@@ -27,7 +27,7 @@ module Filterrific
     def render_filterrific_spinner
       %(
         <span class="filterrific_spinner" style="display:none;">
-          #{ image_tag('filterrific/filterrific-spinner.gif') }
+          #{ image_tag('filterrific/filterrific-spinner.gif', alt: '', role: 'decoration') }
         </span>
       ).html_safe
     end
