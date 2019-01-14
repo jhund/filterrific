@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 #
 # Adds Filterrific methods to ActiveRecord::Base model_class.
 #
-require 'filterrific/param_set'
+require "filterrific/param_set"
 
 module Filterrific
   module ActiveRecordExtension
@@ -20,8 +19,10 @@ module Filterrific
     # @return [void]
     def filterrific(opts)
       class << self
+
         attr_accessor :filterrific_available_filters
         attr_accessor :filterrific_default_filter_params
+
       end
       self.filterrific_available_filters = []
 
@@ -34,7 +35,6 @@ module Filterrific
       validate_filterrific_available_filters
       assign_filterrific_default_filter_params(opts)
       validate_filterrific_default_filter_params
-
     end
 
     # Returns ActiveRecord relation based on filterrific_param_set.
@@ -46,23 +46,24 @@ module Filterrific
       unless filterrific_param_set.is_a?(Filterrific::ParamSet)
         raise(
           ArgumentError,
-          "Invalid Filterrific::ParamSet: #{ filterrific_param_set.inspect }"
+          "Invalid Filterrific::ParamSet: #{filterrific_param_set.inspect}",
         )
       end
 
       # Initialize ActiveRecord::Relation
       ar_rel = if ActiveRecord::Relation === self
-        # self is already an ActiveRecord::Relation, use as is
-        self
-      else
-        # Send `:all` to class to get an ActiveRecord::Relation
-        all
-      end
+                 # self is already an ActiveRecord::Relation, use as is
+                 self
+               else
+                 # Send `:all` to class to get an ActiveRecord::Relation
+                 all
+               end
 
       # Apply filterrific params
       filterrific_available_filters.each do |filter_name|
         filter_param = filterrific_param_set.send(filter_name)
         next if filter_param.blank? # skip blank filter_params
+
         ar_rel = ar_rel.send(filter_name, filter_param)
       end
 
@@ -83,21 +84,19 @@ module Filterrific
     # @return [void]
     def assign_filterrific_available_filters(opts)
       self.filterrific_available_filters = (
-        filterrific_available_filters + (opts['available_filters'] || [])
+        filterrific_available_filters + (opts["available_filters"] || [])
       ).map(&:to_s).uniq.sort
     end
 
     # Validates presence of at least one available filter.
     # @return [void]
     def validate_filterrific_available_filters
-      if filterrific_available_filters.blank?
-        raise(ArgumentError, ":available_filters can't be empty")
-      end
+      raise(ArgumentError, ":available_filters can't be empty") if filterrific_available_filters.blank?
     end
 
     def assign_filterrific_default_filter_params(opts)
       self.filterrific_default_filter_params = (
-        opts['default_filter_params'] || {}
+        opts["default_filter_params"] || {}
       ).stringify_keys
     end
 
@@ -106,7 +105,7 @@ module Filterrific
       if (
         inv_fdfps = filterrific_default_filter_params.keys - filterrific_available_filters
       ).any?
-        raise(ArgumentError, "Invalid default filter params: #{ inv_fdfps.inspect }")
+        raise(ArgumentError, "Invalid default filter params: #{inv_fdfps.inspect}")
       end
     end
 
