@@ -398,7 +398,7 @@ Here is the view code, using `fields_for`:
 Then you specify the scope like so:
 
 ```ruby
-scope :with_distance, lambda { |distance_attrs|
+scope :with_distance, -> (distance_attrs) {
   # `distance_attrs` is a hash with two keys:
   # {
   #   :max_distance => '10',
