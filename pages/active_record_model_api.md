@@ -91,7 +91,7 @@ We also create a presenter method on Country to provide select options for the
 
 ```ruby
 # app/models/country.rb
-ef self.options_for_select
+def self.options_for_select
   order("LOWER(name)").map { |e| [e.name, e.id] }
 end
 ```
