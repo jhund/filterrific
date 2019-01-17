@@ -22,19 +22,18 @@ get the context for the patterns below.
 
 ### Common scope patterns
 
-- [nav_id: scope_patterns](#navid-scopepatterns)
-  - [Common scope patterns](#common-scope-patterns)
-  - [Sanitize your SQL!](#sanitize-your-sql)
-  - [Filter by column values](#filter-by-column-values)
-  - [Search](#search)
-  - [Sort](#sort)
-  - [Filter by existence of has_many association](#filter-by-existence-of-hasmany-association)
-  - [Filter by non-existence of has_many association](#filter-by-non-existence-of-hasmany-association)
-  - [Filter by existence of many-to-many association](#filter-by-existence-of-many-to-many-association)
-  - [Filter by non-existence of many-to-many association](#filter-by-non-existence-of-many-to-many-association)
-  - [Filter by ranges](#filter-by-ranges)
-  - [Multiple form inputs for single scope](#multiple-form-inputs-for-single-scope)
-  - [Scopes vs. Class methods](#scopes-vs-class-methods)
+* [Common scope patterns](#common-scope-patterns)
+* [Sanitize your SQL!](#sanitize-your-sql)
+* [Filter by column values](#filter-by-column-values)
+* [Search](#search)
+* [Sort](#sort)
+* [Filter by existence of has_many association](#filter-by-existence-of-hasmany-association)
+* [Filter by non-existence of has_many association](#filter-by-non-existence-of-hasmany-association)
+* [Filter by existence of many-to-many association](#filter-by-existence-of-many-to-many-association)
+* [Filter by non-existence of many-to-many association](#filter-by-non-existence-of-many-to-many-association)
+* [Filter by ranges](#filter-by-ranges)
+* [Multiple form inputs for single scope](#multiple-form-inputs-for-single-scope)
+* [Scopes vs. Class methods](#scopes-vs-class-methods)
 
 
 <a id="sanitize"></a>
