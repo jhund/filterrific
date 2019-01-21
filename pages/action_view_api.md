@@ -237,19 +237,19 @@ contains the column headers and the model attribute to sort by. Column headers
 are automatically capitalized.
 
 ```
-scope :sorted_by, lambda { |sort_option|
-  direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+scope :sorted_by, ->(sort_option) {
+  direction = /desc$/.match?(sort_option) ? "desc" : "asc"
   case sort_option.to_s
   when /^name/
-    order("LOWER(students.name) #{ direction }")
+    order("LOWER(students.name) #{direction}")
   when /^email/
-    order("LOWER(students.email) #{ direction }")
+    order("LOWER(students.email) #{direction}")
   when /^country/
-    order("LOWER(students.country) #{ direction }")
+    order("LOWER(students.country) #{direction}")
   when /^registered_at/
-    order("LOWER(students.decorated_created_at) #{ direction }")
+    order("LOWER(students.decorated_created_at) #{direction}")
   else
-    raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+    raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
   end
 }
 ```

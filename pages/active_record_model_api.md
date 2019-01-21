@@ -28,6 +28,7 @@ as some ActiveRecord scopes to the example `Student` class:
 ```ruby
 # app/models/student.rb
 class Student < ActiveRecord::Base
+
   # db columns:
   # integer: id
   # string: first_name
@@ -40,13 +41,13 @@ class Student < ActiveRecord::Base
   # We define a default sorting by most recent sign up, and then
   # we make a number of filters available through Filterrific.
   filterrific(
-    default_filter_params: { sorted_by: 'created_at_desc' },
+    default_filter_params: { sorted_by: "created_at_desc" },
     available_filters: [
       :sorted_by,
       :search_query,
       :with_country_id,
-      :with_created_at_gte
-    ]
+      :with_created_at_gte,
+    ],
   )
 
   # ActiveRecord association declarations
@@ -55,19 +56,19 @@ class Student < ActiveRecord::Base
   # Scope definitions. We implement all Filterrific filters through ActiveRecord
   # scopes. In this example we omit the implementation of the scopes for brevity.
   # Please see 'Scope patterns' for scope implementation details.
-  scope :search_query, lambda { |query|
+  scope :search_query, ->(query) {
     # Filters students whose name or email matches the query
     ...
   }
-  scope :sorted_by, lambda { |sort_key|
+  scope :sorted_by, ->(sort_key) {
     # Sorts students by sort_key
     ...
   }
-  scope :with_country_id, lambda { |country_ids|
+  scope :with_country_id, ->(country_ids) {
     # Filters students with any of the given country_ids
     ...
   }
-  scope :with_created_at_gte, lambda { |ref_date|
+  scope :with_created_at_gte, ->(ref_date) {
     ...
   }
 
@@ -75,10 +76,10 @@ class Student < ActiveRecord::Base
   # It is called in the controller as part of `initialize_filterrific`.
   def self.options_for_sorted_by
     [
-      ['Name (a-z)', 'name_asc'],
-      ['Registration date (newest first)', 'created_at_desc'],
-      ['Registration date (oldest first)', 'created_at_asc'],
-      ['Country (a-z)', 'country_name_asc']
+      ["Name (a-z)", "name_asc"],
+      ["Registration date (newest first)", "created_at_desc"],
+      ["Registration date (oldest first)", "created_at_asc"],
+      ["Country (a-z)", "country_name_asc"],
     ]
   end
 
@@ -91,7 +92,7 @@ We also create a presenter method on Country to provide select options for the
 ```ruby
 # app/models/country.rb
 def self.options_for_select
-  order('LOWER(name)').map { |e| [e.name, e.id] }
+  order("LOWER(name)").map { |e| [e.name, e.id] }
 end
 ```
 
