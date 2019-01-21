@@ -22,7 +22,6 @@ get the context for the patterns below.
 
 ### Common scope patterns
 
-* [Common scope patterns](#common-scope-patterns)
 * [Sanitize your SQL!](#sanitize-your-sql)
 * [Filter by column values](#filter-by-column-values)
 * [Search](#search)
@@ -36,7 +35,6 @@ get the context for the patterns below.
 * [Scopes vs. Class methods](#scopes-vs-class-methods)
 
 
-<a id="sanitize"></a>
 ### Sanitize your SQL!
 
 It's important that all filter settings are sanitized before you apply them
@@ -60,7 +58,6 @@ I love this [XKCD cartoon about SQL injection](http://xkcd.com/327/)!
 
 
 
-<a id="filter_by_column_values"></a>
 ### Filter by column values
 
 This is the simplest type of scope. You can use it to filter records
@@ -102,7 +99,6 @@ scope :with_country_name, ->(country_name) {
 ```
 
 
-<a id="search"></a>
 ### Search
 
 There are a number of ways to search for records in your relational database.
@@ -153,7 +149,6 @@ filter with other Filterrific filters.
 
 
 
-<a id="sort"></a>
 ### Sort
 
 A sorting scope allows you to set the sorting of your matching records.
@@ -190,7 +185,6 @@ scope :sorted_by, ->(sort_option) {
 
 
 
-<a id="filter_by_existence_has_many"></a>
 ### Filter by existence of has_many association
 
 This scope filters records who have an associated `has_many` object. E.g.,
@@ -227,7 +221,6 @@ scope :with_comments_since, ->(reference_time) {
 
 
 
-<a id="filter_by_non_existence_has_many"></a>
 ### Filter by non-existence of has_many association
 
 Use this scope to filter records who have **NO** associated `has_many` object.
@@ -248,7 +241,6 @@ scope :without_comments, -> {
 
 
 
-<a id="filter_by_existence_many_to_many"></a>
 ### Filter by existence of many-to-many association
 
 This scope finds students who have `ANY` of the given roles, using `EXISTS` and a SQL
@@ -305,7 +297,6 @@ scope :with_all_role_ids, ->(role_ids) {
 
 
 
-<a id="filter_by_non_existence_many_to_many"></a>
 ### Filter by non-existence of many-to-many association
 
 This scope finds any students who DO NOT have a given role. It is almost identical
@@ -329,7 +320,6 @@ scope :without_role_ids, ->(role_ids) {
 
 
 
-<a id="filter_by_ranges"></a>
 ### Filter by ranges
 
 This scope filters by a student's signup date range. The only important concept
@@ -358,7 +348,6 @@ scope :created_at_lt, ->(reference_time) {
 
 
 
-<a id="multiple_form_inputs_for_single_scope"></a>
 ### Multiple form inputs for single scope
 
 Sometimes you need multiple form inputs for a single scope. An example would be
@@ -404,7 +393,6 @@ scope :with_distance, ->(distance_attrs) {
 
 
 
-<a id="scopes_vs_class_methods"></a>
 ### Scopes vs. Class methods
 
 In certain cases, you can replace scopes with class methods. We recommend to
