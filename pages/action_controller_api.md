@@ -29,7 +29,6 @@ below for notes and implementation:
 class StudentsController < ApplicationController
 
   def index
-
     # Initialize filterrific with the following params:
     # * `Student` is the ActiveRecord based model class.
     # * `params[:filterrific]` are any params submitted via web request.
@@ -61,13 +60,13 @@ class StudentsController < ApplicationController
       params[:filterrific],
       select_options: {
         sorted_by: Student.options_for_sorted_by,
-        with_country_id: Country.options_for_select
+        with_country_id: Country.options_for_select,
       },
-      persistence_id: 'shared_key',
+      persistence_id: "shared_key",
       default_filter_params: {},
       available_filters: [:sorted_by, :with_country_id],
-      sanitize_params: true
-    ) or return
+      sanitize_params: true,
+    ) || return
     # Get an ActiveRecord::Relation for all students that match the filter settings.
     # You can paginate with will_paginate or kaminari.
     # NOTE: filterrific_find returns an ActiveRecord Relation that can be
@@ -86,8 +85,8 @@ class StudentsController < ApplicationController
   # In this case we reset filterrific and discard all filter params.
   rescue ActiveRecord::RecordNotFound => e
     # There is an issue with the persisted param_set. Reset it.
-    puts "Had to reset filterrific params: #{ e.message }"
-    redirect_to(reset_filterrific_url(format: :html)) and return
+    puts "Had to reset filterrific params: #{e.message}"
+    redirect_to(reset_filterrific_url(format: :html)) && return
   end
 
   ...

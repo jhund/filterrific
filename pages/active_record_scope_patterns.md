@@ -22,20 +22,19 @@ get the context for the patterns below.
 
 ### Common scope patterns
 
-* [Sanitize your SQL! (Security alert)](#sanitize)
-* [Filter by column values](#filter_by_column_values)
+* [Sanitize your SQL!](#sanitize-your-sql)
+* [Filter by column values](#filter-by-column-values)
 * [Search](#search)
 * [Sort](#sort)
-* [Filter by existence of has_many association](#filter_by_existence_has_many)
-* [Filter by non-existence of has_many association](#filter_by_non_existence_has_many)
-* [Filter by existence of many-to-many association](#filter_by_existence_many_to_many)
-* [Filter by non-existence of many-to-many association](#filter_by_non_existence_many_to_many)
-* [Filter by ranges](#filter_by_ranges)
-* [Multiple form inputs for single scope](#multiple_form_inputs_for_single_scope)
-* [Scopes vs. Class methods](#scopes_vs_class_methods)
+* [Filter by existence of has_many association](#filter-by-existence-of-hasmany-association)
+* [Filter by non-existence of has_many association](#filter-by-non-existence-of-hasmany-association)
+* [Filter by existence of many-to-many association](#filter-by-existence-of-many-to-many-association)
+* [Filter by non-existence of many-to-many association](#filter-by-non-existence-of-many-to-many-association)
+* [Filter by ranges](#filter-by-ranges)
+* [Multiple form inputs for single scope](#multiple-form-inputs-for-single-scope)
+* [Scopes vs. Class methods](#scopes-vs-class-methods)
 
 
-<a id="sanitize"></a>
 ### Sanitize your SQL!
 
 It's important that all filter settings are sanitized before you apply them
@@ -59,7 +58,6 @@ I love this [XKCD cartoon about SQL injection](http://xkcd.com/327/)!
 
 
 
-<a id="filter_by_column_values"></a>
 ### Filter by column values
 
 This is the simplest type of scope. You can use it to filter records
@@ -69,12 +67,12 @@ Scope naming convention: `with_%{column name}`.
 
 ```ruby
 # filters on 'country_id' foreign key
-scope :with_country_id, lambda { |country_ids|
+scope :with_country_id, ->(country_ids) {
   where(country_id: [*country_ids])
 }
 
 # filters on 'gender' attribute
-scope :with_gender, lambda { |genders|
+scope :with_gender, ->(genders) {
   where(gender: [*genders])
 }
 ```
@@ -90,18 +88,17 @@ following:
 # filters on 'name' column in 'countries' table
 
 # using AR hash syntax ...
-scope :with_country_name, lambda { |country_name|
+scope :with_country_name, ->(country_name) {
   where(country: { name: country_name }).joins(:country)
 }
 
 # or sanitized SQL snippets for more complex needs (e.g., greater than)
-scope :with_country_name, lambda { |country_name|
-  where('countries.name = ?', country_name).joins(:country)
+scope :with_country_name, ->(country_name) {
+  where("countries.name = ?", country_name).joins(:country)
 }
 ```
 
 
-<a id="search"></a>
 ### Search
 
 There are a number of ways to search for records in your relational database.
@@ -113,7 +110,7 @@ The simplest form is to use SQL's `LIKE` operator. In its most basic use,
 it works for both MySQL as well as PostgreSQL:
 
 ```ruby
-scope :search_query, lambda { |query|
+scope :search_query, ->(query) {
   # Searches the students table on the 'first_name' and 'last_name' columns.
   # Matches using LIKE, automatically appends '%' to each term.
   # LIKE is case INsensitive with MySQL, however it is case
@@ -127,17 +124,17 @@ scope :search_query, lambda { |query|
   # replace "*" with "%" for wildcard searches,
   # append '%', remove duplicate '%'s
   terms = terms.map { |e|
-    (e.gsub('*', '%') + '%').gsub(/%+/, '%')
+    (e.tr("*", "%") + "%").gsub(/%+/, "%")
   }
   # configure number of OR conditions for provision
   # of interpolation arguments. Adjust this if you
   # change the number of OR conditions.
   num_or_conds = 2
   where(
-    terms.map { |term|
+    terms.map { |_term|
       "(LOWER(students.first_name) LIKE ? OR LOWER(students.last_name) LIKE ?)"
-    }.join(' AND '),
-    *terms.map { |e| [e] * num_or_conds }.flatten
+    }.join(" AND "),
+    *terms.map { |e| [e] * num_or_conds }.flatten,
   )
 }
 ```
@@ -152,7 +149,6 @@ filter with other Filterrific filters.
 
 
 
-<a id="sort"></a>
 ### Sort
 
 A sorting scope allows you to set the sorting of your matching records.
@@ -162,26 +158,26 @@ as we've experienced issues with other names that might collide with
 ActiveRecord reserved names.
 
 ```ruby
-scope :sorted_by, lambda { |sort_option|
+scope :sorted_by, ->(sort_option) {
   # extract the sort direction from the param value.
-  direction = (sort_option =~ /desc$/) ? 'desc' : 'asc'
+  direction = /desc$/.match?(sort_option) ? "desc" : "asc"
   case sort_option.to_s
   when /^created_at_/
     # Simple sort on the created_at column.
     # Make sure to include the table name to avoid ambiguous column names.
     # Joining on other tables is quite common in Filterrific, and almost
     # every ActiveRecord table has a 'created_at' column.
-    order("students.created_at #{ direction }")
+    order("students.created_at #{direction}")
   when /^name_/
     # Simple sort on the name colums
-    order("LOWER(students.last_name) #{ direction }, LOWER(students.first_name) #{ direction }")
+    order("LOWER(students.last_name) #{direction}, LOWER(students.first_name) #{direction}")
   when /^country_name_/
     # This sorts by a student's country name, so we need to include
     # the country. We can't use JOIN since not all students might have
     # a country.
-    order("LOWER(countries.name) #{ direction }").includes(:country).references(:country)
+    order("LOWER(countries.name) #{direction}").includes(:country).references(:country)
   else
-    raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
+    raise(ArgumentError, "Invalid sort option: #{sort_option.inspect}")
   end
 }
 ```
@@ -189,7 +185,6 @@ scope :sorted_by, lambda { |sort_option|
 
 
 
-<a id="filter_by_existence_has_many"></a>
 ### Filter by existence of has_many association
 
 This scope filters records who have an associated `has_many` object. E.g.,
@@ -198,9 +193,9 @@ the scope below finds all students who have posted at least one comment.
 Naming convention: `with_%{plural association name}`.
 
 ```ruby
-scope :with_comments, lambda {
+scope :with_comments, -> {
   where(
-    'EXISTS (SELECT 1 from comments WHERE students.id = comments.student_id)'
+    "EXISTS (SELECT 1 from comments WHERE students.id = comments.student_id)",
   )
 }
 ```
@@ -209,24 +204,23 @@ You can also apply conditions on the associated record, e.g., students who have
 posted a comment since a given reference_time:
 
 ```ruby
-scope :with_comments_since, lambda { |reference_time|
+scope :with_comments_since, ->(reference_time) {
   where([
-    %(
-      EXISTS (
-        SELECT 1
-          FROM comments
-         WHERE students.id = comments.student_id
-           AND comments.created_at >= ?)
-    ),
-    reference_time
-  ])
+          %(
+            EXISTS (
+              SELECT 1
+                FROM comments
+               WHERE students.id = comments.student_id
+                 AND comments.created_at >= ?)
+          ),
+          reference_time,
+        ])
 }
 ```
 
 
 
 
-<a id="filter_by_non_existence_has_many"></a>
 ### Filter by non-existence of has_many association
 
 Use this scope to filter records who have **NO** associated `has_many` object.
@@ -235,11 +229,11 @@ E.g., the scope below finds all students who have never posted a comment.
 Naming convention: `without_%{plural association name}`.
 
 ```ruby
-scope :without_comments, lambda {
+scope :without_comments, -> {
   where(
     %(NOT EXISTS (
       SELECT 1 FROM comments WHERE comments.student_id = students.id
-    ))
+    )),
   )
 }
 ```
@@ -247,7 +241,6 @@ scope :without_comments, lambda {
 
 
 
-<a id="filter_by_existence_many_to_many"></a>
 ### Filter by existence of many-to-many association
 
 This scope finds students who have `ANY` of the given roles, using `EXISTS` and a SQL
@@ -257,17 +250,17 @@ sub query. This scope traverses the `has_many :through` association between
 Naming convention: `with_any_%{singular association name}_ids`
 
 ```ruby
-scope :with_any_role_ids, lambda{ |role_ids|
+scope :with_any_role_ids, ->(role_ids) {
   # get a reference to the join table
   role_assignments = RoleAssignment.arel_table
   # get a reference to the filtered table
   students = Student.arel_table
   # let AREL generate a complex SQL query
   where(
-    RoleAssignment \
-      .where(role_assignments[:student_id].eq(students[:id])) \
-      .where(role_assignments[:role_id].in([*role_ids].map(&:to_i))) \
-      .exists
+    RoleAssignment
+      .where(role_assignments[:student_id].eq(students[:id]))
+      .where(role_assignments[:role_id].in([*role_ids].map(&:to_i)))
+      .exists,
   )
 }
 ```
@@ -285,7 +278,7 @@ Use the scope below if you want to find students who have `ALL` of the given rol
 Naming convention: `with_all_%{singular association name}_ids`
 
 ```ruby
-scope :with_all_role_ids, lambda{ |role_ids|
+scope :with_all_role_ids, ->(role_ids) {
   # get a reference to the join table
   role_assignments = RoleAssignment.arel_table
   # get a reference to the filtered table
@@ -293,10 +286,10 @@ scope :with_all_role_ids, lambda{ |role_ids|
   # let AREL generate a complex SQL query
   role_ids.map(&:to_i).inject(self) { |rel, role_id|
     rel.where(
-      RoleAssignment \
-        .where(role_assignments[:student_id].eq(students[:id])) \
-        .where(role_assignments[:role_id].eq(role_id)) \
-        .exists
+      RoleAssignment
+        .where(role_assignments[:student_id].eq(students[:id]))
+        .where(role_assignments[:role_id].eq(role_id))
+        .exists,
     )
   }
 }
@@ -304,7 +297,6 @@ scope :with_all_role_ids, lambda{ |role_ids|
 
 
 
-<a id="filter_by_non_existence_many_to_many"></a>
 ### Filter by non-existence of many-to-many association
 
 This scope finds any students who DO NOT have a given role. It is almost identical
@@ -313,22 +305,21 @@ to the previous one. We just appended the `.not` operator to invert it.
 Naming convention: `without_%{singular association name}_ids`
 
 ```ruby
-scope :without_role_ids, lambda{ |role_ids|
+scope :without_role_ids, ->(role_ids) {
   role_assignments = RoleAssignment.arel_table
   students = Student.arel_table
   where(
-    RoleAssignment \
-      .where(role_assignments[:student_id].eq(students[:id])) \
-      .where(role_assignments[:role_id].in([*role_ids].map(&:to_i))) \
+    RoleAssignment
+      .where(role_assignments[:student_id].eq(students[:id]))
+      .where(role_assignments[:role_id].in([*role_ids].map(&:to_i)))
       .exists
-      .not
+      .not,
   )
 }
 ```
 
 
 
-<a id="filter_by_ranges"></a>
 ### Filter by ranges
 
 This scope filters by a student's signup date range. The only important concept
@@ -345,19 +336,18 @@ for 'Less than'.
 
 ```ruby
 # always include the lower boundary for semi open intervals
-scope :created_at_gte, lambda { |reference_time|
-  where('students.created_at >= ?', reference_time)
+scope :created_at_gte, ->(reference_time) {
+  where("students.created_at >= ?", reference_time)
 }
 
 # always exclude the upper boundary for semi open intervals
-scope :created_at_lt, lambda { |reference_time|
-  where('students.created_at < ?', reference_time)
+scope :created_at_lt, ->(reference_time) {
+  where("students.created_at < ?", reference_time)
 }
 ```
 
 
 
-<a id="multiple_form_inputs_for_single_scope"></a>
 ### Multiple form inputs for single scope
 
 Sometimes you need multiple form inputs for a single scope. An example would be
@@ -391,7 +381,7 @@ Here is the view code, using `fields_for`:
 Then you specify the scope like so:
 
 ```ruby
-scope :with_distance, lambda { |distance_attrs|
+scope :with_distance, ->(distance_attrs) {
   # `distance_attrs` is a hash with two keys:
   # {
   #   :max_distance => '10',
@@ -403,7 +393,6 @@ scope :with_distance, lambda { |distance_attrs|
 
 
 
-<a id="scopes_vs_class_methods"></a>
 ### Scopes vs. Class methods
 
 In certain cases, you can replace scopes with class methods. We recommend to
