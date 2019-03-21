@@ -29,16 +29,7 @@ module Filterrific
       # will be already initialized with the defaults.
       filterrific_params = model_class.filterrific_default_filter_params  if filterrific_params.blank?
       if defined?(ActionController::Parameters) && filterrific_params.is_a?(ActionController::Parameters)
-        permissible_filter_params = []
-        model_class.filterrific_available_filters.each do |p|
-          if filterrific_params[p].is_a?(ActionController::Parameters)
-            permissible_filter_params << { p => filterrific_params[p].keys }
-          elsif filterrific_params[p].is_a?(Array)
-            permissible_filter_params << { p => [] }
-          else
-            permissible_filter_params << p
-          end
-        end
+        permissible_filter_params = build_permissible_filter(filterrific_params, model_class.filterrific_available_filters)
         filterrific_params = filterrific_params.permit(permissible_filter_params).to_h.stringify_keys
       else
         filterrific_params.stringify_keys!
@@ -123,6 +114,20 @@ module Filterrific
         v = fp[filter_name]
         self.send("#{ filter_name }=", v)  if v.present?
       end
+    end
+
+    def build_permissible_filter(filterrific_params, params)
+        permissible_filter_params = []
+        params.each do |p|
+          if filterrific_params[p].is_a?(ActionController::Parameters)
+            permissible_filter_params << { p => build_permissible_filter(filterrific_params[p], filterrific_params[p].keys) }
+          elsif filterrific_params[p].is_a?(Array)
+            permissible_filter_params << { p => [] }
+          else
+            permissible_filter_params << p
+          end
+        end
+        permissible_filter_params
     end
 
   end
