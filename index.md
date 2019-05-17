@@ -17,7 +17,10 @@ nav_id: start_page
 </p>
 
 <a href="http://filterrific-demo.herokuapp.com/students" class="btn btn-success btn-large">
-  Check out the live demo!
+  Live demo using classic Rails views.
+</a>
+<a href="https://filterrific-json-api-demo.herokuapp.com" class="btn btn-success btn-large">
+  Live demo of JSON API using React and Mobx.
 </a>
 
 It comes with the following features:
