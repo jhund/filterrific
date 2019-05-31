@@ -26,6 +26,9 @@ module Filterrific
     # @option opts [Hash, optional] :select_options
     #   these are available in the view to populate select lists and other
     #   dynamic values.
+    # @option opts [Boolean, optional] :sanitize_params
+    #   if true, sanitizes all filterrific params to prevent reflected (or stored) XSS attacks.
+    #   Defaults to true.
     # @return [Filterrific::ParamSet]
     def initialize_filterrific(model_class, filterrific_params, opts = {})
       f_params = (filterrific_params || {}).stringify_keys
@@ -60,8 +63,12 @@ module Filterrific
     # @param model_class [ActiveRecord::Base]
     # @param filterrific_params [ActionController::Params, Hash]
     # @param opts [Hash]
+    # @option opts [Boolean, optional] "sanitize_params"
+    #   if true, sanitizes all filterrific params to prevent reflected (or stored) XSS attacks.
+    #   Defaults to true.
     # @param persistence_id [String, nil]
     def compute_filterrific_params(model_class, filterrific_params, opts, persistence_id)
+      opts = { "sanitize_params" => true }.merge(opts.stringify_keys)
       r = (
         filterrific_params.presence || # start with passed in params
         (persistence_id && session[persistence_id].presence) || # then try session persisted params if persistence_id is present
@@ -69,7 +76,34 @@ module Filterrific
         model_class.filterrific_default_filter_params # finally use model_class defaults
       ).stringify_keys
       r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
+      # Sanitize params to prevent reflected XSS attack
+      if opts["sanitize_params"]
+        r.each { |k,v| r[k] = sanitize_filterrific_param(r[k]) }
+      end
       r
+    end
+
+    # Sanitizes value to prevent xss attack.
+    # Uses Rails ActionView::Helpers::SanitizeHelper.
+    # @param val [Object] the value to sanitize. Can be any kind of object. Collections
+    #   will have their members sanitized recursively.
+    def sanitize_filterrific_param(val)
+      case val
+      when Array
+        # Return Array
+        val.map { |e| sanitize_filterrific_param(e) }
+      when Hash
+        # Return Hash
+        val.inject({}) { |m, (k,v)| m[k] = sanitize_filterrific_param(v); m }
+      when NilClass
+        # Nothing to do, use val as is
+        val
+      when String
+        helpers.sanitize(val)
+      else
+        # Nothing to do, use val as is
+        val
+      end
     end
 
   end
