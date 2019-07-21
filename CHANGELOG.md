@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.2.0] - Jul. 21, 2019
+
+* Make Filterrific master branch compatible with Rails 5 and 6.
+* Trigger synthetic JS events before and after form submission ajax requests.
+
 ## [5.1.0] - Aug. 3, 2018
 
 * Breaking change: all Filterrific params are sanitized by default to prevent XSS attacks. You can disable sanitization (you really shouldn't!) by setting the :sanitize_params option to false when calling #initialize_filterrific in the controller.
