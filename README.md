@@ -11,7 +11,7 @@ search, and sort your ActiveRecord lists:
 * Form helpers to build powerful search and filter forms with ease.
 * Javascript assets to auto-submit filter form on change via AJAX.
 * Image asset to show a spinner in the Filterrific form when new records are being loaded via AJAX.
-* API option to use Filterrific with Rails API mode. Just use `gem 'filterrific', require: 'filterrific_api'` in your Gemfile.
+* API option to use Filterrific with Rails API mode. Just use `gem 'filterrific', branch: 'api'` in your Gemfile.
 
 ***
 
