@@ -75,12 +75,60 @@ module Filterrific
         opts['default_filter_params'] || # then use passed in opts
         model_class.filterrific_default_filter_params # finally use model_class defaults
       ).stringify_keys
-      r.slice!(*opts['available_filters'].map(&:to_s))  if opts['available_filters']
+
+      # Rename params of aliased filters to their original names.
+      available_filters = flatten_available_filters(opts['available_filters'] || [])
+      r.slice!(*available_filters.map(&:to_s)) if available_filters.any?
+      r = rename_aliased_params(r, opts['available_filters'] || [])
+
       # Sanitize params to prevent reflected XSS attack
       if opts["sanitize_params"]
         r.each { |k,v| r[k] = sanitize_filterrific_param(r[k]) }
       end
       r
+    end
+
+    # Computes all available filters including aliases to a flattened array
+    #
+    # @param available_filters the provided available_filters params to filterrific.
+    #   Example1: ['filter1', { 'filter2' => 'alias2' }],
+    #   Example2: {'filter1' => 'alias1' }
+    # @return all available filters, including filter aliases in a flattened array
+    #   Example: [ 'f1', {'f2' => 'a2'}] becomes ['f1', 'f2', 'a2']
+    def flatten_available_filters(available_filters)
+      available_filters.map do |val|
+        val.is_a?(Hash) ? val.to_a : val
+      end.flatten
+    end
+
+    # Renames provided parameters to the their original names.
+    #
+    # @param params filterrific_params [ActionController::Params, Hash] typically the
+    #    Rails request params under the :filterrific key (params[:filterrific]),
+    #    however can be any Hash.
+    # @param available_filters the provided available_filters params to filterrific.
+    #   Example1: ['filter1', { 'filter2' => 'alias2' }],
+    #   Example2: { 'filter1' => 'alias1' }
+    def rename_aliased_params(params, available_filters)
+      # available_filters might be a hash due to filter aliasing (Example 2), we
+      # need to ensure its an array
+      available_filters = Array.wrap(available_filters)
+
+      # all filters with an alias: { originial_filter_name => alias }
+      filters_with_aliases = Hash[available_filters.select {|f| f.is_a? Hash }.flat_map(&:to_a)]
+      filters_with_aliases.stringify_keys!
+      # same as above but reversed: { alias => original_filter_name }
+      reversed_filters = Hash[filters_with_aliases.to_a.map(&:reverse)]
+      reversed_filters.stringify_keys!
+
+      # Do the actual renaming
+      params.transform_keys do |key|
+        if reversed_filters.has_key? key
+          reversed_filters[key]
+        else
+          key
+        end
+      end
     end
 
     # Sanitizes value to prevent xss attack.

@@ -107,6 +107,37 @@ module Filterrific
         ).must_equal({ 'filter1' => 1 })
       end
 
+      it "limits filter params to opts['available_filters'] with aliases" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filterX' => 1, 'filter2' => 2 },
+          { 'available_filters' => [{'filter1' => 'filterX'}] },
+          'test_controller#index'
+        ).must_equal({ 'filter1' => 1 })
+      end
+
+      it "limits filter params to opts['available_filters'] with multiple aliases" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filterX' => 1, 'filter2' => 2 },
+          { 'available_filters' => [{filter1: :filterX, filter2: :filterY}] },
+          'test_controller#index'
+        ).must_equal({ 'filter1' => 1 , 'filter2' => 2})
+      end
+
+      it "limits filter params to opts['available_filters'] with single alias hash" do
+        TestController.new.send(
+          :compute_filterrific_params,
+          TestModelClass,
+          { 'filterXYZ' => 1, 'filter2' => 2 },
+          # Note:  available filter is in a hash, not an array.
+          { 'available_filters' => {'filter1' => 'filterXYZ'}},
+          'test_controller#index'
+        ).must_equal({ 'filter1' => 1 })
+      end
+
       it "sanitizes filterrific params by default" do
         TestController.new.send(
           :compute_filterrific_params,
@@ -159,5 +190,3 @@ module Filterrific
 
   end
 end
-
-
