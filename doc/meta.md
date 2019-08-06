@@ -15,9 +15,10 @@ For more info see: https://github.com/svenfuchs/gem-release#usage
    * `gem bump --version major` # 0.0.1 -> 1.0.0
    * `gem bump --version minor` # 0.0.1 -> 0.1.0
    * `gem bump --version patch` # 0.0.1 -> 0.0.2
-4. Release it.
+4. Make sure there are no uncommitted changes! They will be pushed to rubygems.
+5. Release it.
    * `gem release`
-5. Create a git tag and push to origin.
+6. Create a git tag and push to origin.
    `gem tag`
 
 

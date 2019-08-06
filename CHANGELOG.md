@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.2.1] - Aug. 5, 2019
+
+* Fixed issue where uncommitted code was pushed to rubygems and broke array filters.
+
 ## [5.2.0] - Jul. 21, 2019
 
 * Make Filterrific master branch compatible with Rails 5 and 6.
