@@ -22,6 +22,6 @@ Gem::Specification.new do |gem|
     'MIT-LICENSE',
     'Rakefile',
     'README*',
-    '{app,bin,doc,lib,spec}/**/*'
+    '{app,bin,doc,lib,spec,config}/**/*'
   ]
 end
