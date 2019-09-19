@@ -39,13 +39,13 @@ to find out more!
 
 Every commit to Filterrific is automatically tested against the following scenarios:
 
-|Filterrific version | Rails version | Ruby environments              | Database adapters                  | Build status |
-|--------------------|---------------|--------------------------------|------------------------------------|--------------|
-| 5.x                | Rails 5.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql                 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-5.x)](https://travis-ci.org/jhund/filterrific_demo)|
-| 4.x                | Rails 4.x     | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.x)](https://travis-ci.org/jhund/filterrific_demo)|
-| 3.x                | Rails 3.2     | MRI 2.0.0, 2.1.7               | mysql, mysql2, postgresql, sqlite3 | Not tested|
-| 2.x                | Rails 3.2     | MRI 1.9.3                      | mysql, mysql2, postgresql, sqlite3 | Not tested|
-| 1.x                | < 3.2         | MRI <= 1.9.3                   | mysql, mysql2, postgresql, sqlite3 | Not tested|
+|Filterrific version | Rails version  | Ruby environments              | Database adapters                  | Build status |
+|--------------------|----------------|--------------------------------|------------------------------------|--------------|
+| 5.x                | Rails 5.x, 6.x | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql2, postgresql                 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-5.x)](https://travis-ci.org/jhund/filterrific_demo)|
+| 4.x                | Rails 4.x      | MRI 2.0.0, 2.1.7, 2.2.3, 2.3.1 | mysql, mysql2, postgresql, sqlite3 |[![Build Status](https://travis-ci.org/jhund/filterrific_demo.svg?branch=rails-4.x)](https://travis-ci.org/jhund/filterrific_demo)|
+| 3.x                | Rails 3.2      | MRI 2.0.0, 2.1.7               | mysql, mysql2, postgresql, sqlite3 | Not tested|
+| 2.x                | Rails 3.2      | MRI 1.9.3                      | mysql, mysql2, postgresql, sqlite3 | Not tested|
+| 1.x                | < 3.2          | MRI <= 1.9.3                   | mysql, mysql2, postgresql, sqlite3 | Not tested|
 
 ### Guidelines for submitting issues
 
@@ -66,7 +66,8 @@ If you think you've found a bug, or have a feature request, then create an issue
 ### Resources
 
 * [Documentation](http://filterrific.clearcove.ca)
-* [Live demo](http://filterrific-demo.herokuapp.com)
+* [Live demo](https://filterrific-demo.herokuapp.com) using classic Rails views.
+* [Live JSON API demo](https://filterrific-json-api-demo.herokuapp.com/) using React and Mobx.
 * [Changelog](https://github.com/jhund/filterrific/blob/master/CHANGELOG.md)
 * [Source code (github)](https://github.com/jhund/filterrific)
 * [Issues](https://github.com/jhund/filterrific/issues)
@@ -85,4 +86,4 @@ If you think you've found a bug, or have a feature request, then create an issue
 
 ### Copyright
 
-Copyright (c) 2010 - 2018 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2019 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.

@@ -21,6 +21,8 @@ if (typeof Filterrific === 'undefined') {
 Filterrific.submitFilterForm = function(){
   var form = $(this).parents("form"),
       url = form.attr("action");
+  // send before event
+  $(form).trigger('loadingFilterrificResults');
   // turn on spinner
   $('.filterrific_spinner').show();
   // Submit ajax request
@@ -30,6 +32,8 @@ Filterrific.submitFilterForm = function(){
     type: 'GET',
     dataType: 'script'
   }).done(function( msg ) {
+    // send after event
+    $(form).trigger('loadedFilterrificResults');
     $('.filterrific_spinner').hide();
   });
 };
