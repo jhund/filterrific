@@ -33,11 +33,11 @@ module Filterrific
     describe "Class method extensions" do
 
       it "adds a 'filterrific' class method" do
-        filterrific_class.must_respond_to(:filterrific)
+        _(filterrific_class).must_respond_to(:filterrific)
       end
 
       it "adds a 'filterrific_find' class method" do
-        filterrific_class.must_respond_to(:filterrific_find)
+        _(filterrific_class).must_respond_to(:filterrific_find)
       end
 
     end
@@ -45,36 +45,36 @@ module Filterrific
     describe "Filterrific initialization" do
 
       it "initializes filterrific_available_filters" do
-        filterrific_class.filterrific_available_filters.must_equal(
+        _(filterrific_class.filterrific_available_filters).must_equal(
           TestDataARES.filterrific_available_filters
         )
       end
 
       it "initializes filterrific_default_filter_params" do
-        filterrific_class.filterrific_default_filter_params.must_equal(
+        _(filterrific_class.filterrific_default_filter_params).must_equal(
           TestDataARES.filterrific_default_filter_params
         )
       end
 
       it "raises when no available_filters are given" do
-        proc {
+        _(proc {
           Class.new(ActiveRecord::Base) do
             filterrific(
               available_filters: []
             )
           end
-        }.must_raise(ArgumentError)
+        }).must_raise(ArgumentError)
       end
 
       it "raises when default_settings contains keys that are not in available_filters" do
-        proc {
+        _(proc {
           Class.new(ActiveRecord::Base) do
             filterrific(
               available_filters: [:one, :two],
               default_filter_params:{ three: '' }
             )
           end
-        }.must_raise(ArgumentError)
+        }).must_raise(ArgumentError)
       end
 
     end
@@ -82,9 +82,9 @@ module Filterrific
     describe "filterrific_find" do
 
       it "raises when given invalid params" do
-        proc {
+        _(proc {
           filterrific_class.filterrific_find('an invalid argument')
-        }.must_raise(ArgumentError)
+        }).must_raise(ArgumentError)
       end
 
     end
@@ -102,11 +102,11 @@ module Filterrific
     end
 
     %w(one two).each do |value|
-      it { Daddy.filterrific_available_filters.must_include value }
+      it { _(Daddy.filterrific_available_filters).must_include value }
     end
 
     %w(three four).each do |value|
-      it { Girl.filterrific_available_filters.must_include value }
+      it { _(Girl.filterrific_available_filters).must_include value }
     end
 
   end

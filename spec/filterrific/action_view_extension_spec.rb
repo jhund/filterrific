@@ -10,19 +10,19 @@ module Filterrific
     end
 
     it 'responds to #form_for_filterrific' do
-      ViewContext.new.must_respond_to(:form_for_filterrific)
+      _(ViewContext.new).must_respond_to(:form_for_filterrific)
     end
 
     it 'responds to #render_filterrific_spinner' do
-      ViewContext.new.must_respond_to(:render_filterrific_spinner)
+      _(ViewContext.new).must_respond_to(:render_filterrific_spinner)
     end
 
     it 'responds to #filterrific_sorting_link' do
-      ViewContext.new.must_respond_to(:filterrific_sorting_link)
+      _(ViewContext.new).must_respond_to(:filterrific_sorting_link)
     end
 
     it 'responds to #reset_filterrific_url' do
-      ViewContext.new.must_respond_to(:reset_filterrific_url)
+      _(ViewContext.new).must_respond_to(:reset_filterrific_url)
     end
 
   end
