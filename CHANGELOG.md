@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.2.2] - Jul. 11, 2021
+
+* Fixed Ruby 2.7 deprecated warning when trying to regex match an Integer.
+* Added ability to pass custom url parameter instead of default :filterrific.
+* Added basic Aria attrs to spinner for accessibility.
+* Improved concurrent ajax requests: Abort prior request when new ones are triggered.
+
 ## [5.2.1] - Aug. 5, 2019
 
 * Fixed issue where uncommitted code was pushed to rubygems and broke array filters.

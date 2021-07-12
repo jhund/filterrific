@@ -38,8 +38,8 @@ a branch for each minor version of Rails that is tested and supported.
 Sequence of a release:
 
 * finish updates in filterrific
-* run specs in each filterrific_demo branch (via `rake`)
-* when all specs pass, release filterrific (see above for steps)
+* update filterrific_demo Gemfile to refer to local filterrific via path: "../filterrific"
+* start the app and exercise it (currently there are no automated tests)
+* when everything works as expected, release filterrific (see above for steps)
 * after new filterrific is released, add new release version to each branch in
-  filterrific_demo and push each branch to trigger a Travis CI build for the
-  new filterrific release.
+  filterrific_demo.
