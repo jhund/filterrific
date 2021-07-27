@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-
-require 'active_support/all'
-require 'digest/sha1'
+require "active_support/all"
+require "digest/sha1"
 
 module Filterrific
-
   # FilterParamSet is a container to store FilterParams
   class ParamSet
-
     attr_accessor :model_class
     attr_accessor :select_options
 
@@ -27,16 +23,16 @@ module Filterrific
       # You might wonder "what if I want to change only one thing from the defaults?"
       # Persistence, baby. By the time you submit changes to one filter, all the others
       # will be already initialized with the defaults.
-      filterrific_params = model_class.filterrific_default_filter_params  if filterrific_params.blank?
+      filterrific_params = model_class.filterrific_default_filter_params if filterrific_params.blank?
       if defined?(ActionController::Parameters) && filterrific_params.is_a?(ActionController::Parameters)
         permissible_filter_params = []
         model_class.filterrific_available_filters.each do |p|
-          if filterrific_params[p].is_a?(ActionController::Parameters)
-            permissible_filter_params << { p => filterrific_params[p].keys }
+          permissible_filter_params << if filterrific_params[p].is_a?(ActionController::Parameters)
+            {p => filterrific_params[p].keys}
           elsif filterrific_params[p].is_a?(Array)
-            permissible_filter_params << { p => [] }
+            {p => []}
           else
-            permissible_filter_params << p
+            p
           end
         end
         filterrific_params = filterrific_params.permit(permissible_filter_params).to_h.stringify_keys
@@ -60,14 +56,13 @@ module Filterrific
     def to_hash
       {}.tap { |h|
         model_class.filterrific_available_filters.each do |filter_name|
-          param_value = self.send(filter_name)
-          case
-          when param_value.blank?
+          param_value = send(filter_name)
+          if param_value.blank?
             # do nothing
-          when param_value.is_a?(Proc)
+          elsif param_value.is_a?(Proc)
             # evaluate Proc so it can be serialized
             h[filter_name] = param_value.call
-          when param_value.is_a?(OpenStruct)
+          elsif param_value.is_a?(OpenStruct)
             # convert OpenStruct to hash
             h[filter_name] = param_value.marshal_dump
           else
@@ -83,25 +78,24 @@ module Filterrific
       to_hash.to_json
     end
 
-  protected
+    protected
 
     # Conditions params: Evaluates Procs and type casts integer values.
     # @param fp [Hash] the filterrific params hash
     # @return[Hash] the conditioned params hash
     def condition_filterrific_params(fp)
       fp.each do |key, val|
-        case
-        when val.is_a?(Proc)
+        if val.is_a?(Proc)
           # evaluate Procs
           fp[key] = val.call
-        when val.is_a?(Array)
+        elsif val.is_a?(Array)
           # type cast integers in the array
-          fp[key] = fp[key].map { |e| e =~ integer_detector_regex ? e.to_i : e }
-        when val.is_a?(Hash)
+          fp[key] = fp[key].map { |e| e&.match?(integer_detector_regex) ? e.to_i : e }
+        elsif val.is_a?(Hash)
           # type cast Hash to OpenStruct so that nested params render correctly
           # in the form
           fp[key] = OpenStruct.new(fp[key])
-        when val.is_a?(String) && val =~ integer_detector_regex
+        elsif val.is_a?(String) && val =~ integer_detector_regex
           # type cast integer
           fp[key] = fp[key].to_i
         end
@@ -121,10 +115,8 @@ module Filterrific
       model_class.filterrific_available_filters.each do |filter_name|
         self.class.send(:attr_accessor, filter_name)
         v = fp[filter_name]
-        self.send("#{ filter_name }=", v)  if v.present?
+        send("#{filter_name}=", v) if v.present?
       end
     end
-
   end
-
 end
