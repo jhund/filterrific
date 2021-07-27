@@ -90,12 +90,12 @@ module Filterrific
           fp[key] = val.call
         elsif val.is_a?(Array)
           # type cast integers in the array
-          fp[key] = fp[key].map { |e| e&.match?(integer_detector_regex) ? e.to_i : e }
+          fp[key] = fp[key].map { |e| e.to_s.match?(integer_detector_regex) ? e.to_i : e }
         elsif val.is_a?(Hash)
           # type cast Hash to OpenStruct so that nested params render correctly
           # in the form
           fp[key] = OpenStruct.new(fp[key])
-        elsif val.is_a?(String) && val =~ integer_detector_regex
+        elsif val.is_a?(String) && val.match?(integer_detector_regex)
           # type cast integer
           fp[key] = fp[key].to_i
         end
