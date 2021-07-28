@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
 #
 # Adds Filterrific methods to ActiveRecord::Base model_class.
 #
-require 'filterrific/param_set'
+require "filterrific/param_set"
 
 module Filterrific
   module ActiveRecordExtension
-
     # Adds Filterrific behavior to class when called like so:
     #
     # filterrific(
@@ -34,7 +32,6 @@ module Filterrific
       validate_filterrific_available_filters
       assign_filterrific_default_filter_params(opts)
       validate_filterrific_default_filter_params
-
     end
 
     # Returns ActiveRecord relation based on filterrific_param_set.
@@ -46,7 +43,7 @@ module Filterrific
       unless filterrific_param_set.is_a?(Filterrific::ParamSet)
         raise(
           ArgumentError,
-          "Invalid Filterrific::ParamSet: #{ filterrific_param_set.inspect }"
+          "Invalid Filterrific::ParamSet: #{filterrific_param_set.inspect}"
         )
       end
 
@@ -69,7 +66,7 @@ module Filterrific
       ar_rel
     end
 
-  protected
+    protected
 
     # Defines a :sorted_by scope based on attrs
     # @param attrs [Hash] with keys as
@@ -83,7 +80,7 @@ module Filterrific
     # @return [void]
     def assign_filterrific_available_filters(opts)
       self.filterrific_available_filters = (
-        filterrific_available_filters + (opts['available_filters'] || [])
+        filterrific_available_filters + (opts["available_filters"] || [])
       ).map(&:to_s).uniq.sort
     end
 
@@ -97,7 +94,7 @@ module Filterrific
 
     def assign_filterrific_default_filter_params(opts)
       self.filterrific_default_filter_params = (
-        opts['default_filter_params'] || {}
+        opts["default_filter_params"] || {}
       ).stringify_keys
     end
 
@@ -106,9 +103,8 @@ module Filterrific
       if (
         inv_fdfps = filterrific_default_filter_params.keys - filterrific_available_filters
       ).any?
-        raise(ArgumentError, "Invalid default filter params: #{ inv_fdfps.inspect }")
+        raise(ArgumentError, "Invalid default filter params: #{inv_fdfps.inspect}")
       end
     end
-
   end
 end
