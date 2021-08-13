@@ -12,7 +12,7 @@ if (typeof Filterrific === 'undefined') {
 }
 
 // Define function to submit Filterrific filter form
-Filterrific.submitFilterForm = function(){
+Filterrific.submitFilterForm = function() {
   var form = Filterrific.findParents(this, '#filterrific_filter')[0];
 
   // send before event
@@ -91,20 +91,20 @@ Filterrific.cspNonce = function() {
 }
 
 Filterrific.findParents = function(elem, selector) {
-	var elements = [];
-	var ishaveselector = selector !== undefined;
+  var elements = [];
+  var ishaveselector = selector !== undefined;
 
-	while ((elem = elem.parentElement) !== null) {
-		if (elem.nodeType !== Node.ELEMENT_NODE) {
-			continue;
-		}
+  while ((elem = elem.parentElement) !== null) {
+    if (elem.nodeType !== Node.ELEMENT_NODE) {
+      continue;
+    }
 
-		if (!ishaveselector || elem.matches(selector)) {
-			elements.push(elem);
-		}
-	}
+    if (!ishaveselector || elem.matches(selector)) {
+      elements.push(elem);
+    }
+  }
 
-	return elements;
+  return elements;
 };
 
 Filterrific.observe_field = function(inputs_selector, frequency, callback) {
@@ -113,18 +113,19 @@ Filterrific.observe_field = function(inputs_selector, frequency, callback) {
   document.querySelectorAll(inputs_selector).forEach(input => {
     var prev = input.value;
     var check = function() {
-      if(removed()){ // if removed clear the interval and don't fire the callback
+      // if removed clear the interval and don't fire the callback
+      if (removed()) {
         if(ti) clearInterval(ti);
         return;
       }
       var val = input.value;
-      if(prev != val){
+      if (prev != val) {
         prev = val;
 
         // invokes the callback on $this
         if (callback && typeof callback === 'function') {
-    			callback.call(input);
-    		}
+          callback.call(input);
+        }
       }
     };
 
@@ -133,7 +134,7 @@ Filterrific.observe_field = function(inputs_selector, frequency, callback) {
     };
 
     var reset = function() {
-      if(ti){
+      if (ti) {
         clearInterval(ti);
         ti = setInterval(check, frequency);
       }
