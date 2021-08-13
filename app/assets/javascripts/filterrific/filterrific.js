@@ -108,16 +108,10 @@ Filterrific.findParents = function(elem, selector) {
 };
 
 Filterrific.observe_field = function(inputs_selector, frequency, callback) {
-  console.log('observe_field 2')
   frequency = frequency * 1000;
 
   document.querySelectorAll(inputs_selector).forEach(input => {
-    console.log('observe_field 2 #this =>', input);
-
     var prev = input.value;
-
-    console.log('observe_field 2 prev =>', prev)
-
     var check = function() {
       if(removed()){ // if removed clear the interval and don't fire the callback
         if(ti) clearInterval(ti);
@@ -128,7 +122,7 @@ Filterrific.observe_field = function(inputs_selector, frequency, callback) {
         prev = val;
 
         // invokes the callback on $this
-    		if (callback && typeof callback === 'function') {
+        if (callback && typeof callback === 'function') {
     			callback.call(input);
     		}
       }
