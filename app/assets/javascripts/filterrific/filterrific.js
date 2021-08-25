@@ -165,8 +165,3 @@ Filterrific.init = function() {
     Filterrific.submitFilterForm
   );
 };
-
-
-// Initialize event observers on document ready and turbolinks page:load
-document.addEventListener('turbolinks:load', Filterrific.init);
-document.addEventListener('DOMContentLoaded', Filterrific.init)
