@@ -5,7 +5,6 @@ I use the gem-release gem
 For more info see: https://github.com/svenfuchs/gem-release#usage
 
 
-
 ## Steps for an update
 
 1. Update code and commit it.
@@ -22,11 +21,26 @@ For more info see: https://github.com/svenfuchs/gem-release#usage
    `gem tag`
 
 
-
 ## How to run specs
 
-`bundle exec rake`
+`bundle exec rake` in the filterrific repo
 
+
+## How to support a new major Rails version
+
+Follow these steps when starting support for a new Rails major version:
+
+* In `filterrific`
+   * Archive the current major rails version into a new branch off of master, e.g., when starting to support Rails 6, create a new branch for `5.x` from current master. This will be the branch used for ongoing 5.x support, and all new development for Rails 6 will happen in the `master` branch.
+   * Make all changes required to support a new version of Rails.
+   * Release the first `filterrific` version for Rails 6: `6.0.0`.
+
+* In `filterrific_demo`
+   * Following the same example for Rails 6:
+   * Make sure that the `5.x` branch is up-to-date with master, and with current filterrific.
+   * Create a new `6.x` branch. In that branch create a brand new rails app using a current version of Rails 6.
+   * Make sure that the app works with the relevant version of `filterrific`.
+   * Deploy demo app to heroku.
 
 
 ## Travis CI
@@ -38,8 +52,8 @@ a branch for each minor version of Rails that is tested and supported.
 Sequence of a release:
 
 * finish updates in filterrific
-* run specs in each filterrific_demo branch (via `rake`)
-* when all specs pass, release filterrific (see above for steps)
+* update filterrific_demo Gemfile to refer to local filterrific via path: "../filterrific"
+* start the app and exercise it (currently there are no automated tests)
+* when everything works as expected, release filterrific (see above for steps)
 * after new filterrific is released, add new release version to each branch in
-  filterrific_demo and push each branch to trigger a Travis CI build for the
-  new filterrific release.
+  filterrific_demo.

@@ -27,7 +27,7 @@ module Filterrific
     def render_filterrific_spinner
       %(
         <span class="filterrific_spinner" style="display:none;">
-          #{ image_tag('filterrific/filterrific-spinner.gif') }
+          #{ image_tag('filterrific/filterrific-spinner.gif', alt: '', role: 'presentation') }
         </span>
       ).html_safe
     end
@@ -74,6 +74,7 @@ module Filterrific
         :label => sort_key.to_s.humanize,
         :sorting_scope_name => :sorted_by,
         :url_for_attrs => {},
+        :as => :filterrific
       }.merge(opts)
       opts.merge!(
         :html_attrs => opts[:html_attrs].with_indifferent_access,
@@ -110,7 +111,7 @@ module Filterrific
       new_filterrific_params = filterrific.to_hash
                                           .with_indifferent_access
                                           .merge(opts[:sorting_scope_name] => new_sorting)
-      url_for_attrs = opts[:url_for_attrs].merge(:filterrific => new_filterrific_params)
+      url_for_attrs = opts[:url_for_attrs].merge(opts[:as] => new_filterrific_params)
       link_to(
         safe_join([opts[:label], opts[:current_sort_direction_indicator]], ' '),
         url_for(url_for_attrs),
@@ -133,7 +134,7 @@ module Filterrific
       new_filterrific_params = filterrific.to_hash
                                           .with_indifferent_access
                                           .merge(opts[:sorting_scope_name] => new_sorting)
-      url_for_attrs = opts[:url_for_attrs].merge(:filterrific => new_filterrific_params)
+      url_for_attrs = opts[:url_for_attrs].merge(opts[:as] => new_filterrific_params)
       link_to(
         opts[:label],
         url_for(url_for_attrs),

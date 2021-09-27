@@ -1,3 +1,7 @@
+Flexport's style guide has interesting guidelines for filter widgets:
+
+https://www.flexport.com/design/guidelines/filtering
+
 All view related aspects of filterrific are handled via the view API:
 
 <%= filterrific_form_for @filterrific do |f| %>

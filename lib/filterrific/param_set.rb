@@ -101,7 +101,7 @@ module Filterrific
           # type cast Hash to OpenStruct so that nested params render correctly
           # in the form
           fp[key] = OpenStruct.new(fp[key])
-        when val =~ integer_detector_regex
+        when val.is_a?(String) && val =~ integer_detector_regex
           # type cast integer
           fp[key] = fp[key].to_i
         end
