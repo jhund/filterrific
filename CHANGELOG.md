@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.2.3] - Mar. 18, 2022
+
+* Added support for Rails 7
+
 ## [5.2.2] - Jul. 11, 2021
 
 * Fixed Ruby 2.7 deprecated warning when trying to regex match an Integer.
