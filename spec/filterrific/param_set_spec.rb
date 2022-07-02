@@ -1,8 +1,9 @@
 require 'spec_helper'
 require 'filterrific/param_set'
 
-module Filterrific
+require 'action_controller/metal/strong_parameters'
 
+module Filterrific
   describe ParamSet do
 
     # Container for test data
@@ -20,6 +21,7 @@ module Filterrific
           filter_proc
           filter_string
           filter_zero
+          filter_nested_params
         ]
       end
 
@@ -39,6 +41,7 @@ module Filterrific
           'filter_proc' => lambda { 1 + 1 },
           'filter_string' => 'forty-two',
           'filter_zero' => '0',
+          'filter_nested_params' => ActionController::Parameters.new(nested: ActionController::Parameters.new(an_array: %w[one two three]))
         }
       end
 
@@ -54,6 +57,7 @@ module Filterrific
           'filter_proc' => 2,
           'filter_string' => 'forty-two',
           'filter_zero' => 0,
+          'filter_nested_params' => ActionController::Parameters.new(nested: ActionController::Parameters.new(an_array: %w[one two three]))
         }
       end
 
@@ -69,6 +73,7 @@ module Filterrific
           'filter_proc' => 2,
           'filter_string' => 'forty-two',
           'filter_zero' => 0,
+          'filter_nested_params' => ActionController::Parameters.new(nested: ActionController::Parameters.new(an_array: %w[one two three]))
         }
       end
 
@@ -122,6 +127,25 @@ module Filterrific
 
       end
 
+    end
+
+    describe "strong parameters" do
+      let(:filterrific_param_set){
+        Kernel::silence_warnings {
+          Filterrific::ParamSet.new(ModelClass, ActionController::Parameters.new(
+            filter_array_string: %w[one two three],
+            filter_nested_params: ActionController::Parameters.new(an_array: %w[one two three])
+          ))
+        }
+      }
+
+      it "returns arrays" do
+        filterrific_param_set.filter_array_string.must_equal(%w[one two three])
+      end
+
+      it "returns nested params" do
+        filterrific_param_set.filter_nested_params.must_equal(OpenStruct.new(an_array: %w[one two three]))
+      end
     end
 
     describe 'find' do
