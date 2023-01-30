@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.2.4] - Jan 30, 2023
+
+* Remove JS dependency on jquery
+* Make code compliant with standard.rb rules
+
 ## [5.2.3] - Mar. 18, 2022
 
 * Added support for Rails 7
