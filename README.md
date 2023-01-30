@@ -66,8 +66,8 @@ If you think you've found a bug, or have a feature request, then create an issue
 ### Resources
 
 * [Documentation](http://filterrific.clearcove.ca)
-* [Live demo](https://filterrific-demo.herokuapp.com) using classic Rails views.
-* [Live JSON API demo](https://filterrific-json-api-demo.herokuapp.com/) using React and Mobx.
+* [Demo App](https://github.com/jhund/filterrific_demo) using classic Rails views.
+* [API Demo App](https://github.com/jhund/filterrific_json_api_demo) using React and Mobx.
 * [Changelog](https://github.com/jhund/filterrific/blob/master/CHANGELOG.md)
 * [Source code (github)](https://github.com/jhund/filterrific)
 * [Issues](https://github.com/jhund/filterrific/issues)
@@ -86,4 +86,4 @@ If you think you've found a bug, or have a feature request, then create an issue
 
 ### Copyright
 
-Copyright (c) 2010 - 2019 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
+Copyright (c) 2010 - 2023 Jo Hund. See [(MIT) LICENSE](https://github.com/jhund/filterrific/blob/master/MIT-LICENSE) for details.
