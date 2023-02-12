@@ -81,7 +81,9 @@ module Filterrific
         current_sort_direction: if current_sorting
                                   current_sorting.end_with?("_desc") ? "desc" : "asc"
                                 end,
-        current_sort_direction_indicator: (current_sorting.end_with?("_desc") ? opts[:descending_indicator] : opts[:ascending_indicator])
+        current_sort_direction_indicator: if current_sorting
+                                            (current_sorting.end_with?("_desc") ? opts[:descending_indicator] : opts[:ascending_indicator])
+                                          end
       )
       new_sort_key = sort_key.to_s
       if new_sort_key == opts[:current_sort_key]
