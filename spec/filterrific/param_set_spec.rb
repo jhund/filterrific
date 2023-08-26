@@ -16,6 +16,7 @@ module Filterrific
         filter_proc
         filter_string
         filter_zero
+        filter_bool
       ]
     end
 
@@ -34,7 +35,8 @@ module Filterrific
         "filter_negative_int" => "-42",
         "filter_proc" => lambda { 1 + 1 },
         "filter_string" => "forty-two",
-        "filter_zero" => "0"
+        "filter_zero" => "0",
+        "filter_bool" => false
       }
     end
 
@@ -49,7 +51,8 @@ module Filterrific
         "filter_negative_int" => -42,
         "filter_proc" => 2,
         "filter_string" => "forty-two",
-        "filter_zero" => 0
+        "filter_zero" => 0,
+        "filter_bool" => false
       }
     end
 
@@ -64,7 +67,8 @@ module Filterrific
         "filter_negative_int" => -42,
         "filter_proc" => 2,
         "filter_string" => "forty-two",
-        "filter_zero" => 0
+        "filter_zero" => 0,
+        "filter_bool" => false
       }
     end
   end
