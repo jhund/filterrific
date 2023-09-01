@@ -1,5 +1,6 @@
 require "spec_helper"
 require "filterrific/param_set"
+require "support/action_controller"
 
 module Filterrific
   # Container for test data
@@ -174,6 +175,36 @@ module Filterrific
             test_params
           ).must_equal(xpect)
         end
+      end
+    end
+
+    describe "#permitted_param" do
+      it "permits hash keys that contain string values" do
+        filterrific_param_set.send(
+          :permitted_param,
+          "key", "a_string"
+        ).must_equal("key")
+      end
+
+      it "permits hash keys that contain integer values" do
+        filterrific_param_set.send(
+          :permitted_param,
+          "key", 1
+        ).must_equal("key")
+      end
+
+      it "permits hash keys that contains array values, returning the hash key itself and an empty array" do
+        filterrific_param_set.send(
+          :permitted_param,
+          "key", ["whatever", "values"]
+        ).must_equal({"key" => []})
+      end
+
+      it "permits nested ActionController::Parameters, handling array, scalar values, and other ActionController::Parameters" do
+        filterrific_param_set.send(
+          :permitted_param,
+          "key", ActionController::Parameters.new({"a" => 1, "b" => "2", "c" => ["a", "b"], "d" => ActionController::Parameters.new({"a" => 1, "b" => 2})})
+        ).must_equal({"key" => ["a", "b", {"c" => []}, {"d" => ["a", "b"]}]})
       end
     end
   end

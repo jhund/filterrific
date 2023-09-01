@@ -25,15 +25,8 @@ module Filterrific
       # will be already initialized with the defaults.
       filterrific_params = model_class.filterrific_default_filter_params if filterrific_params.blank?
       if defined?(ActionController::Parameters) && filterrific_params.is_a?(ActionController::Parameters)
-        permissible_filter_params = []
-        model_class.filterrific_available_filters.each do |p|
-          permissible_filter_params << if filterrific_params[p].is_a?(ActionController::Parameters)
-            {p => filterrific_params[p].keys}
-          elsif filterrific_params[p].is_a?(Array)
-            {p => []}
-          else
-            p
-          end
+        permissible_filter_params = model_class.filterrific_available_filters.map do |p|
+          permissible_filter_params << permitted_param(p, filterrific_params[p])
         end
         filterrific_params = filterrific_params.permit(permissible_filter_params).to_h.stringify_keys
       else
@@ -116,6 +109,26 @@ module Filterrific
         self.class.send(:attr_accessor, filter_name)
         v = fp[filter_name]
         send("#{filter_name}=", v) if v.present?
+      end
+    end
+
+    # Returns the permitted param for the value type.
+    # @param key [String] the filter name
+    # @param value [Object] the filter value
+    # @return [Object] the permitted param
+    def permitted_param(key, value)
+      if value.is_a?(ActionController::Parameters)
+        # Nested parameters may include other nested parameters, as well as
+        # multiple values for the same key. We need to recursively permit
+        # the parameters.
+        {key => value.to_unsafe_h.map { |k, v| permitted_param(k, v) }}
+      elsif value.is_a?(Array)
+        # Arrays are permitted directly, but we need to let Rails know that
+        # the array may contain multiple values for the same key.
+        {key => []}
+      else
+        # All other values are permitted directly.
+        key
       end
     end
   end
