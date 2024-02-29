@@ -130,7 +130,7 @@ Filterrific.observe_field = function(inputs_selector, frequency, callback) {
     };
 
     var removed = function() {
-      return input.closest('html').length == 0
+      return input.closest('html') === null || input.closest('html').length == 0
     };
 
     var reset = function() {
