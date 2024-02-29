@@ -19,7 +19,10 @@ Filterrific.submitFilterForm = function() {
   form.dispatchEvent(new Event('loadingFilterrificResults'));
 
   // turn on spinner
-  document.querySelector('.filterrific_spinner').style.display = 'block';
+  spinner = document.querySelector('.filterrific_spinner');
+  if (spinner) {
+    spinner.style.display = 'block';
+  }
 
   // Abort previous XMLHttpRequest request
   if (Filterrific.lastRequest && Filterrific.lastRequest.readyState != 4) {
@@ -81,7 +84,10 @@ Filterrific.processResponse = function(form, xhr) {
 
   // send after event
   form.dispatchEvent(new Event('loadedFilterrificResults'));
-  document.querySelector('.filterrific_spinner').style.display = 'none';
+  spinner = document.querySelector('.filterrific_spinner')
+  if (spinner) {
+    spinner.style.display = 'none';
+  }
 
   return response;
 }
