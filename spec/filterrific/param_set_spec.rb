@@ -1,5 +1,6 @@
 require "spec_helper"
 require "filterrific/param_set"
+require "ostruct"
 
 module Filterrific
   # Container for test data
@@ -105,7 +106,7 @@ module Filterrific
 
         TestData.filterrific_params.keys.each do |key|
           it "assigns conditioned param to '#{key}' attr" do
-            filterrific_param_set.send(key).must_equal(TestData.filterrific_params_after_conditioning[key])
+           filterrific_param_set.send(key).must_equal(TestData.filterrific_params_after_conditioning[key])
           end
         end
       end

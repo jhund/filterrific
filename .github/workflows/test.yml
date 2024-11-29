@@ -1,0 +1,34 @@
+name: Test CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: [3.0.2, 3.3.1]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+
+      - name: Update RubyGems
+        run: gem update --system
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Run tests
+        run: bundle exec rake test
