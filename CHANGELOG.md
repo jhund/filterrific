@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Filterrific major versions match the Ruby on Rails major versions they work with.
 
+## [5.2.6] - Jan 24, 2025
+
+* Supports Rails 8
+
 ## [5.2.5] - Feb 12, 2023
 
 * Fixes an issue around presence of current_sorting
