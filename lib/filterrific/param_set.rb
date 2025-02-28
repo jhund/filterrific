@@ -1,5 +1,6 @@
 require "active_support/all"
 require "digest/sha1"
+require "ostruct"
 
 module Filterrific
   # FilterParamSet is a container to store FilterParams
