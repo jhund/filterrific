@@ -21,7 +21,7 @@ Filterrific major versions match the Ruby on Rails major versions they work with
 
 ## [5.2.4] - Jan 30, 2023
 
-* Remove JS dependency on jquery
+* Remove JS dependency on jquery (when updating replace `//= require filterrific/filterrific-jquery` by `//= require filterrific/filterrific` in application.js)
 * Make code compliant with standard.rb rules
 
 ## [5.2.3] - Mar. 18, 2022
