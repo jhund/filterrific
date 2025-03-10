@@ -58,7 +58,7 @@ module Filterrific
       {}.tap { |h|
         model_class.filterrific_available_filters.each do |filter_name|
           param_value = send(filter_name)
-          if param_value.blank?
+          if param_value.blank? && param_value != false
             # do nothing
           elsif param_value.is_a?(Proc)
             # evaluate Proc so it can be serialized
@@ -116,7 +116,7 @@ module Filterrific
       model_class.filterrific_available_filters.each do |filter_name|
         self.class.send(:attr_accessor, filter_name)
         v = fp[filter_name]
-        send("#{filter_name}=", v) if v.present?
+        send("#{filter_name}=", v) if v.present? || v == false
       end
     end
   end
